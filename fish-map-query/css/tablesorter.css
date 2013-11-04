@@ -1,0 +1,39 @@
+table.tablesorter {
+	font-size: 8pt;
+	background-color: #113355;
+	width: 100%;
+	border: 1px solid #000;
+}
+table.tablesorter th {
+	text-align: left;
+	padding: 5px;
+	background-color: #6E6E6E;
+    border: 1px solid #000000;
+}
+table.tablesorter td {
+	color: #CCCCCC;
+    border: 1px solid #000000;
+	padding: 5px;
+}
+table.tablesorter .even {
+	background-color: #3D3D3D;
+}
+table.tablesorter .odd {
+	background-color: #6E6E6E;
+}
+table.tablesorter .header {
+	background-image: url(../images/bg.gif);
+	background-repeat: no-repeat;
+    background-position: left center;
+	cursor: pointer;
+	border: 1px solid #000000;
+	padding-left: 20px;
+}
+table.tablesorter .headerSortUp {
+	background-image: url(../images/asc.gif);
+	background-repeat: no-repeat;
+}
+table.tablesorter .headerSortDown {
+	background-image: url(../images/desc.gif);
+	background-repeat: no-repeat;
+}

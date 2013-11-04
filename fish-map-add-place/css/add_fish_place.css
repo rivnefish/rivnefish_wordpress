@@ -1,0 +1,79 @@
+#waiting {
+    color: greenyellow;
+    text-align: center;
+}
+
+div.error {
+    color: #FFFFFF;
+    background: #ea7e7e;
+    border: 1px solid #a71010;
+    padding: 5px;
+    margin: 7px;
+}
+
+input.error {
+    background-color: #EA7E7E;
+    border: 2px solid #990000;
+}
+
+div.success {
+    color: #000000;
+    background: #99CC33;
+    border: 1px solid #336633;
+    padding: 5px;
+    margin: 7px;
+    font-weight: normal;
+}
+
+#add_place_form {
+    background-size: auto 100%;
+    border: 1px outset #CCCCCC;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 10px !important;
+    margin: 5px !important;
+    width: 80%;
+    text-align: left;
+}
+
+#add_place_form h4 {
+    color: orange;
+    margin: 0 0 10px;
+    text-align: center;
+}
+
+div#additional_opts {
+    border: 1px outset #990000;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 10px !important;
+    margin: 5px !important;
+}
+
+form#add_place_form input[type="text"]{
+    width: 180px;
+}
+
+form#add_place_form select[multiple="multiple"]{
+    width: 140px;
+}
+
+#form_params_table td:first-child {
+    text-align: right;
+}
+
+#form_params_table td {
+    text-align: left;
+}
+
+img[id$='_tip'] {
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+}
+
+img[id$='_note'] {
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+}

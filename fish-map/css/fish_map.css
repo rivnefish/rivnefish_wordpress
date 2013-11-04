@@ -1,0 +1,78 @@
+table.markers {
+  color: #000000;
+  border: 0px;
+  border-style: hidden;
+  border-collapse: collapse;
+  margin: 0px;
+}
+
+table.markers th,
+table.markers td {
+  border: 0px !important;
+  border-style: hidden !important;
+  border-collapse: collapse !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+table.markers th {
+  text-align: left;
+}
+
+img.marker_photo {
+  margin: 2px;
+  border: 0;
+  padding: 0;
+}
+
+img.fish_icon {
+  margin: 0 2px;
+  padding: 0;
+  border: 0 none;
+}
+
+img.fish_score {
+  margin: 0 3px 0 0;
+  padding: 0;
+  border: 0 none;
+}
+
+span.brief-info {
+  font-size: smaller;
+  font-style: italic;
+  color: #A0A0A0;
+  display: block;
+}
+
+div#add_post_button_div {
+    background-color: #F0A000;
+    border: 3px solid;
+    border-radius: 7px 7px 7px 7px;
+    text-align: center;
+    padding: 15px;
+}
+
+#add_post_button {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #002338 !important;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Verdana,Geneva,Arial,Helvetica,Sans-Serif;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: bold;
+    height: 33px;
+    line-height: 33px;
+    margin: 0 !important;
+    outline: medium none;
+    overflow: visible;
+    padding: 0 16px !important;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    top: 0;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: auto;
+}

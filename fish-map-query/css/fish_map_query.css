@@ -1,0 +1,106 @@
+#waiting {
+    color: #767676;
+    text-align: center;
+}
+
+div.error {
+    color: #FFFFFF;
+    background: #ea7e7e;
+    border: 1px solid #a71010;
+    padding: 5px;
+    margin: 7px;
+}
+
+input.error {
+    background-color: #EA7E7E;
+    border: 2px solid #990000;
+}
+
+#fish_map_form {
+    background: url("../images/form_texture.png") repeat-x scroll 0 0 #00131F;
+    background-size: auto 100%;
+    border: 1px outset #CCCCCC;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 10px !important;
+    margin: 5px !important;
+    width: 60%;
+    text-align: center;
+}
+
+#form_params_table td:first-child {
+    text-align: right;
+}
+
+#form_params_table td {
+    text-align: left;
+}
+
+#form_add_params_table td:first-child {
+    text-align: right;
+}
+
+#form_add_params_table td {
+    text-align: left;
+}
+
+#fish_map_form h4 {
+    margin: 0 0 10px;
+    text-align: center;
+}
+
+form#fish_map_form input[type="text"]{
+    width: 100px;
+}
+
+form#fish_map_form select[multiple="multiple"]{
+    width: 140px;
+}
+div#additional_opts select[multiple="multiple"]{
+    width: 180px;
+}
+
+div#fish_map_table_count {
+    font-style: italic;
+    padding: 5px;
+}
+
+div#fish_map_table {
+    margin-bottom: 5px;
+    overflow: auto;
+}
+
+table.fish_map_details {
+    width: 95% !important;
+    background-color: #044873 !important;
+    font-size: 8pt !important;
+    margin-left: 20px;
+}
+
+table.fish_map_details td {
+    vertical-align: middle !important;
+    text-align: center;
+}
+
+table.fish_map_details img {
+    vertical-align: middle !important;
+}
+
+table.fish_map_details th {
+	text-align: left;
+	padding: 5px;
+	background-color: #6E6E6E !important;
+    border: 1px solid #000000;
+}
+
+img[id$='_tip'] {
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+}
+
+img[id$='_note'] {
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+}

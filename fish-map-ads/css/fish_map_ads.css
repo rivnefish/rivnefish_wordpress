@@ -1,0 +1,54 @@
+
+#ad_form {
+    border: 2px solid orange;
+    border-radius: 5px;
+    font-size: 12px;
+    margin: 5px !important;
+    text-align: left;
+}
+
+h4.ad-caption {
+    margin: 3px 0;
+    color: orange;
+    padding: 0 5px;
+}
+
+div.ad-red-text {
+    color: red;
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+div.ad-main-text {
+    color: whitesmoke;
+    padding: 0 5px;
+}
+
+div.ad-next {
+    border: 1px solid orange;
+    border-radius: 0 5px 0 0;
+    background-color: orange;
+    width: 2em;
+    text-align: center;
+}
+
+div.ad-next #ad-next-button {
+    color: black;
+    text-decoration: none;
+}
+
+input.button-primary {
+    margin: 10px 0;
+}
+
+div.insert_error {
+    color: red;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+div.insert_success {
+    color: green;
+    font-weight: bold;
+    margin: 10px 0;
+}

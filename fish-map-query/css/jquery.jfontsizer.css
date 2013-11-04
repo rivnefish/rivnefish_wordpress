@@ -1,0 +1,14 @@
+/* Font-Sizer Specific Styling */
+
+.fsizer { } /* Container element */
+
+.fsizer a { display: block; float: left; width: 20px; margin-right: 5px; text-align: center; border: 1px dotted #ccc; color: #5761a0; text-decoration: none; cursor: pointer; letter-spacing: 0; line-height: 100%; }
+.fsizer a:hover { text-decoration: none; background: #ebebeb;  }
+
+/* Three 'A' links used to control size */
+
+.fsizer a#fs_sml { font-size: 9px; height: 15px; padding-top: 5px; }
+.fsizer a#fs_med { font-size: 13px; height: 17px; padding-top: 3px; }
+.fsizer a#fs_lrg { font-size: 16px; height: 18px; padding-top: 2px; }
+
+.fsizer a.fsactive { color: #000; background: #ebebeb; cursor: default; } /* When mode is active */
