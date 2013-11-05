@@ -1,0 +1,16 @@
+RSA key (without password) to be installed on Github
+ssh-keygen -t rsa -C "rivnefish@gmail.com"
+ssh-add id_rsa
+cat ~/.ssh/id_rsa.pub 
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+Wga5aAKN3bqySE8vQiYoTGvI/+x47G1RE9J4ralKAy2Q66vbvJJBZVIxe3H+/zjZpL7A+2dDGMambYlWgPXKXAm63eTniEejUnAGnyu15QCW+/Mg3fdmeBS04bs/vqEdPhlgR2TdQsMpXxUpH76LdeofkCTRf6ybA7PsGLGozAbCA8pFjvkjk+pcD0CN/6LuZDycm2dGE4jGWXB1r3b9JDIl/7bGvXmifLDiJ57+lKkvfCbQYg/sx2JeBAj4StRO/lrZCJkzfnGzTu8zkwYTu9xnrDTEgOtyxSiTdEal+CWRYwf144SR+GfDiSCTwvt/qODkGfPPIx5fxD+9x9bp rivnefish@gmail.com
+git config --global user.name "Rivnefish"
+git config --global user.email "rivnefish@gmail.com"
+cd ~/projects/
+git clone git@github.com:ttp/rivnefish.git
+ssh -T git@github.com
+Hi rivnefish! You've successfully authenticated, but GitHub does not provide shell access.
+git pull
+diff -r --brief ~/projects/rivnefish/fish-map ~/public_html/wp-content/plugins/fish-map
+diff -r --brief ~/projects/rivnefish/fish-map-add-place ~/public_html/wp-content/plugins/fish-map-add-place
+diff -r --brief ~/projects/rivnefish/fish-map-ads ~/public_html/wp-content/plugins/fish-map-ads
+diff -r --brief ~/projects/rivnefish/fish-map-query ~/public_html/wp-content/plugins/fish-map-query
