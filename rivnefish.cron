@@ -1,0 +1,12 @@
+SHELL=/usr/local/bin/bash
+MAILTO=rivnefish@gmail.com
+
+
+# Examples:
+# @monthly   :    Run once a month, ie. "0 0 1 * *"
+# @weekly    :    Run once a week, ie.  "0 0 * * 0"
+# @daily     :    Run once a day, ie.   "0 0 * * *"
+# @hourly    :    Run once an hour, ie. "0 * * * *"
+
+# Sync code daily at midnight
+0 0 * * * cd ~/projects/rivnefish && git pull && cp -r fish-map ~/public_html/wp-content/plugins/ && cp -r fish-map-add-place ~/public_html/wp-content/plugins/ && cp -r fish-map-ads ~/public_html/wp-content/plugins/ && cp -r fish-map-query ~/public_html/wp-content/plugins/
