@@ -1,36 +1,13 @@
 <?php
 
-// Init WordPress environment
-require_once( dirname( dirname( __FILE__ ) ) . '/../../wp-load.php' );
-
 require_once 'add_fishing_place_config.php';
 require_once 'add_fishing_place_exception.php';
-global $user_login;
 
-// Opens a connection to a MySQL server
-$connection = mysql_connect(EXT_DB_HOST, EXT_DB_USER_RW, EXT_DB_PASSWORD_RW);
-if (!$connection) {
-    die("Not connected : " . mysql_error());
-}
-
-mysql_set_charset(EXT_DB_CHARSET);
-
-// Set the active mySQL database
-$db_selected = mysql_select_db(EXT_DB_NAME, $connection);
-if (!$db_selected) {
-    die("Can\'t use db : " . mysql_error());
-}
-
-/* BEGIN Utility Functions:
- * * send_email_notification
- * * log_insert_marker
- */
-
-function log_insert_marker($query) {
-    /* 
+function log_insert_marker($data) {
+    global $wbdb;
+    /*
      * Log adding marker
      */
-    // Obtain user info
     $current_user = wp_get_current_user();
     $user_info = sprintf("ID:%s;LOGIN:%s;EMAIL:%s;IP:%s",
             $current_user->ID,
@@ -38,16 +15,10 @@ function log_insert_marker($query) {
             $current_user->user_email,
             $_SERVER['REMOTE_ADDR']);
 
-    // Insert INFO
-    $ins_query = sprintf("INSERT INTO markers_log (log_text, user_info)
-                            VALUES ('%s', '%s')",
-        mysql_real_escape_string($query),
-        mysql_real_escape_string($user_info));
-
-    $results = mysql_query($ins_query);
-    if (!($results)) {
-        die('ERROR: Can not insert the record:' . mysql_error());
-    }
+    $wpdb->insert('markers_log', array(
+        'log_text' => print_r($data, 1),
+        'user_info' => $user_info
+    ));
 }
 
 function send_email_notification($action, $post_params, $get_params) {
@@ -76,7 +47,8 @@ http://rivnefish.com/phpMyAdmin-3.4.10.1-all-languages/index.php
             'Content-type: text/plain; charset=utf-8' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
-    mail($to, $subject, $message, $headers);
+    // @TODO replace with wp_mail
+    // mail($to, $subject, $message, $headers);
 }
 
 /**
@@ -101,88 +73,41 @@ function array_implode($glue, $separator, $array) {
 }
 
 function get_last_marker_id() {
-    /* Get last marker id to show on Add Fishing Place form */
-    $query = "SELECT COUNT(marker_id) FROM markers";
-    
-    $result = mysql_query($query);
-    if (!$result) {
-        die("Invalid query: " . mysql_error());
-    }
-    $row = mysql_fetch_row($result);
-    return $row[0];
+    global $wpdb;
+    return $wpdb->get_var("SELECT COUNT(marker_id) FROM markers");
 }
 /* END Utility Functions */
 
 // Get pairs (fish_id, name) to init Fish Chooser
 function get_fishes_for_view() {
-    $query = "SELECT fish_id, name
-        FROM fishes
-        ORDER BY name";
-
-    $result = mysql_query($query);
-    if (!$result) {
-        die("Invalid query: " . mysql_error());
-    }
-
-    $rows = array();
-    while ($row = mysql_fetch_assoc($result)) {
-        $rows[] = $row;
-    }
-    return $rows;
+    global $wpdb;
+    return $wpdb->get_results("SELECT fish_id, name FROM fishes ORDER BY name");
 }
 
 // Get pairs (country_id, name) to init Countries Chooser
 function get_countries_for_view() {
-    $query = "SELECT country_id, name
-        FROM countries
-        ORDER BY name";
-
-    $result = mysql_query($query);
-    if (!$result) {
-        die("Invalid query: " . mysql_error());
-    }
-
-    $rows = array();
-    while ($row = mysql_fetch_assoc($result)) {
-        $rows[] = $row;
-    }
-    return $rows;
+    global $wpdb;
+    return $wpdb->get_results("SELECT country_id, name FROM countries ORDER BY name");
 }
+
 // Get pairs (region_id, name) to init Regions Chooser
 function get_regions_for_view() {
-    $query = "SELECT regions.region_id, regions.name, countries.country_id, countries.name as country
-        FROM regions
-        INNER JOIN countries USING(country_id)
-        ORDER BY countries.name, regions.name";
-
-    $result = mysql_query($query);
-    if (!$result) {
-        die("Invalid query: " . mysql_error());
-    }
-
-    $rows = array();
-    while ($row = mysql_fetch_assoc($result)) {
-        $rows[] = $row;
-    }
-    return $rows;
+    global $wpdb;
+    $query = "SELECT r.region_id, r.name, c.country_id, c.name as country
+        FROM regions r
+        INNER JOIN countries c USING(country_id)
+        ORDER BY c.name, r.name";
+    return $wpdb->get_results($query);
 }
+
 // Get pairs (district_id, name) to init Districts Chooser
 function get_districts_for_view() {
-    $query = "SELECT districts.district_id, districts.name, regions.region_id, regions.name as region
-        FROM districts
-        INNER JOIN regions USING(region_id)
-        ORDER BY regions.name, districts.name";
-
-    $result = mysql_query($query);
-    if (!$result) {
-        die("Invalid query: " . mysql_error());
-    }
-
-    $rows = array();
-    while ($row = mysql_fetch_assoc($result)) {
-        $rows[] = $row;
-    }
-    return $rows;
+    global $wpdb;
+    $query = "SELECT d.district_id, d.name, r.region_id, r.name as region
+        FROM districts d
+        INNER JOIN regions r USING(region_id)
+        ORDER BY r.name, d.name";
+    return $wpdb->get_results($query);
 }
 
     /* REMEMBER to assign "name" to elements e.g.
@@ -196,19 +121,12 @@ function get_districts_for_view() {
     [column_marker_paid_fish] => 80 з острова, 60 з берега
      */
 function insert_marker($args) {
+    global $wpdb;
     if (empty($args['column_user_login'])) {
         throw new IDException('Ви не залогінилися! Будь ласка, залогіньтеся чи зареєструйтеся.',
                 'column_user_login');
     }
-    
-    $marker_name = NULL;
-    $marker_lat = NULL;
-    $marker_lng = NULL;
-    $marker_permit = NULL;
-    $marker_contact = NULL;
-    $marker_paid_fish = NULL;
-    
-    
+
     if (empty($args['column_marker_name'])) {
         throw new IDException('Назва водойми є обов\'язковим полем!', 'column_marker_name');
     } elseif (!is_string($args['column_marker_name'])) {
@@ -217,7 +135,7 @@ function insert_marker($args) {
     } else {
         $marker_name = $args['column_marker_name'];
     }
-    
+
     if (empty($args['column_marker_lat'])) {
         throw new IDException('Широта водойми є обов\'язковим полем!', 'column_marker_lat');
     } elseif (!is_numeric($args['column_marker_lat'])) {
@@ -225,7 +143,7 @@ function insert_marker($args) {
     } else {
         $marker_lat = $args['column_marker_lat'];
     }
-    
+
     if (empty($args['column_marker_lng'])) {
         throw new IDException('Довгота водойми є обов\'язковим полем!', 'column_marker_lng');
     } elseif (!is_numeric($args['column_marker_lng'])) {
@@ -233,38 +151,31 @@ function insert_marker($args) {
     } else {
         $marker_lng = $args['column_marker_lng'];
     }
-    
+
     if (!empty($args['column_marker_permit'])) {
         $marker_permit = $args['column_marker_permit'];
     }
-    
+
     if (!empty($args['column_marker_contact'])) {
         $marker_contact = $args['column_marker_contact'];
     }
-    
+
     if (!empty($args['column_marker_paid_fish'])) {
         $marker_paid_fish = $args['column_marker_paid_fish'];
     }
 
-    $query = "INSERT INTO markers(name, lat, lng, permit, contact, paid_fish)
-              VALUES(
-                    '$marker_name',
-                    '$marker_lat',
-                    '$marker_lng',
-                    '$marker_permit',
-                    '$marker_contact',
-                    '$marker_paid_fish'
-                  )";
+    $data = array(
+        'name' => $marker_name,
+        'lat' => $marker_lat,
+        'lng' => $marker_lng,
+        'permit' => $marker_permit,
+        'contact' => $marker_contact,
+        'paid_fish' => $marker_paid_fish
+    );
+    $wpdb->insert('markers', $data);
 
-    //print_r($query);
-    
     send_email_notification('INSERT', $_POST, $_GET);
-    log_insert_marker($query);
-
-    $add_result = mysql_query($query);
-    if (!$add_result) {
-        die("Invalid query: " . mysql_error());
-    }
+    log_insert_marker($data);
 
     return 'Додано рибне місце "' . $marker_name . '".';
 }
