@@ -48,7 +48,7 @@ function initialize() {
         new google.maps.Size(56,47),
         new google.maps.Point(0,0),
         new google.maps.Point(0,47));
-    
+
     marker = new google.maps.Marker({
         icon: fishIcon,
         shadow: fishIconShadow
@@ -62,26 +62,26 @@ function initialize() {
 function placeMarker(position, map) {
   marker.setPosition(position);
   marker.setMap(map);
-  // Fill inputs for latitude and longitude  
+  // Fill inputs for latitude and longitude
   $('#column_marker_lat').val(position.lat());
   $('#column_marker_lng').val(position.lng());
 }
 /* END Init Maps */
 
 function init_add_place_ajax() {
+    $('#add_place_form').submit(function() {
+        $('#waiting').show('fast');
 
-	$('#add_submit').click(function() {
-
-		$('#waiting').show('fast');
         clear_errors();
-   		$('#add_place_result').hide('fast');
+        $('#add_place_result').hide('fast');
+        var form = $(this);
 
-		$.ajax({
-			type : 'GET',
-			url : addUrlPrefix,
-			dataType : 'json', // json in case error and html otherwise
-			data: $(addPlaceForm).serializeArray(),
-			success : function(data, textStatus, jqXHR){
+        $.ajax({
+            type : 'GET',
+            url : form.attr('action'),
+            dataType : 'json',
+            data : form.serialize(),
+            success : function(data, textStatus, jqXHR){
                 if (data.error){
                     $('#add_place_result').addClass('error');
                     $('#add_place_result').html(data.msg).show('fast');
@@ -92,18 +92,18 @@ function init_add_place_ajax() {
                     $('#add_place_result').html(data.result).show('fast');
                     $('#add_place_result').addClass('success');
                 }
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				$('#add_place_result').addClass('error')
-					.text('Помилка додавання рибної точки.').show('fast');
-			},
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                $('#add_place_result').addClass('error')
+                    .text('Помилка додавання рибної точки.').show('fast');
+            },
             complete : function(jqXHR, textStatus) {
                 $('#waiting').hide('fast');
             }
-		});
+        });
 
-		return false;
-	});
+        return false;
+    });
 }
 
 function toggleFishDetails(id) {

@@ -4,7 +4,7 @@ require_once 'add_fishing_place_config.php';
 require_once 'add_fishing_place_exception.php';
 
 function log_insert_marker($data) {
-    global $wbdb;
+    global $wpdb;
     /*
      * Log adding marker
      */
@@ -71,12 +71,6 @@ function array_implode($glue, $separator, $array) {
     }
     return implode($separator, $string);
 }
-
-function get_last_marker_id() {
-    global $wpdb;
-    return $wpdb->get_var("SELECT COUNT(marker_id) FROM markers");
-}
-/* END Utility Functions */
 
 // Get pairs (fish_id, name) to init Fish Chooser
 function get_fishes_for_view() {

@@ -17,11 +17,11 @@ class IDException extends Exception
 
         if (!is_null($id))
         {
-            $this -> id = $id;
+            $this->id = $id;
         }
     }
 
     public function getId() {
-        return $this -> id;
+        return $this->id;
     }
 }
