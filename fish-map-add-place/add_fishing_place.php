@@ -36,13 +36,13 @@ function add_scripts_fish_place() {
     wp_register_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js');
     wp_enqueue_script('jquery-ui');
 
-    wp_register_script('add-fish-place', plugins_url(FISH_MAP_ADD_PLACE_PLUGIN_PATH . '/js/add_fish_place.js'));
+    wp_register_script('add-fish-place', plugins_url('js/add_fish_place.js', __FILE__));
     wp_enqueue_script('add-fish-place');
 }
 
 function add_stylesheets_fish_place() {
     /* !!! TODO: update Post's TITLE and ID in case changed*/
-    wp_register_style('addFishPlaceStyleSheet', plugins_url(FISH_MAP_ADD_PLACE_PLUGIN_PATH . '/css/add_fish_place.css'));
+    wp_register_style('addFishPlaceStyleSheet', plugins_url('css/add_fish_place.css', __FILE__));
     wp_enqueue_style('addFishPlaceStyleSheet');
 }
 

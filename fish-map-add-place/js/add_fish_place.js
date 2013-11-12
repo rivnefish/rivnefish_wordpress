@@ -3,15 +3,12 @@
  *
  **/
 
-var addUrlPrefix =
-    'http://rivnefish.com/wp-content/plugins/fish-map-add-place/add_fishing_place_query_json.php';
 var addPlaceForm = '#add_place_form';
 
 /* BEGIN Init Maps */
 var map = null;
 var RivneLatLng = new google.maps.LatLng(50.619616, 26.251379);
 var fishIcon = null;
-var fishIconShadow = null;
 var marker = null;
 
 function initialize() {
@@ -44,7 +41,7 @@ function initialize() {
         new google.maps.Size(16,47),
         new google.maps.Point(0,0),
         new google.maps.Point(0,47));
-    fishIconShadow = new google.maps.MarkerImage("https://lh6.googleusercontent.com/_AlLFR-j5gDI/TXeEddrdM9I/AAAAAAAABEY/oipNS7GnUb0/s800/float_fish_shadow_56x47_new.png",
+    var fishIconShadow = new google.maps.MarkerImage("https://lh6.googleusercontent.com/_AlLFR-j5gDI/TXeEddrdM9I/AAAAAAAABEY/oipNS7GnUb0/s800/float_fish_shadow_56x47_new.png",
         new google.maps.Size(56,47),
         new google.maps.Point(0,0),
         new google.maps.Point(0,47));
@@ -158,4 +155,7 @@ $(document).ready(function() {
     initialize();
     init_add_place_ajax();
     initFormTooltips();
+    $('#add_opts').change(function () {
+        $('#additional_opts').toggle(this.checked);
+    })
 });
