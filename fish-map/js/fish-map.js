@@ -532,8 +532,8 @@ function addToSideBar(marker, caption) {
       });
   }
 
-$(document).ready(function() {
-        initialize();
+jQuery(document).ready(function() {
+    initialize();
 });
 
 function WeatherControl(controlDiv) {
