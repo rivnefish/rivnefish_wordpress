@@ -1,0 +1,44 @@
+
+
+New files within this directory:
+    * favicon.ico
+    * info.gif
+    * comment.png
+
+    * css/buttons.css
+    * css/button_bg.png
+
+Edited files:
+    * js and css directories
+    * header.php - add JS and CSS
+
+Edit posotion of avatars in comments:
+Edited files:
+    *  style.css
+Changes:
+
+ul#comments-list div.avatar
+{
+    float:left;
+}
+
+Styled button examples:
+
+<a href="#" class="button big blue">Big Button</a>
+<a href="#" class="button big green">Big Button</a>
+<a href="#" class="button big orange">Big Button</a>
+<a href="#" class="button big gray">Big Button</a>
+
+<a href="#" class="button blue medium">Medium Button</a>
+<a href="#" class="button green medium">Medium Button</a>
+<a href="#" class="button orange medium">Medium Button</a>
+<a href="#" class="button gray medium">Medium Button</a>
+
+<a href="#" class="button small blue">Small Button</a>
+<a href="#" class="button small green">Small Button</a>
+<a href="#" class="button small blue rounded">Rounded</a>
+
+<a href="#" class="button small orange">Small Button</a>
+<a href="#" class="button small gray">Small Button</a>
+
+<a href="#" class="button small green rounded">Rounded</a>
