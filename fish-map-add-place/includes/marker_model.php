@@ -96,7 +96,7 @@ class MarkerModel
         $v->rule('required', 'name')
           ->message('Назва водойми є обов\'язковим полем!');
         $v->rule('required', array('lat', 'lng'))
-          ->message('Відмідьте водойму на карті');
+          ->message('Відмітьте водойму на карті');
         $v->rule('numeric', array('lat', 'lng'))
           ->message('Некоректний формат координат');
 
