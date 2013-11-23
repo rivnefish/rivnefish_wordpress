@@ -1,7 +1,10 @@
 <?php
 
 require_once 'add_fishing_place_config.php';
-require_once 'add_fishing_place_exception.php';
+require_once 'Validator.php';
+
+use Valitron\Validator;
+Validator::langDir(__DIR__ . '/Valitron');
 
 class MarkerModel
 {
@@ -82,79 +85,55 @@ class MarkerModel
         return implode($separator, $string);
     }
 
-    // Get pairs (fish_id, name) to init Fish Chooser
     public function getFishes()
     {
         return $this->db->get_results("SELECT id, name FROM fishes ORDER BY name");
     }
 
-    /* REMEMBER to assign "name" to elements e.g.
-     * <select id="column_marker_permit" name="column_marker_permit" size="1">
-     * GET:
-    column_marker_id, column_user_login, column_marker_name
-    column_marker_lat	50.730371
-    column_marker_lng	26.156731
-    [column_marker_permit] => paid
-    [column_marker_contact] => 050 555 55 55 Іван Павлович
-    [column_marker_paid_fish] => 80 з острова, 60 з берега
-     */
-    public function insertMarker($args)
+    public function validator($data)
     {
-        if (!is_user_logged_in()) {
-            throw new IDException('Ви не залогінилися! Будь ласка, залогіньтеся чи зареєструйтеся.',
-                    'column_user_login');
-        }
+        $v = new Validator($data);
+        $v->rule('required', 'name')
+          ->message('Назва водойми є обов\'язковим полем!');
+        $v->rule('required', array('lat', 'lng'))
+          ->message('Відмідьте водойму на карті');
+        $v->rule('numeric', array('lat', 'lng'))
+          ->message('Некоректний формат координат');
 
-        if (empty($args['column_marker_name'])) {
-            throw new IDException('Назва водойми є обов\'язковим полем!', 'column_marker_name');
-        } elseif (!is_string($args['column_marker_name'])) {
-            //TODO: properly verify Marker Name
-            throw new IDException('Введіть назву водойми, наприклад "Закопане"!', 'column_marker_name');
-        } else {
-            $marker_name = $args['column_marker_name'];
-        }
+        $v->rule('numeric', array(
+                'area', 'max_depth', 'average_depth', '24h_price', 'dayhour_price'
+            ))
+          ->message('Некоректний формат');
+        return $v;
+    }
 
-        if (empty($args['column_marker_lat'])) {
-            throw new IDException('Широта водойми є обов\'язковим полем!', 'column_marker_lat');
-        } elseif (!is_numeric($args['column_marker_lat'])) {
-            throw new IDException('Введіть широту водойми в форматі Google Maps, наприклад "50.730371"!', 'column_marker_lat');
-        } else {
-            $marker_lat = $args['column_marker_lat'];
-        }
-
-        if (empty($args['column_marker_lng'])) {
-            throw new IDException('Довгота водойми є обов\'язковим полем!', 'column_marker_lng');
-        } elseif (!is_numeric($args['column_marker_lng'])) {
-            throw new IDException('Введіть довготу водойми в форматі Google Maps, наприклад "26.156731"!', 'column_marker_lng');
-        } else {
-            $marker_lng = $args['column_marker_lng'];
-        }
-
-        if (!empty($args['column_marker_permit'])) {
-            $marker_permit = $args['column_marker_permit'];
-        }
-
-        if (!empty($args['column_marker_contact'])) {
-            $marker_contact = $args['column_marker_contact'];
-        }
-
-        if (!empty($args['column_marker_paid_fish'])) {
-            $marker_paid_fish = $args['column_marker_paid_fish'];
-        }
-
+    public function insertMarker($data)
+    {
         $data = array(
-            'name' => $marker_name,
-            'lat' => $marker_lat,
-            'lng' => $marker_lng,
-            'permit' => $marker_permit,
-            'contact' => $marker_contact,
-            'paid_fish' => $marker_paid_fish
+            'name' => $data['name'],
+            'lat' => $data['lat'],
+            'lng' => $data['lng'],
+            'permit' => $data['permit'],
+            'contact' => $data['contact'],
+            'paid_fish' => $data['paid_fish'],
+
+            // additional info
+            'address' => $data['address'],
+            'content' => $data['content'],
+            'conveniences' => $data['conveniences'],
+            'area' => $data['area'],
+            'max_depth' => $data['max_depth'],
+            'average_depth' => $data['average_depth'],
+            '24h_price' => $data['24h_price'],
+            'dayhour_price' => $data['dayhour_price'],
+            'boat_usage' => $data['boat_usage'],
+            'fishing_time' => $data['fishing_time']
         );
         $this->db->insert('markers', $data);
 
         $this->sendEmailNotification('INSERT', $_POST, $_GET);
         $this->logInsertMarker($data);
 
-        return 'Додано рибне місце "' . $marker_name . '".';
+        return 'Додано рибне місце "' . $data['name'] . '"';
     }
 }

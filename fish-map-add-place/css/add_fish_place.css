@@ -1,20 +1,9 @@
-#waiting {
-    color: greenyellow;
-    text-align: center;
-    display: none;
+.error {
+    background-color: #fff0f0;
+    border: 1px solid #f00;
 }
-
-div.error {
-    color: #FFFFFF;
-    background: #ea7e7e;
-    border: 1px solid #a71010;
-    padding: 5px;
-    margin: 7px;
-}
-
-input.error {
-    background-color: #EA7E7E;
-    border: 2px solid #990000;
+.error_message {
+    color: #f00;
 }
 
 div.success {
@@ -24,6 +13,22 @@ div.success {
     padding: 5px;
     margin: 7px;
     font-weight: normal;
+}
+
+.expandable {
+  cursor: pointer;
+}
+.expandable:after {
+    border-color: #ccc rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 6px 6px 0;
+    content: "";
+    height: 0;
+    position: relative;
+    top: 13px;
+    margin-left: 10px;
+    width: 0;
+    z-index: 1;
 }
 
 #additional_opts {
@@ -57,6 +62,15 @@ div.success {
 }
 #add_place_form small {
     display: block;
+}
+
+#add_place_form label.check {
+    font-weight: normal;
+}
+#add_place_form .fishes {
+    max-height: 250px;
+    width: 300px;
+    overflow: auto;
 }
 
 .controls {
@@ -93,7 +107,7 @@ img[id$='_note'] {
 }
 
 #map_canvas {
-    width: 100%;
+    width: 95%;
     height: 300px;
     margin: 10px 0;
 }
