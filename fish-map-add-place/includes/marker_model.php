@@ -14,17 +14,14 @@ class MarkerModel
         $this->db = $wpdb;
     }
 
-    public function sendEmailNotification($action, $post_params, $get_params)
+    public function sendEmailNotification($request)
     {
         /*
          * $action      - one of 'updated', 'inserted', 'deleted'
          * $post_params - values
          * $get_params  - 'new' etc
          */
-        $to = TO_EMAIL;
-        $from = FROM_EMAIL;
         $subject = '[Рибні місця Рівненщини] Додано нову водойму - будь ласка, санкціонуйте!';
-
         $message = 'Додано рибну водойму.
     Будь ласка, залогінься на
     http://rivnefish.com/phpMyAdmin-3.4.10.1-all-languages/index.php
@@ -32,39 +29,10 @@ class MarkerModel
     якщо дане рибне місце заслуговує на це...
     Або видали відповідний запис назавжди!' . "\r\n\r\n" .
                 'Дата:' . date("d M Y H:i:s") . "\r\n\r\n" .
-                'Дія: ' . $action . "\r\n\r\n" .
-                'GET параметри:'."\r\n" . $this->array_implode("=", "\r\n", $get_params) . "\r\n\r\n" .
-                'POST параметри:'."\r\n" . $this->array_implode("=", "\r\n", $post_params) . "\r\n\r\n";
+                'REQUEST параметри:'."\r\n" . print_r($request, 1) . "\r\n\r\n";
+        $headers = 'From: ' . FROM_EMAIL;
 
-        $headers = 'From: ' . $from . "\r\n" .
-                'Reply-To: ' . $to . "\r\n" .
-                'Content-type: text/plain; charset=utf-8' . "\r\n" .
-                'X-Mailer: PHP/' . phpversion();
-
-        // @TODO replace with wp_mail
-        // mail($to, $subject, $message, $headers);
-    }
-
-    /**
-     * Implode an array with the key and value pair giving
-     * a glue, a separator between pairs and the array
-     * to implode.
-     * @param string $glue The glue between key and value
-     * @param string $separator Separator between pairs
-     * @param array $array The array to implode
-     * @return string The imploded array
-     */
-    public function array_implode($glue, $separator, $array)
-    {
-        if (!is_array($array))
-            return $array;
-        $string = array();
-        foreach ($array as $key => $val) {
-            if (is_array($val))
-                $val = implode(',', $val);
-            $string[] = "{$key}{$glue}{$val}";
-        }
-        return implode($separator, $string);
+        wp_mail(TO_EMAIL, $subject, $message, $headers);
     }
 
     public function validator($data)

@@ -77,7 +77,7 @@ class FishMapAddPlacePlugin
         $validator = $this->_model->validator($_POST);
         if ($validator->validate()) {
             $result = $this->_model->insertMarker($_POST);
-            $this->_model->sendEmailNotification('INSERT', $_POST, $_GET);
+            $this->_model->sendEmailNotification($_REQUEST);
             $response = array('error' => false);
         } else {
             $response = array(
