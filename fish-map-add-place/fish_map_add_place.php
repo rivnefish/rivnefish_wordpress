@@ -57,15 +57,23 @@ class FishMapAddPlacePlugin
 
     public function renderForm($attr)
     {
-        $this->addScripts();
-        $this->addStylesheets();
+        if (is_user_logged_in()) {
+            $this->addScripts();
+            $this->addStylesheets();
 
-        $fishes = $this->_model->getFishes();
-        include 'tpls/add_place_form.phtml';
+            $fishes = $this->_model->getFishes();
+            include 'tpls/add_place_form.phtml';
+        } else {
+            include 'tpls/add_place_login.phtml';
+        }
     }
 
     public function savePlace()
     {
+        if (!is_user_logged_in()) {
+            die();
+        }
+
         $validator = $this->_model->validator($_POST);
         if ($validator->validate()) {
             $result = $this->_model->insertMarker($_POST);
