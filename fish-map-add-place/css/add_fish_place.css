@@ -80,6 +80,10 @@ div.success {
     max-width: 700px;
 }
 
+.controls.photo_urls input {
+    margin: 2px 0;
+}
+
 .col {
     display: block;
     float: left;

@@ -44,6 +44,8 @@ class MarkerModel
           ->message('Відмітьте водойму на карті');
         $v->rule('numeric', array('lat', 'lng'))
           ->message('Некоректний формат координат');
+        $v->rule('url', array('photo_url1', 'photo_url2', 'photo_url3', 'photo_url4'))
+          ->message('Некоректний URL на фото');
 
         $v->rule('numeric', array(
                 'area', 'max_depth', 'average_depth', '24h_price', 'dayhour_price'
@@ -96,7 +98,12 @@ class MarkerModel
             '24h_price' => $data['24h_price'],
             'dayhour_price' => $data['dayhour_price'],
             'boat_usage' => $data['boat_usage'],
-            'time_to_fish' => $data['time_to_fish']
+            'time_to_fish' => $data['time_to_fish'],
+
+            'photo_url1' => $data['photo_url1'],
+            'photo_url2' => $data['photo_url2'],
+            'photo_url3' => $data['photo_url3'],
+            'photo_url4' => $data['photo_url4']
         );
         $this->db->insert('markers', $marker);
         $markerId = $this->db->insert_id;
