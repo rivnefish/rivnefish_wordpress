@@ -1,7 +1,7 @@
 <?php
 
-require_once 'add_fishing_place_config.php';
-require_once 'Validator.php';
+require_once 'fish_map_config.php';
+require_once 'Valitron/Validator.php';
 
 use Valitron\Validator;
 Validator::langDir(__DIR__ . '/Valitron');
@@ -12,24 +12,6 @@ class MarkerModel
     {
         global $wpdb;
         $this->db = $wpdb;
-    }
-
-    public function logInsertMarker($data)
-    {
-        /*
-         * Log adding marker
-         */
-        $current_user = wp_get_current_user();
-        $user_info = sprintf("ID:%s;LOGIN:%s;EMAIL:%s;IP:%s",
-                $current_user->ID,
-                $current_user->user_login,
-                $current_user->user_email,
-                $_SERVER['REMOTE_ADDR']);
-
-        $this->db->insert('markers_log', array(
-            'log_text' => print_r($data, 1),
-            'user_info' => $user_info
-        ));
     }
 
     public function sendEmailNotification($action, $post_params, $get_params)
@@ -85,11 +67,6 @@ class MarkerModel
         return implode($separator, $string);
     }
 
-    public function getFishes()
-    {
-        return $this->db->get_results("SELECT id, name FROM fishes ORDER BY name");
-    }
-
     public function validator($data)
     {
         $v = new Validator($data);
@@ -107,9 +84,33 @@ class MarkerModel
         return $v;
     }
 
+    public function getFishes()
+    {
+        return $this->db->get_results("SELECT id, name FROM fishes ORDER BY name");
+    }
+
+    public function getFishIds()
+    {
+        return $this->db->get_col("SELECT id FROM fishes");
+    }
+
+    public function insertMarkerFishes($markerId, $fishes)
+    {
+        $fishIds = $this->getFishIds();
+        foreach ($fishes as $fishId) {
+            $fishId = intval($fishId);
+            if (in_array($fishId, $fishIds)) {
+                $this->db->insert('markers_fishes', array(
+                    'marker_id' => $markerId,
+                    'fish_id' => $fishId
+                ));
+            }
+        }
+    }
+
     public function insertMarker($data)
     {
-        $data = array(
+        $marker = array(
             'name' => $data['name'],
             'lat' => $data['lat'],
             'lng' => $data['lng'],
@@ -127,13 +128,15 @@ class MarkerModel
             '24h_price' => $data['24h_price'],
             'dayhour_price' => $data['dayhour_price'],
             'boat_usage' => $data['boat_usage'],
-            'fishing_time' => $data['fishing_time']
+            'time_to_fish' => $data['time_to_fish']
         );
-        $this->db->insert('markers', $data);
+        $this->db->insert('markers', $marker);
+        $markerId = $this->db->insert_id;
 
-        $this->sendEmailNotification('INSERT', $_POST, $_GET);
-        $this->logInsertMarker($data);
+        if (isset($data['fishes'])) {
+            $this->insertMarkerFishes($markerId, $data['fishes']);
+        }
 
-        return 'Додано рибне місце "' . $data['name'] . '"';
+        return $markerId;
     }
 }

@@ -11,7 +11,7 @@ License: BSD
 Created: 29 January 2013
 */
 
-require_once 'includes/add_fishing_place_install.php';
+require_once 'includes/fish_map_install.php';
 require_once 'includes/marker_model.php';
 
 class FishMapAddPlacePlugin
@@ -21,8 +21,10 @@ class FishMapAddPlacePlugin
     public function __construct()
     {
         $path = WP_PLUGIN_DIR . '/fish-map-add-place';
-        register_activation_hook($path . '/add_fishing_place.php', 'add_fishing_place_install');
-        register_deactivation_hook($path . '/add_fishing_place.php', 'add_fishing_place_uninstall');
+        register_activation_hook($path . '/fish_map_add_place.php', 'fish_map_install');
+        register_deactivation_hook($path . '/fish_map_add_place.php', 'fish_map_uninstall');
+
+        add_action( 'plugins_loaded', 'fish_map_update_check' );
 
         add_action('wp_ajax_fish_map_add_place_save', array($this, 'savePlace'));
         add_shortcode('fish-map-add-place-from', array($this, 'renderForm'));
@@ -64,28 +66,18 @@ class FishMapAddPlacePlugin
 
     public function savePlace()
     {
-        try {
-            $validator = $this->_model->validator($_POST);
-            if ($validator->validate()) {
-                $result = $this->_model->insertMarker($_POST);
-                $response = json_encode(array(
-                    'error' => false,
-                    'result' => $result
-                ));
-            } else {
-                $response = json_encode(array(
-                    'error' => true,
-                    'errors' => $validator->errors()
-                ));
-            }
-        } catch (IDException $exc) {
-            $response = json_encode(array(
+        $validator = $this->_model->validator($_POST);
+        if ($validator->validate()) {
+            $result = $this->_model->insertMarker($_POST);
+            $this->_model->sendEmailNotification('INSERT', $_POST, $_GET);
+            $response = array('error' => false);
+        } else {
+            $response = array(
                 'error' => true,
-                'msg' => $exc->getMessage(),
-                'id' => $exc->getId()
-            ));
+                'errors' => $validator->errors()
+            );
         }
-        echo $response;
+        echo json_encode($response);
         die();
     }
 }

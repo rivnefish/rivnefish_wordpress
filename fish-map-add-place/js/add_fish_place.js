@@ -1,109 +1,129 @@
-var map = null;
-var marker = null;
+var AddMarkerForm = {
+    init : function () {
+        $('#add_opts').click(function () {
+            $('#additional_opts').toggle();
+        });
+        $('#add_more').click($.proxy(this.addMore, this));
 
-function initMap() {
-    // Стилі для карти. Можна виділяти кольором водойми, парки, траси і т.п.
-    var emphasizeLakesStyles = [{
-        featureType: "water",
-        stylers: [
-            {lightness: -30},
-            {saturation: 41}
-        ]
-    }];
+        this.form = $('#add_place_form');
+        this.form.submit($.proxy(this.savePlace, this));
 
-    var RivneLatLng = new google.maps.LatLng(50.619616, 26.251379);
-    map = new google.maps.Map(document.getElementById("map_canvas"), {
-        zoom: 10,
-        center: RivneLatLng, // Center map at Rivne
-        panControl: true,
-        scaleControl: true,
-        zoomControl: true,
-        mapTypeControl: true,
-        mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
-        streetViewControl: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: emphasizeLakesStyles
-    });
+        this.initMap();
+    },
 
-    var fishIcon = new google.maps.MarkerImage(
-        "https://lh4.googleusercontent.com/_AlLFR-j5gDI/TXeEWPwQfkI/AAAAAAAABEQ/C1wZSANaCeg/s800/float_fish_16x47_new.png",
-        new google.maps.Size(16,47),
-        new google.maps.Point(0,0),
-        new google.maps.Point(0,47));
-    var fishIconShadow = new google.maps.MarkerImage(
-        "https://lh6.googleusercontent.com/_AlLFR-j5gDI/TXeEddrdM9I/AAAAAAAABEY/oipNS7GnUb0/s800/float_fish_shadow_56x47_new.png",
-        new google.maps.Size(56,47),
-        new google.maps.Point(0,0),
-        new google.maps.Point(0,47));
+    initMap : function () {
+        // Стилі для карти. Можна виділяти кольором водойми, парки, траси і т.п.
+        var emphasizeLakesStyles = [{
+            featureType: "water",
+            stylers: [
+                {lightness: -30},
+                {saturation: 41}
+            ]
+        }];
 
-    marker = new google.maps.Marker({
-        icon: fishIcon,
-        shadow: fishIconShadow
-    });
+        var RivneLatLng = new google.maps.LatLng(50.619616, 26.251379);
+        this.map = new google.maps.Map(document.getElementById("map_canvas"), {
+            zoom: 10,
+            center: RivneLatLng, // Center map at Rivne
+            panControl: true,
+            scaleControl: true,
+            zoomControl: true,
+            mapTypeControl: true,
+            mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+            streetViewControl: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            styles: emphasizeLakesStyles
+        });
 
-    google.maps.event.addListener(map, 'click', function(e) {
-        placeMarker(e.latLng, map);
-    });
-}
+        var fishIcon = new google.maps.MarkerImage(
+            "https://lh4.googleusercontent.com/_AlLFR-j5gDI/TXeEWPwQfkI/AAAAAAAABEQ/C1wZSANaCeg/s800/float_fish_16x47_new.png",
+            new google.maps.Size(16,47),
+            new google.maps.Point(0,0),
+            new google.maps.Point(0,47));
+        var fishIconShadow = new google.maps.MarkerImage(
+            "https://lh6.googleusercontent.com/_AlLFR-j5gDI/TXeEddrdM9I/AAAAAAAABEY/oipNS7GnUb0/s800/float_fish_shadow_56x47_new.png",
+            new google.maps.Size(56,47),
+            new google.maps.Point(0,0),
+            new google.maps.Point(0,47));
 
-function placeMarker(position, map) {
-    marker.setPosition(position);
-    marker.setMap(map);
-    $('input[name=lat]').val(position.lat());
-    $('input[name=lng]').val(position.lng());
-}
+        this.marker = new google.maps.Marker({
+            icon: fishIcon,
+            shadow: fishIconShadow
+        });
 
-function savePlace() {
-    clear_errors();
-    $('#add_place_result').hide('fast');
+        google.maps.event.addListener(this.map, 'click', $.proxy(function(e) {
+            this.placeMarker(e.latLng, this.map);
+        }, this));
+    },
 
-    var form = $(this);
-    form.block({ message: 'Збереження...' })
-    $.ajax({
-        type : 'POST',
-        url : form.attr('action'),
-        dataType : 'json',
-        data : form.serialize(),
-        success : function (data) {
-            form.unblock();
-            if (data.error){
-                var i = 0;
-                $.each(data.errors, function (field, messages) {
-                    var field = $('#marker_' + field + ', .marker_' + field);
-                    field.addClass('error');
-                    var divMessages = $("<div></div>").addClass('error_message')
-                        .html(messages.join("<br/>"));
-                    field.after(divMessages);
-                    if (i++ == 0) {
-                        $('body').scrollTo(field, 200, {offset: -50});
-                    }
-                });
-            } else {
-                $('#add_place_result').html(data.result).show('fast');
-                $('#add_place_result').addClass('success');
-                form.hide();
-                form[0].reset();
-                marker.setMap(null);
+    addMore : function (e) {
+        $('#add_place_result').hide();
+        this.form.show();
+        return false;
+    },
+
+    placeMarker : function (position, map) {
+        this.marker.setPosition(position);
+        this.marker.setMap(map);
+        $('input[name=lat]').val(position.lat());
+        $('input[name=lng]').val(position.lng());
+    },
+
+    savePlace : function (e) {
+        this.clearErrors();
+        // $('#add_place_result').hide('fast');
+
+        var form = $(e.target);
+        this.form.block({ message: 'Збереження...' })
+        $.ajax({
+            type : 'POST',
+            url : form.attr('action'),
+            dataType : 'json',
+            data : form.serialize(),
+            context: this,
+            success : function (data) {
+                this.form.unblock();
+                if (data.error){
+                    var i = 0;
+                    $.each(data.errors, function (field, messages) {
+                        var field = $('#marker_' + field + ', .marker_' + field);
+                        field.addClass('error');
+                        var divMessages = $("<div></div>").addClass('error_message')
+                            .html(messages.join("<br/>"));
+                        field.after(divMessages);
+                        if (i++ == 0) {
+                            $('body').scrollTo(field, 200, {offset: -50});
+                        }
+                    });
+                } else {
+                    $('#add_place_result').html(data.result).show('fast');
+                    $('#add_place_result').addClass('success');
+                    this.form.hide();
+                    this.resetForm();
+                }
+            },
+            error : function () {
+                form.unblock();
+                alert('Помилка додавання рибної точки.');
             }
-        },
-        error : function () {
-            form.unblock();
-            alert('Помилка додавання рибної точки.');
-        }
-    });
+        });
 
-    return false;
-}
+        return false;
+    },
 
-function clear_errors() {
-    $('.error').removeClass('error');
-    $('.error_message').remove();
-}
+    clearErrors : function () {
+        $('.error').removeClass('error');
+        $('.error_message').remove();
+    },
+
+    resetForm : function () {
+        this.form[0].reset();
+        this.marker.setMap(null);
+        this.form.find('input[name=lat]').val('');
+        this.form.find('input[name=lng]').val('');
+    }
+};
 
 jQuery(document).ready(function($) {
-    initMap();
-    $('#add_opts').click(function () {
-        $('#additional_opts').toggle();
-    });
-    $('#add_place_form').submit(savePlace);
+    AddMarkerForm.init();
 });

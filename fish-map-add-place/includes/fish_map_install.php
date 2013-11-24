@@ -1,11 +1,12 @@
 <?php
 
-define('ADD_FISHING_PLACE_DB_VER', "1.0");
+define('FISH_MAP_DB_VER_OPTION', 'fish_map_db_ver');
+define('FISH_MAP_DB_VER', '2');
 
-function add_fishing_place_install() {
+function fish_map_install() {
     global $wpdb;
-    $db_ver = get_option('ADD_FISHING_PLACE_DB_VER');
-    if (!$db_ver) {
+    $db_ver = get_option(FISH_MAP_DB_VER_OPTION, 0);
+    if ($db_ver == 0) {
         $wpdb->query("
             CREATE TABLE `fishes` (
               `id` smallint(4) unsigned NOT NULL AUTO_INCREMENT,
@@ -41,7 +42,7 @@ function add_fishing_place_install() {
               `24h_price` decimal(6,2) unsigned DEFAULT NULL,
               `dayhour_price` decimal(6,2) unsigned DEFAULT NULL,
               `boat_usage` enum('1','0') DEFAULT NULL COMMENT 'Чи дозволено використання човна',
-              `time_to_fish` enum('24h','daylight') DEFAULT '24h' COMMENT 'Дозволений час рибалки',
+              `time_to_fish` enum('24h','daylight', 'unknown') DEFAULT '24h' COMMENT 'Дозволений час рибалки',
               `paid_fish` text COMMENT 'умови вилову риби',
               `note` text COMMENT 'примітка для мене',
               `note2` varchar(200) NOT NULL DEFAULT 'Немає інформації' COMMENT 'примітка для користувачів сайту',
@@ -67,9 +68,24 @@ function add_fishing_place_install() {
               CONSTRAINT `markers_fishes_ibfk_1` FOREIGN KEY (`marker_id`) REFERENCES `markers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
               CONSTRAINT `markers_fishes_ibfk_2` FOREIGN KEY (`fish_id`) REFERENCES `fishes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
-        add_option("ADD_FISHING_PLACE_DB_VER", ADD_FISHING_PLACE_DB_VER);
+        $db_ver = 1;
+        add_option(FISH_MAP_DB_VER_OPTION, $db_ver);
+    }
+
+    if ($db_ver < 2) {
+        $wpdb->query("
+            ALTER TABLE `markers`
+            CHANGE COLUMN `time_to_fish` `time_to_fish` ENUM('24h','daylight','unknown')
+            DEFAULT '24h' COMMENT 'Дозволений час рибалки'");
+    }
+    update_option(FISH_MAP_DB_VER_OPTION, FISH_MAP_DB_VER);
+}
+
+function fish_map_update_check() {
+    if (get_option(FISH_MAP_DB_VER_OPTION, 0) != FISH_MAP_DB_VER) {
+        fish_map_install();
     }
 }
 
-function add_fishing_place_uninstall() {
+function fish_map_uninstall() {
 }

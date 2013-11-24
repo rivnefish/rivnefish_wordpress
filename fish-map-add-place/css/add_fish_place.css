@@ -16,7 +16,7 @@ div.success {
 }
 
 .expandable {
-  cursor: pointer;
+    cursor: pointer;
 }
 .expandable:after {
     border-color: #ccc rgba(0, 0, 0, 0);
@@ -77,6 +77,7 @@ div.success {
     clear: both;
     margin: 10px 0 3px;
     overflow: hidden;
+    max-width: 700px;
 }
 
 .col {
@@ -107,7 +108,10 @@ img[id$='_note'] {
 }
 
 #map_canvas {
-    width: 95%;
+    width: 99%;
     height: 300px;
     margin: 10px 0;
+}
+.hidden {
+    display: none;
 }

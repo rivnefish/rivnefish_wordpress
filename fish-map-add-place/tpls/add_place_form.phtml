@@ -1,5 +1,7 @@
 <div id="wrapper" >
-    <div id="add_place_result" ></div>
+    <div id="add_place_result" class="success hidden">
+        Рибне місце додано. <a href="#" id="add_more">Додати ще одне рибне місце</a>
+    </div>
 
     <form id="add_place_form" method="POST" action="<?php echo admin_url('admin-ajax.php');?>">
         <input type="hidden" name="action" value="fish_map_add_place_save" />
@@ -87,7 +89,6 @@
                 <div class="controls">
                     <label for="marker_content">Інформація про водойму</label>
                     <textarea id="marker_content"
-                              placeholder="Введіть тут всю можливу корисну інформацію про рибне місце"
                               name="content" rows="6" maxlength="10000"></textarea>
                     <small>(наприклад: <i>Став був клубним і ловити було заборонено, лише обраним по запрошеннях. Проте тепер ставок відкритий для ловлі для всіх бажаючих. Отже, ставок знаходиться десь за 150-200 м справа від в'їзду в с.Півче зі сторони Мізоча (8 км від Мізоча). Ставок чистий, незарозший, з твердим дном</i>)</small>
 
@@ -96,7 +97,6 @@
                 <div class="controls">
                     <label for="marker_conveniences">Умови для відпочинку</label>
                     <textarea id="marker_conveniences"
-                              placeholder="Введіть тут всю можливу корисну інформацію про відпочинок"
                               name="conveniences" rows="6" cols="62" maxlength="10000"/></textarea>
                     <small>(чи є доступ до питної води, де ставити палатку, чи є мангали й столики і таке інше)</small>
                 </div>
@@ -148,15 +148,15 @@
                 <div class="controls">
                     <label>Коли можна рибалити</label>
                     <label class="check">
-                        <input type="radio" name="fishing_time" value="unknown" checked="1" />
+                        <input type="radio" name="time_to_fish" value="unknown" checked="1" />
                         невідомо
                     </label>
                     <label class="check">
-                        <input type="radio" name="fishing_time" value="anytime" />
+                        <input type="radio" name="time_to_fish" value="24h" />
                         цілодобово
                     </label>
                     <label class="check">
-                        <input type="radio" name="fishing_time" value="daylight" />
+                        <input type="radio" name="time_to_fish" value="daylight" />
                         лише світловий день
                     </label>
                 </div>
