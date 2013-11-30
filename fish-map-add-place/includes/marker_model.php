@@ -16,22 +16,11 @@ class MarkerModel
 
     public function sendEmailNotification($request)
     {
-        /*
-         * $action      - one of 'updated', 'inserted', 'deleted'
-         * $post_params - values
-         * $get_params  - 'new' etc
-         */
         $subject = '[Рибні місця Рівненщини] Додано нову водойму - будь ласка, санкціонуйте!';
-        $message = 'Додано рибну водойму.
-    Будь ласка, залогінься на
-    http://rivnefish.com/phpMyAdmin-3.4.10.1-all-languages/index.php
-    та зміни в таблиці `markers` для даного запису поле "approval" з "pending" на "approved",
-    якщо дане рибне місце заслуговує на це...
-    Або видали відповідний запис назавжди!' . "\r\n\r\n" .
-                'Дата:' . date("d M Y H:i:s") . "\r\n\r\n" .
-                'REQUEST параметри:'."\r\n" . print_r($request, 1) . "\r\n\r\n";
+        $message = 'Додано нову водойму.' . "\r\n\r\n"
+                 . 'Дата:' . date("d M Y H:i:s") . "\r\n\r\n"
+                 . '_REQUEST параметри:'."\r\n" . print_r($request, 1);
         $headers = 'From: ' . FROM_EMAIL;
-
         wp_mail(TO_EMAIL, $subject, $message, $headers);
     }
 
