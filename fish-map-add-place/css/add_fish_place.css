@@ -1,19 +1,9 @@
-#waiting {
-    color: greenyellow;
-    text-align: center;
+.error {
+    background-color: #fff0f0;
+    border: 1px solid #f00;
 }
-
-div.error {
-    color: #FFFFFF;
-    background: #ea7e7e;
-    border: 1px solid #a71010;
-    padding: 5px;
-    margin: 7px;
-}
-
-input.error {
-    background-color: #EA7E7E;
-    border: 2px solid #990000;
+.error_message {
+    color: #f00;
 }
 
 div.success {
@@ -25,15 +15,29 @@ div.success {
     font-weight: normal;
 }
 
-#add_place_form {
-    background-size: auto 100%;
-    border: 1px outset #CCCCCC;
-    border-radius: 5px;
-    font-size: 12px;
-    padding: 10px !important;
-    margin: 5px !important;
-    width: 80%;
-    text-align: left;
+.expandable {
+    cursor: pointer;
+}
+.expandable:after {
+    border-color: #ccc rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 6px 6px 0;
+    content: "";
+    height: 0;
+    position: relative;
+    top: 13px;
+    margin-left: 10px;
+    width: 0;
+    z-index: 1;
+}
+
+#additional_opts {
+    display: none;
+}
+
+#add_place_form label {
+    font-weight: bold;
+    display: block;
 }
 
 #add_place_form h4 {
@@ -42,28 +46,57 @@ div.success {
     text-align: center;
 }
 
-div#additional_opts {
-    border: 1px outset #990000;
-    border-radius: 5px;
-    font-size: 12px;
-    padding: 10px !important;
-    margin: 5px !important;
+#add_place_form input[type="text"], #add_place_form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+#add_place_form input.input-sm {
+    width: 120px;
+}
+#add_place_form textarea {
+    height: 135px;
+}
+#add_place_form select[multiple="multiple"]{
+    width: 240px;
+}
+#add_place_form small {
+    display: block;
 }
 
-form#add_place_form input[type="text"]{
-    width: 180px;
+#add_place_form label.check {
+    font-weight: normal;
+}
+#add_place_form .fishes {
+    max-height: 250px;
+    width: 300px;
+    overflow: auto;
 }
 
-form#add_place_form select[multiple="multiple"]{
-    width: 140px;
+.controls {
+    clear: both;
+    margin: 10px 0 3px;
+    overflow: hidden;
+    max-width: 700px;
+}
+
+.controls.photo_urls input {
+    margin: 2px 0;
+}
+
+.col {
+    display: block;
+    float: left;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.col-4 {
+    width: 40%;
 }
 
 #form_params_table td:first-child {
     text-align: right;
-}
-
-#form_params_table td {
-    text-align: left;
 }
 
 img[id$='_tip'] {
@@ -76,4 +109,13 @@ img[id$='_note'] {
     border: 0 none;
     padding: 0;
     margin: 0;
+}
+
+#map_canvas {
+    width: 99%;
+    height: 300px;
+    margin: 10px 0;
+}
+.hidden {
+    display: none;
 }
