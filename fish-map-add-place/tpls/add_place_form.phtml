@@ -1,194 +1,192 @@
-<div id="wrapper" >
-    <div id="add_place_result" class="success hidden">
-        Рибне місце додано. <a href="#" id="add_more">Додати ще одне рибне місце</a>
-    </div>
+<div id="add_place_result" class="success hidden">
+    Рибне місце додано. <a href="#" id="add_more">Додати ще одне рибне місце</a>
+</div>
 
-    <form id="add_place_form" method="POST" action="<?php echo admin_url('admin-ajax.php');?>">
-        <input type="hidden" name="action" value="fish_map_add_place_save" />
-        <div id="form_params">
+<form id="add_place_form" method="POST" action="<?php echo admin_url('admin-ajax.php');?>">
+    <input type="hidden" name="action" value="fish_map_add_place_save" />
+    <div id="form_params">
+        <div class="controls">
+            <label for="marker_name">*Назва водойми</label>
+            <input id="marker_name"
+                   type="text"
+                   name="name"
+                   required="1" />
+            <small>(загально відома назва місця для рибалки, наприклад Біле Озеро, Бочаниця)</small>
+        </div>
+
+        <div class="controls" class="marker_lat">
+            <label>*Координати на мапі</label>
+            <input type="hidden" name="lat" />
+            <input type="hidden" name="lng" />
+
+            <div id="map_canvas" class="google-map marker_lat" ></div>
+            <small>(клікніть на карті, щоб позначити водойму)</small>
+        </div>
+
+        <div class="controls">
+            <label for="marker_permit">Умови рибалки</label>
+
+            <label class="check">
+                <input type="radio" name="permit" value="unknown" checked="1" /> невідомо
+            </label>
+            <label class="check">
+                <input type="radio" name="permit" value="free" /> безкоштовно
+            </label>
+            <label class="check">
+                <input type="radio" name="permit" value="paid" /> платно
+            </label>
+            <label class="check">
+                <input type="radio" name="permit" value="prohibited" /> заборонено
+            </label>
+        </div>
+
+        <div class="controls">
+            <label for="marker_content">Інформація про водойму</label>
+            <textarea id="marker_content"
+                      name="content" rows="6" maxlength="10000"></textarea>
+            <small>(наприклад: <i>Став був клубним і ловити було заборонено,
+                лише обраним по запрошеннях. Проте тепер ставок відкритий для
+                ловлі для всіх бажаючих. Отже, ставок знаходиться десь
+                за 150-200 м справа від в'їзду в с.Півче зі сторони
+                Мізоча (8 км від Мізоча). Ставок чистий, незарозший,
+                з твердим дном</i>)
+            </small>
+        </div>
+
+        <div class="controls">
+            <label for="marker_contact">Контакт на водоймі</label>
+            <input id="marker_contact"
+                   type="text"
+                   name="contact" />
+            <small>(телефон та ім'я чи т.п., щоб замовити місце, просто поговорити, розпитати)</small>
+        </div>
+
+        <div class="controls">
+            <label for="marker_paid_fish">Вартість риболовлі</label>
+            <input id="marker_paid_fish"
+                   type="text"
+                   name="paid_fish"  />
+            <small>(ціна, час доби коли можна рибалити, вага риби на виніс і т.п.)</small>
+        </div>
+
+
+        <div class="controls">
+            <label id="add_opts" class="expandable"
+            >Ввести додаткову інформацію</label>
+        </div>
+
+        <div id="additional_opts" >
             <div class="controls">
-                <label for="marker_name">*Назва водойми</label>
-                <input id="marker_name"
-                       type="text"
-                       name="name"
-                       required="1" />
-                <small>(загально відома назва місця для рибалки, наприклад Біле Озеро, Бочаниця)</small>
+                <label for="fishes">Виберіть рибу</label>
+
+                <div class="fishes">
+                    <?php foreach ($fishes as $fish) { ?>
+                        <label class="check">
+                            <input type="checkbox" name="fishes[]" value="<?php echo $fish->id ?>" />
+                            <?php echo $fish->name ?>
+                        </label>
+                    <?php } ?>
+                </div>
+                <div>
+                    <small>(виберіть кілька риб)</small>
+                </div>
             </div>
 
-            <div class="controls" class="marker_lat">
-                <label>*Координати на мапі</label>
-                <input type="hidden" name="lat" />
-                <input type="hidden" name="lng" />
-
-                <div id="map_canvas" class="google-map marker_lat" ></div>
-                <small>(клікніть на карті, щоб позначити водойму)</small>
+            <div class="controls">
+                <label for="marker_address">Адреса водойми</label>
+                <input id="marker_address" type="text" name="address" />
+                <small>(наприклад "село Бочаниця, Гощанський район, Рівненська область")</small>
             </div>
 
             <div class="controls">
-                <label for="marker_permit">Умови рибалки</label>
+                <label for="marker_conveniences">Умови для відпочинку</label>
+                <textarea id="marker_conveniences"
+                          name="conveniences" rows="6" cols="62" maxlength="10000"/></textarea>
+                <small>(чи є доступ до питної води, де ставити палатку, чи є мангали й столики і таке інше)</small>
+            </div>
 
+            <div class="controls photo_urls">
+                <label>Фото водойми</label>
+                <div>
+                    <input type="text" name="photo_url1" id="marker_photo_url1" placeholder="Фото 1" />
+                </div>
+                <div>
+                    <input type="text" name="photo_url2" id="marker_photo_url2" placeholder="Фото 2" />
+                </div>
+                <div>
+                    <input type="text" name="photo_url3" id="marker_photo_url3" placeholder="Фото 3" />
+                </div>
+                <div>
+                    <input type="text" name="photo_url4" id="marker_photo_url4" placeholder="Фото 4" />
+                </div>
+            </div>
+
+            <div class="controls">
+                <label for="marker_area">Площа водойми</label>
+                <input id="marker_area" type="text" name="area" class="input-sm" />
+                <small>(в арах, 100 ар = 1 Га)</small>
+            </div>
+
+            <div class="controls">
+                <div class="col col-4">
+                    <label for="marker_max_depth">Максимальна глибина</label>
+                    <input id="marker_max_depth" type="text" name="max_depth"
+                           class="input-sm">
+                    <small>(в метрах)</small>
+                </div>
+                <div class="col col-4">
+                    <label for="marker_average_depth">Середня глибина</label>
+                    <input id="marker_average_depth" type="text" name="average_depth"
+                           class="input-sm" />
+                    <small>(в метрах)</small>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="col col-4">
+                    <label for="marker_24h_price">Варість ловлі за добу</label>
+                    <input id="marker_24h_price" type="text" name="24h_price"
+                           class="input-sm" />
+                    <small>(в гривнях)</small>
+                </div>
+                <div class="col col-4">
+                    <label for="marker_dayhour_price">Варість ловлі за світловий день</label>
+                    <input id="marker_dayhour_price" type="text" name="dayhour_price"
+                           class="input-sm" />
+                    <small>(в гривнях)</small>
+                </div>
+            </div>
+
+            <div class="controls">
+                <label for="marker_boat_usage">
+                    <input type="hidden" name="boat_usage" value="0" />
+                    <input id="marker_boat_usage" type="checkbox" name="boat_usage" value="1" />
+                    можна користуватись човном
+                </label>
+            </div>
+
+            <div class="controls">
+                <label>Коли можна рибалити</label>
                 <label class="check">
-                    <input type="radio" name="permit" value="unknown" checked="1" /> невідомо
+                    <input type="radio" name="time_to_fish" value="unknown" checked="1" />
+                    невідомо
                 </label>
                 <label class="check">
-                    <input type="radio" name="permit" value="free" /> безкоштовно
+                    <input type="radio" name="time_to_fish" value="24h" />
+                    цілодобово
                 </label>
                 <label class="check">
-                    <input type="radio" name="permit" value="paid" /> платно
-                </label>
-                <label class="check">
-                    <input type="radio" name="permit" value="prohibited" /> заборонено
+                    <input type="radio" name="time_to_fish" value="daylight" />
+                    лише світловий день
                 </label>
             </div>
-
-            <div class="controls">
-                <label for="marker_content">Інформація про водойму</label>
-                <textarea id="marker_content"
-                          name="content" rows="6" maxlength="10000"></textarea>
-                <small>(наприклад: <i>Став був клубним і ловити було заборонено,
-                    лише обраним по запрошеннях. Проте тепер ставок відкритий для
-                    ловлі для всіх бажаючих. Отже, ставок знаходиться десь
-                    за 150-200 м справа від в'їзду в с.Півче зі сторони
-                    Мізоча (8 км від Мізоча). Ставок чистий, незарозший,
-                    з твердим дном</i>)
-                </small>
-            </div>
-
-            <div class="controls">
-                <label for="marker_contact">Контакт на водоймі</label>
-                <input id="marker_contact"
-                       type="text"
-                       name="contact" />
-                <small>(телефон та ім'я чи т.п., щоб замовити місце, просто поговорити, розпитати)</small>
-            </div>
-
-            <div class="controls">
-                <label for="marker_paid_fish">Вартість риболовлі</label>
-                <input id="marker_paid_fish"
-                       type="text"
-                       name="paid_fish"  />
-                <small>(ціна, час доби коли можна рибалити, вага риби на виніс і т.п.)</small>
-            </div>
-
-
-            <div class="controls">
-                <label id="add_opts" class="expandable"
-                >Ввести додаткову інформацію</label>
-            </div>
-
-            <div id="additional_opts" >
-                <div class="controls">
-                    <label for="fishes">Виберіть рибу</label>
-
-                    <div class="fishes">
-                        <?php foreach ($fishes as $fish) { ?>
-                            <label class="check">
-                                <input type="checkbox" name="fishes[]" value="<?php echo $fish->id ?>" />
-                                <?php echo $fish->name ?>
-                            </label>
-                        <?php } ?>
-                    </div>
-                    <div>
-                        <small>(виберіть кілька риб)</small>
-                    </div>
-                </div>
-
-                <div class="controls">
-                    <label for="marker_address">Адреса водойми</label>
-                    <input id="marker_address" type="text" name="address" />
-                    <small>(наприклад "село Бочаниця, Гощанський район, Рівненська область")</small>
-                </div>
-
-                <div class="controls">
-                    <label for="marker_conveniences">Умови для відпочинку</label>
-                    <textarea id="marker_conveniences"
-                              name="conveniences" rows="6" cols="62" maxlength="10000"/></textarea>
-                    <small>(чи є доступ до питної води, де ставити палатку, чи є мангали й столики і таке інше)</small>
-                </div>
-
-                <div class="controls photo_urls">
-                    <label>Фото водойми</label>
-                    <div>
-                        <input type="text" name="photo_url1" id="marker_photo_url1" placeholder="Фото 1" />
-                    </div>
-                    <div>
-                        <input type="text" name="photo_url2" id="marker_photo_url2" placeholder="Фото 2" />
-                    </div>
-                    <div>
-                        <input type="text" name="photo_url3" id="marker_photo_url3" placeholder="Фото 3" />
-                    </div>
-                    <div>
-                        <input type="text" name="photo_url4" id="marker_photo_url4" placeholder="Фото 4" />
-                    </div>
-                </div>
-
-                <div class="controls">
-                    <label for="marker_area">Площа водойми</label>
-                    <input id="marker_area" type="text" name="area" class="input-sm" />
-                    <small>(в арах, 100 ар = 1 Га)</small>
-                </div>
-
-                <div class="controls">
-                    <div class="col col-4">
-                        <label for="marker_max_depth">Максимальна глибина</label>
-                        <input id="marker_max_depth" type="text" name="max_depth"
-                               class="input-sm">
-                        <small>(в метрах)</small>
-                    </div>
-                    <div class="col col-4">
-                        <label for="marker_average_depth">Середня глибина</label>
-                        <input id="marker_average_depth" type="text" name="average_depth"
-                               class="input-sm" />
-                        <small>(в метрах)</small>
-                    </div>
-                </div>
-
-                <div class="controls">
-                    <div class="col col-4">
-                        <label for="marker_24h_price">Варість ловлі за добу</label>
-                        <input id="marker_24h_price" type="text" name="24h_price"
-                               class="input-sm" />
-                        <small>(в гривнях)</small>
-                    </div>
-                    <div class="col col-4">
-                        <label for="marker_dayhour_price">Варість ловлі за світловий день</label>
-                        <input id="marker_dayhour_price" type="text" name="dayhour_price"
-                               class="input-sm" />
-                        <small>(в гривнях)</small>
-                    </div>
-                </div>
-
-                <div class="controls">
-                    <label for="marker_boat_usage">
-                        <input type="hidden" name="boat_usage" value="0" />
-                        <input id="marker_boat_usage" type="checkbox" name="boat_usage" value="1" />
-                        можна користуватись човном
-                    </label>
-                </div>
-
-                <div class="controls">
-                    <label>Коли можна рибалити</label>
-                    <label class="check">
-                        <input type="radio" name="time_to_fish" value="unknown" checked="1" />
-                        невідомо
-                    </label>
-                    <label class="check">
-                        <input type="radio" name="time_to_fish" value="24h" />
-                        цілодобово
-                    </label>
-                    <label class="check">
-                        <input type="radio" name="time_to_fish" value="daylight" />
-                        лише світловий день
-                    </label>
-                </div>
-
-            </div>
-            <p>
-                <input type="submit" name="add_submit" id="add_submit" class="art-button"
-                       value="Додати" />
-            </p>
-
 
         </div>
-    </form>
-</div>
+        <p>
+            <input type="submit" name="add_submit" id="add_submit" class="art-button"
+                   value="Додати" />
+        </p>
+
+
+    </div>
+</form>
