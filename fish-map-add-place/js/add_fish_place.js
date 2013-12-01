@@ -1,4 +1,5 @@
-var AddMarkerForm = {
+var AddMarkerForm = (function ($) {
+    return {
     init : function () {
         $('#add_opts').click(function () {
             $('#additional_opts').toggle();
@@ -122,7 +123,7 @@ var AddMarkerForm = {
         this.form.find('input[name=lat]').val('');
         this.form.find('input[name=lng]').val('');
     }
-};
+})(jQuery);
 
 jQuery(document).ready(function($) {
     AddMarkerForm.init();
