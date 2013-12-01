@@ -19,5 +19,5 @@ git pull
 # sync changes
 for i in ${!plugins[*]}
 do
-    rsync -rtvu --delete $REPO_DIR_PATH/${plugins[$i]} $WORDPRESS_PATH/wp-content/plugins/${plugins[$i]}
+    rsync -rtvu --delete $REPO_DIR_PATH/${plugins[$i]}/ $WORDPRESS_PATH/wp-content/plugins/${plugins[$i]}/
 done
