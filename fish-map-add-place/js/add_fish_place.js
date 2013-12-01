@@ -123,7 +123,7 @@ var AddMarkerForm = (function ($) {
         this.form.find('input[name=lat]').val('');
         this.form.find('input[name=lng]').val('');
     }
-})(jQuery);
+};})(jQuery);
 
 jQuery(document).ready(function($) {
     AddMarkerForm.init();
