@@ -1,9 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# Local
 # dev.rivnefish.com
-# WORDPRESS_PATH="/path/to/dev.rivnefish.com/wordpress" ./deploy.sh
+# WORDPRESS_PATH="/usr/home/rivnefish/domains/dev.rivnefish.com/public_html"
 #
 # rivnefish.com
-# WORDPRESS_PATH="/path/to/rivnefish.com/wordpress" ./deploy.sh
+# WORDPRESS_PATH="/usr/home/rivnefish/domains/rivnefish.com/public_html"
+
+# To Remote
+# Add "rivnefish@hosting1.ukrwest.net:" before path, example:
+# WORDPRESS_PATH="rivnefish@hosting1.ukrwest.net:/usr/home/rivnefish/domains/dev.rivnefish.com/public_html"
 
 REPO_DIR_PATH=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)
 
