@@ -45,7 +45,7 @@ class MarkerModel
 
     public function getFishes()
     {
-        return $this->db->get_results("SELECT id, name FROM fishes ORDER BY name");
+        return $this->db->get_results("SELECT fish_id, name FROM fishes ORDER BY name");
     }
 
     public function getFishIds()
