@@ -2,7 +2,8 @@ var AddMarkerForm = (function ($) {
     return {
     init : function () {
         $('#add_opts').click(function () {
-            $('#additional_opts').toggle();
+            $('#additional_opts').slideToggle();
+            $(this).toggleClass('active');
         });
         $('#add_more').click($.proxy(this.addMore, this));
 
@@ -10,6 +11,8 @@ var AddMarkerForm = (function ($) {
         this.form.submit($.proxy(this.savePlace, this));
 
         this.initMap();
+
+        $('#permit').change(this.togglePermitInfo).trigger('change');
     },
 
     initMap : function () {
@@ -55,6 +58,23 @@ var AddMarkerForm = (function ($) {
         google.maps.event.addListener(this.map, 'click', $.proxy(function(e) {
             this.placeMarker(e.latLng, this.map);
         }, this));
+    },
+
+    togglePermitInfo : function () {
+        var contactControl = $('#marker_contact').parent(),
+            paidControls = $('#marker_paid_fish, #time_to_fish, #marker_boat_usage').closest('.controls');
+
+        if (this.value == 'paid') {
+            paidControls.slideDown('fast');
+        } else {
+            paidControls.slideUp('fast');
+        }
+
+        if (this.value == 'paid' || this.value == 'prohibited') {
+            contactControl.slideDown('fast');
+        } else {
+            contactControl.slideUp('fast');
+        }
     },
 
     addMore : function (e) {

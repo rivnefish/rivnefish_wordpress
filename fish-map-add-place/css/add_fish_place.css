@@ -19,9 +19,11 @@ div.success {
     cursor: pointer;
 }
 .expandable:after {
-    border-color: #ccc rgba(0, 0, 0, 0);
-    border-style: solid;
-    border-width: 6px 6px 0;
+    border-top: 6px solid #ccc;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: none;
+
     content: "";
     height: 0;
     position: relative;
@@ -29,6 +31,12 @@ div.success {
     margin-left: 10px;
     width: 0;
     z-index: 1;
+}
+
+.expandable.active:after {
+    border-top: none;
+    border-bottom: 6px solid #ccc;
+    top: -11px;
 }
 
 #additional_opts {
@@ -91,9 +99,8 @@ div.success {
     -moz-box-sizing: border-box;
 }
 
-.col-4 {
-    width: 40%;
-}
+.col-3 { width: 30%; }
+.col-4 { width: 40%; }
 
 #form_params_table td:first-child {
     text-align: right;
