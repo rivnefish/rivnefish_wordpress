@@ -1,0 +1,1748 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Explorable 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-05-01 11:29+0400\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Ann\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _x;_n;_e;__;esc_html__;esc_html_e;esc_attr__;"
+"esc_attr_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../archive-listing.php:20
+msgid "No Results Found."
+msgstr "Nicht gefunden"
+
+#: ../archive-listing.php:21
+msgid "Try searching different criteria."
+msgstr "Suchen unterschiedlichen Kriterien."
+
+#: ../archive-listing.php:24 ../archive-listing.php:32
+#: ../includes/fullwidth_map.php:185 ../includes/fullwidth_map.php:193
+msgid "All Listing Types"
+msgstr "Alle Listentypen"
+
+#: ../archive-listing.php:25 ../archive-listing.php:47 ../functions.php:336
+#: ../includes/fullwidth_map.php:186 ../includes/fullwidth_map.php:208
+msgid "All Locations"
+msgstr "Alle Standorte"
+
+#: ../archive-listing.php:26 ../archive-listing.php:62
+#: ../includes/fullwidth_map.php:187 ../includes/fullwidth_map.php:223
+msgid "Any Rating"
+msgstr "Eine Bewertung"
+
+#: ../archive-listing.php:27 ../includes/fullwidth_map.php:188
+msgid "Filter"
+msgstr "\tFilter"
+
+#: ../comments.php:4
+msgid "This post is password protected. Enter the password to view comments."
+msgstr ""
+"Dieser Artikel ist passwortgeschützt. Geben Sie Ihr Passwort ein um die "
+"Kommentare anzuzeigen."
+
+#: ../comments.php:15 ../comments.php:29
+msgid "<span class=\"meta-nav\">&larr;</span> Older Comments"
+msgstr "<span class=\"meta-nav\">&larr;</span> &Auml;ltere Kommentare"
+
+#: ../comments.php:16 ../comments.php:30
+msgid "Newer Comments <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Neuere Kommentare <span class=\"meta-nav\">&rarr;</span>"
+
+#: ../comments.php:22
+msgid "0 Comments"
+msgstr "Keine Kommentare"
+
+#: ../comments.php:22 ../functions.php:247
+msgid "1 Comment"
+msgstr "1 Kommentar"
+
+#: ../comments.php:22
+msgid "Comments"
+msgstr "Kommentare"
+
+#: ../comments.php:36
+msgid "Trackbacks/Pingbacks"
+msgstr "Trackbacks/Pingbacks"
+
+#: ../comments.php:54
+msgid "Submit Comment"
+msgstr "Kommentar absenden"
+
+#: ../comments.php:54
+msgid "Post a Reply"
+msgstr "Kommentar absenden"
+
+#: ../comments.php:54
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr "Kommentar absenden zu %s"
+
+#: ../content.php:42 ../page-blog.php:47 ../includes/entry.php:21
+msgid "0 comments"
+msgstr "0 comments"
+
+#: ../content.php:42 ../page-blog.php:47 ../includes/entry.php:21
+msgid "1 comment"
+msgstr "1 Kommentar"
+
+#: ../content.php:42 ../page-blog.php:47 ../includes/entry.php:21
+msgid "comments"
+msgstr "Kommentare"
+
+#: ../content.php:59 ../image.php:62 ../single-listing.php:123
+msgid "Pages:"
+msgstr "Seiten:"
+
+#: ../footer.php:6
+#, php-format
+msgid "Designed by %1$s | Powered by %2$s"
+msgstr "Designed by %1$s | Powered by %2$s"
+
+#: ../functions.php:32
+msgid "Primary Menu"
+msgstr ""
+
+#: ../functions.php:78 ../functions.php:98 ../functions.php:264
+#: ../page-blog.php:47
+msgid "on"
+msgstr "am"
+
+#: ../functions.php:81 ../functions.php:101
+msgid "no-subset"
+msgstr ""
+
+#: ../functions.php:123
+msgid "<span>Toggle</span> List View"
+msgstr ""
+
+#: ../functions.php:124 ../functions.php:149
+msgid "Navigation Menu"
+msgstr ""
+
+#: ../functions.php:226
+#, php-format
+msgid "Posts by %s"
+msgstr ""
+
+#: ../functions.php:243
+msgid "% Comments"
+msgstr ""
+
+#: ../functions.php:245
+msgid "No Comments"
+msgstr ""
+
+#: ../functions.php:260
+msgid "By"
+msgstr "Von"
+
+#: ../functions.php:267 ../page-blog.php:47
+msgid "in"
+msgstr "in"
+
+#: ../functions.php:278
+msgid "Listings"
+msgstr ""
+
+#: ../functions.php:279
+msgid "Listing"
+msgstr ""
+
+#: ../functions.php:280
+msgid "Add New"
+msgstr ""
+
+#: ../functions.php:281
+msgid "Add New Listing"
+msgstr ""
+
+#: ../functions.php:282
+msgid "Edit Listing"
+msgstr ""
+
+#: ../functions.php:283
+msgid "New Listing"
+msgstr ""
+
+#: ../functions.php:284
+msgid "All Listings"
+msgstr ""
+
+#: ../functions.php:285
+msgid "View Listing"
+msgstr ""
+
+#: ../functions.php:286
+msgid "Search Offers"
+msgstr ""
+
+#: ../functions.php:287
+msgid "Nothing found"
+msgstr ""
+
+#: ../functions.php:288
+msgid "Nothing found in Trash"
+msgstr ""
+
+#: ../functions.php:311 ../functions.php:321
+msgid "Types"
+msgstr ""
+
+#: ../functions.php:312 ../functions.php:657
+#: ../epanel/shortcodes/shortcodes.php:995
+#: ../epanel/shortcodes/shortcodes.php:1017
+msgid "Type"
+msgstr ""
+
+#: ../functions.php:313
+msgid "Search Types"
+msgstr ""
+
+#: ../functions.php:314
+msgid "All Types"
+msgstr ""
+
+#: ../functions.php:315
+msgid "Parent Type"
+msgstr ""
+
+#: ../functions.php:316
+msgid "Parent Type:"
+msgstr ""
+
+#: ../functions.php:317
+msgid "Edit Type"
+msgstr ""
+
+#: ../functions.php:318
+msgid "Update Type"
+msgstr ""
+
+#: ../functions.php:319
+msgid "Add New Type"
+msgstr ""
+
+#: ../functions.php:320
+msgid "New Type Name"
+msgstr ""
+
+#: ../functions.php:333 ../functions.php:343
+msgid "Locations"
+msgstr ""
+
+#: ../functions.php:334 ../functions.php:658
+msgid "Location"
+msgstr ""
+
+#: ../functions.php:335
+msgid "Search Locations"
+msgstr ""
+
+#: ../functions.php:337
+msgid "Parent Location"
+msgstr ""
+
+#: ../functions.php:338
+msgid "Parent Location:"
+msgstr ""
+
+#: ../functions.php:339
+msgid "Edit Location"
+msgstr ""
+
+#: ../functions.php:340
+msgid "Update Location"
+msgstr ""
+
+#: ../functions.php:341
+msgid "Add New Location"
+msgstr ""
+
+#: ../functions.php:342
+msgid "New Location Name"
+msgstr ""
+
+#: ../functions.php:362
+#, php-format
+msgid "Listing updated. <a href=\"%s\">View Listing</a>"
+msgstr ""
+
+#: ../functions.php:363
+msgid "Custom field updated."
+msgstr ""
+
+#: ../functions.php:364
+msgid "Custom field deleted."
+msgstr ""
+
+#: ../functions.php:365
+msgid "Listing updated."
+msgstr ""
+
+#: ../functions.php:367
+#, php-format
+msgid "Listing restored to revision from %s"
+msgstr ""
+
+#: ../functions.php:368
+#, php-format
+msgid "Listing published. <a href=\"%s\">View Listing</a>"
+msgstr ""
+
+#: ../functions.php:369
+msgid "Listing saved."
+msgstr ""
+
+#: ../functions.php:370
+#, php-format
+msgid "Listing submitted. <a target=\"_blank\" href=\"%s\">Preview Listing</a>"
+msgstr ""
+
+#: ../functions.php:371
+#, php-format
+msgid ""
+"Listing scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview Listing</a>"
+msgstr ""
+
+#: ../functions.php:373
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: ../functions.php:374
+#, php-format
+msgid ""
+"Listing draft updated. <a target=\"_blank\" href=\"%s\">Preview testimonial</"
+"a>"
+msgstr ""
+
+#: ../functions.php:382 ../functions.php:383 ../functions.php:384
+msgid "ET Settings"
+msgstr ""
+
+#: ../functions.php:391
+msgid ""
+"Drag and drop a marker to detect Location latitude and longtitude "
+"automatically."
+msgstr ""
+
+#: ../functions.php:396
+msgid "Location Latitude"
+msgstr ""
+
+#: ../functions.php:399 ../functions.php:406 ../functions.php:414
+msgid "e.g."
+msgstr ""
+
+#: ../functions.php:403
+msgid "Location Longtitude"
+msgstr ""
+
+#: ../functions.php:410
+msgid "Location Address"
+msgstr ""
+
+#: ../functions.php:420
+msgid "Description"
+msgstr ""
+
+#: ../functions.php:426
+msgid "Rating"
+msgstr ""
+
+#: ../functions.php:440
+msgid "Header Background Image"
+msgstr ""
+
+#: ../functions.php:442 ../epanel/core_functions.php:204
+msgid "Upload Image"
+msgstr ""
+
+#: ../functions.php:443
+msgid ""
+"enter URL or upload an image if you want to specify the Header Background "
+"Image"
+msgstr ""
+
+#: ../functions.php:516
+msgid "Detect the marker address"
+msgstr ""
+
+#: ../functions.php:517
+msgid "It will replace the value, set in Location Address"
+msgstr ""
+
+#: ../functions.php:518
+msgid "Detect Latitude and Longtitude values, using the address"
+msgstr ""
+
+#: ../functions.php:519
+msgid "Please, fill in the Location Address field"
+msgstr ""
+
+#: ../functions.php:656
+msgid "Title"
+msgstr ""
+
+#: ../functions.php:683 ../functions.php:702
+msgid "None"
+msgstr ""
+
+#: ../functions.php:726
+msgid "Fonts"
+msgstr ""
+
+#: ../functions.php:738
+msgid "Link Color"
+msgstr ""
+
+#: ../functions.php:751
+msgid "Main Font Color"
+msgstr ""
+
+#: ../functions.php:764
+msgid "Headings Color"
+msgstr ""
+
+#: ../functions.php:777
+msgid "Menu Bar Background Color"
+msgstr ""
+
+#: ../functions.php:790
+msgid "Menu Links Color"
+msgstr ""
+
+#: ../functions.php:803
+msgid "Menu Active Color"
+msgstr ""
+
+#: ../functions.php:815
+msgid "Header Font"
+msgstr ""
+
+#: ../functions.php:829
+msgid "Body Font"
+msgstr ""
+
+#: ../header.php:54 ../epanel/custom_functions.php:434
+#: ../includes/breadcrumbs.php:4
+msgid "Home"
+msgstr "Startseite"
+
+#: ../header.php:66
+msgid "Search this site..."
+msgstr "Suchen..."
+
+#: ../image.php:56
+msgid "&larr; Previous"
+msgstr "&larr; Vorherig"
+
+#: ../image.php:57
+msgid "Next &rarr;"
+msgstr "Nächste &rarr;"
+
+#: ../page-blog.php:47
+msgid "Posted"
+msgstr "Gepostet"
+
+#: ../page-blog.php:47
+msgid "by"
+msgstr "von"
+
+#: ../page-blog.php:67
+msgid "read more"
+msgstr "mehr"
+
+#: ../page-contact.php:19
+msgid "Make sure you entered the captcha. "
+msgstr ""
+
+#: ../page-contact.php:22
+msgid "Numbers regenerated."
+msgstr ""
+
+#: ../page-contact.php:23
+msgid "You entered the wrong number in captcha. "
+msgstr ""
+
+#: ../page-contact.php:32
+msgid "Make sure you fill all fields. "
+msgstr ""
+
+#: ../page-contact.php:37
+msgid "Invalid Email. "
+msgstr ""
+
+#: ../page-contact.php:65
+msgid "Thanks for contacting us"
+msgstr ""
+
+#: ../page-contact.php:90 ../page-contact.php:91
+msgid "Name"
+msgstr ""
+
+#: ../page-contact.php:95 ../page-contact.php:96
+msgid "Email Address"
+msgstr ""
+
+#: ../page-contact.php:100 ../page-contact.php:101
+msgid "Subject"
+msgstr ""
+
+#: ../page-contact.php:108
+msgid "Captcha: "
+msgstr ""
+
+#: ../page-contact.php:119 ../page-contact.php:120
+msgid "Message"
+msgstr ""
+
+#: ../page-contact.php:125 ../epanel/core_functions.php:203
+#: ../epanel/core_functions.php:377
+msgid "Reset"
+msgstr ""
+
+#: ../page-contact.php:126 ../page-search.php:61
+msgid "Submit"
+msgstr ""
+
+#: ../page-gallery.php:51 ../page-template-portfolio.php:111
+msgid "Zoom in"
+msgstr ""
+
+#: ../page-gallery.php:52 ../page-template-portfolio.php:112
+#: ../includes/fullwidth_map.php:266
+msgid "Read more"
+msgstr ""
+
+#: ../page-login.php:31
+msgid "Username"
+msgstr ""
+
+#: ../page-login.php:32
+msgid "Password"
+msgstr ""
+
+#: ../page-search.php:27
+msgid "search this website"
+msgstr ""
+
+#: ../page-search.php:30
+msgid "search this site..."
+msgstr "suchen..."
+
+#: ../page-search.php:32
+msgid "Posts"
+msgstr ""
+
+#: ../page-search.php:33 ../page-sitemap.php:29
+#: ../epanel/options_explorable.php:165
+msgid "Pages"
+msgstr ""
+
+#: ../page-search.php:36
+msgid "Select a month"
+msgstr ""
+
+#: ../page-sitemap.php:34 ../epanel/options_explorable.php:170
+msgid "Categories"
+msgstr ""
+
+#: ../page-sitemap.php:39
+msgid "Tags"
+msgstr ""
+
+#: ../page-sitemap.php:55
+msgid "Authors"
+msgstr ""
+
+#: ../single-listing.php:113
+msgid "Author"
+msgstr ""
+
+#: ../single-listing.php:114
+msgid "Date Posted"
+msgstr ""
+
+#: ../single-listing.php:115
+msgid "Category"
+msgstr ""
+
+#: ../single-listing.php:117
+msgid "Address:"
+msgstr ""
+
+#: ../epanel/core_functions.php:26 ../epanel/core_functions.php:389
+msgid "Saving..."
+msgstr ""
+
+#: ../epanel/core_functions.php:27
+msgid "Options Saved."
+msgstr ""
+
+#: ../epanel/core_functions.php:73
+msgid "Options"
+msgstr ""
+
+#: ../epanel/core_functions.php:73
+msgid "Theme Options"
+msgstr ""
+
+#: ../epanel/core_functions.php:90
+msgid "settings saved."
+msgstr ""
+
+#: ../epanel/core_functions.php:93
+msgid "settings reset."
+msgstr ""
+
+#: ../epanel/core_functions.php:111 ../epanel/options_explorable.php:175
+#: ../epanel/options_explorable.php:326
+msgid "General Settings"
+msgstr ""
+
+#: ../epanel/core_functions.php:114
+msgid "Navigation"
+msgstr ""
+
+#: ../epanel/core_functions.php:117
+msgid "Layout Settings"
+msgstr ""
+
+#: ../epanel/core_functions.php:120
+msgid "Ad Management"
+msgstr ""
+
+#: ../epanel/core_functions.php:123
+msgid "Colorization"
+msgstr ""
+
+#: ../epanel/core_functions.php:126
+msgid "SEO"
+msgstr ""
+
+#: ../epanel/core_functions.php:129
+msgid "Integration"
+msgstr ""
+
+#: ../epanel/core_functions.php:132
+msgid "Support Docs"
+msgstr ""
+
+#: ../epanel/core_functions.php:229
+msgid "You don't have pages"
+msgstr ""
+
+#: ../epanel/core_functions.php:362
+msgid "Save changes"
+msgstr ""
+
+#: ../epanel/core_functions.php:373
+msgid ""
+"This will return all of the settings throughout the options page to their "
+"default values. <strong>Are you sure you want to do this?"
+msgstr ""
+
+#: ../epanel/custom_functions.php:840
+msgid "Image doesn't exist"
+msgstr ""
+
+#: ../epanel/custom_functions.php:1029
+#, php-format
+msgid ""
+"<div class=\"updated\"><p>This is a fresh installation of %1$s theme. Don't "
+"forget to go to <a href=\"%2$s\">ePanel</a> to set it up. This message will "
+"disappear once you have clicked the Save button within the <a href=\"%2$s"
+"\">theme's options page</a>.</p></div>"
+msgstr ""
+
+#: ../epanel/custom_functions.php:1041
+#, php-format
+msgid ""
+"There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox"
+"\" title=\"%1$s\">View version %3$s details</a>. <em>Auto-updates are not "
+"available for this theme. If this is an Elegant Themes theme, then you must "
+"re-download the theme from the member's area and <a href=\"http://www."
+"elegantthemes.com/members-area/documentation.html#update\" target=\"_blank"
+"\">re-install it</a> in order to update it to the latest version.</em>"
+msgstr ""
+
+#: ../epanel/custom_functions.php:1045
+msgid ""
+"Auto-updates are not available for this theme. If this is an Elegant Themes "
+"theme, then you must re-download the theme from the member's area and <a "
+"href=\"http://www.elegantthemes.com/members-area/documentation.html#update\" "
+"target=\"_blank\">re-install it</a> in order to update it to the latest "
+"version."
+msgstr ""
+
+#: ../epanel/options_explorable.php:38
+msgid "General"
+msgstr ""
+
+#: ../epanel/options_explorable.php:45
+msgid "Logo"
+msgstr ""
+
+#: ../epanel/options_explorable.php:49
+msgid ""
+"If you would like to use your own custom logo image click the Upload Image "
+"button."
+msgstr ""
+
+#: ../epanel/options_explorable.php:52
+msgid "Favicon"
+msgstr ""
+
+#: ../epanel/options_explorable.php:56
+msgid ""
+"If you would like to use your own custom favicon image click the Upload "
+"Image button."
+msgstr ""
+
+#: ../epanel/options_explorable.php:59
+msgid "Main Header Background Image"
+msgstr ""
+
+#: ../epanel/options_explorable.php:63
+msgid "Here you can upload the main header background image."
+msgstr ""
+
+#: ../epanel/options_explorable.php:66
+msgid "Grab the first post image"
+msgstr ""
+
+#: ../epanel/options_explorable.php:70
+msgid ""
+"By default thumbnail images are created using custom fields. However, if you "
+"would rather use the images that are already in your post for your thumbnail "
+"(and bypass using custom fields) you can activate this option. Once "
+"activcated thumbnail images will be generated automatically using the first "
+"image in your post. The image must be hosted on your own server."
+msgstr ""
+
+#: ../epanel/options_explorable.php:75
+msgid "Number of Posts displayed on Category page"
+msgstr ""
+
+#: ../epanel/options_explorable.php:79
+msgid ""
+"Here you can designate how many recent articles are displayed on the "
+"Category page. This option works independently from the Settings > Reading "
+"options in wp-admin."
+msgstr ""
+
+#: ../epanel/options_explorable.php:83
+msgid "Number of Posts displayed on Archive pages"
+msgstr ""
+
+#: ../epanel/options_explorable.php:87
+msgid ""
+"Here you can designate how many recent articles are displayed on the Archive "
+"pages. This option works independently from the Settings > Reading options "
+"in wp-admin."
+msgstr ""
+
+#: ../epanel/options_explorable.php:91
+msgid "Number of Posts displayed on Search pages"
+msgstr ""
+
+#: ../epanel/options_explorable.php:95
+msgid ""
+"Here you can designate how many recent articles are displayed on the Search "
+"results pages. This option works independently from the Settings > Reading "
+"options in wp-admin."
+msgstr ""
+
+#: ../epanel/options_explorable.php:99
+msgid "Number of Posts displayed on Tag pages"
+msgstr ""
+
+#: ../epanel/options_explorable.php:103
+msgid ""
+"Here you can designate how many recent articles are displayed on the Tag "
+"pages. This option works independently from the Settings > Reading options "
+"in wp-admin."
+msgstr ""
+
+#: ../epanel/options_explorable.php:107
+msgid "Date format"
+msgstr ""
+
+#: ../epanel/options_explorable.php:111
+msgid ""
+"This option allows you to change how your dates are displayed. For more "
+"information please refer to the WordPress codex here:<a href='http://codex."
+"wordpress.org/Formatting_Date_and_Time' target='_blank'>Formatting Date and "
+"Time</a>"
+msgstr ""
+
+#: ../epanel/options_explorable.php:117
+msgid "Use excerpts when defined"
+msgstr ""
+
+#: ../epanel/options_explorable.php:121
+msgid "This will enable the use of excerpts in posts or pages."
+msgstr ""
+
+#: ../epanel/options_explorable.php:124
+msgid "Responsive shortcodes"
+msgstr ""
+
+#: ../epanel/options_explorable.php:128
+msgid "Enable this option to make shortcodes respond to various screen sizes"
+msgstr ""
+
+#: ../epanel/options_explorable.php:133
+msgid "Google Fonts subsets"
+msgstr ""
+
+#: ../epanel/options_explorable.php:137
+msgid "This will enable Google Fonts for Non-English languages."
+msgstr ""
+
+#: ../epanel/options_explorable.php:142
+msgid "Custom CSS"
+msgstr ""
+
+#: ../epanel/options_explorable.php:146
+msgid "Here you can add custom css to override or extend default styles."
+msgstr ""
+
+#: ../epanel/options_explorable.php:183
+msgid "Exclude pages from the navigation bar"
+msgstr ""
+
+#: ../epanel/options_explorable.php:187
+msgid ""
+"Here you can choose to remove certain pages from the navigation menu. All "
+"pages marked with an X will not appear in your navigation bar. "
+msgstr ""
+
+#: ../epanel/options_explorable.php:191 ../epanel/options_explorable.php:246
+msgid "Show dropdown menus"
+msgstr ""
+
+#: ../epanel/options_explorable.php:195
+msgid ""
+"If you would like to remove the dropdown menus from the pages navigation bar "
+"disable this feature."
+msgstr ""
+
+#: ../epanel/options_explorable.php:198
+msgid "Display Home link"
+msgstr ""
+
+#: ../epanel/options_explorable.php:202
+msgid ""
+"By default the theme creates a Home link that, when clicked, leads back to "
+"your blog's homepage. If, however, you are using a static homepage and have "
+"already created a page called Home to use, this will result in a duplicate "
+"link. In this case you should disable this feature to remove the link."
+msgstr ""
+
+#: ../epanel/options_explorable.php:207
+msgid "Sort Pages Links"
+msgstr ""
+
+#: ../epanel/options_explorable.php:211
+msgid "Here you can choose to sort your pages links."
+msgstr ""
+
+#: ../epanel/options_explorable.php:214
+msgid "Order Pages Links by Ascending/Descending"
+msgstr ""
+
+#: ../epanel/options_explorable.php:218
+msgid ""
+"Here you can choose to reverse the order that your pages links are "
+"displayed. You can choose between ascending and descending."
+msgstr ""
+
+#: ../epanel/options_explorable.php:221 ../epanel/options_explorable.php:262
+msgid "Number of dropdown tiers shown"
+msgstr ""
+
+#: ../epanel/options_explorable.php:225 ../epanel/options_explorable.php:266
+msgid ""
+"This options allows you to control how many teirs your pages dropdown menu "
+"has. Increasing the number allows for additional menu items to be shown."
+msgstr ""
+
+#: ../epanel/options_explorable.php:238
+msgid "Exclude categories from the navigation bar"
+msgstr ""
+
+#: ../epanel/options_explorable.php:242
+msgid ""
+"Here you can choose to remove certain categories from the navigation menu. "
+"All categories marked with an X will not appear in your navigation bar. "
+msgstr ""
+
+#: ../epanel/options_explorable.php:250
+msgid ""
+"If you would like to remove the dropdown menus from the categories "
+"navigation bar disable this feature."
+msgstr ""
+
+#: ../epanel/options_explorable.php:253
+msgid "Hide empty categories"
+msgstr ""
+
+#: ../epanel/options_explorable.php:257
+msgid ""
+"If you would like categories to be displayed in your navigationbar that "
+"don't have any posts in them then disable this option. By default empty "
+"categories are hidden"
+msgstr ""
+
+#: ../epanel/options_explorable.php:272
+msgid "Sort Categories Links by Name/ID/Slug/Count/Term Group"
+msgstr ""
+
+#: ../epanel/options_explorable.php:276
+msgid ""
+"By default pages are sorted by name. However if you would rather have them "
+"sorted by ID you can adjust this setting."
+msgstr ""
+
+#: ../epanel/options_explorable.php:279
+msgid "Order Category Links by Ascending/Descending"
+msgstr ""
+
+#: ../epanel/options_explorable.php:283
+msgid ""
+"Here you can choose to reverse the order that your categories links are "
+"displayed. You can choose between ascending and descending."
+msgstr ""
+
+#: ../epanel/options_explorable.php:292
+msgid "Disable top tier dropdown menu links"
+msgstr ""
+
+#: ../epanel/options_explorable.php:296
+msgid ""
+"In some cases users will want to create parent categories or links as "
+"placeholders to hold a list of child links or categories. In this case it is "
+"not desirable to have the parent links lead anywhere, but instead merely "
+"serve an organizational function. Enabling this options will remove the "
+"links from all parent pages/categories so that they don't lead anywhere when "
+"clicked."
+msgstr ""
+
+#: ../epanel/options_explorable.php:316
+msgid "Single Post Layout"
+msgstr ""
+
+#: ../epanel/options_explorable.php:321
+msgid "Single Page Layout"
+msgstr ""
+
+#: ../epanel/options_explorable.php:334
+msgid "Choose which items to display in the postinfo section"
+msgstr ""
+
+#: ../epanel/options_explorable.php:338
+msgid ""
+"Here you can choose which items appear in the postinfo section on single "
+"post pages. This is the area, usually below the post title, which displays "
+"basic information about your post. The highlighted itmes shown below will "
+"appear. "
+msgstr ""
+
+#: ../epanel/options_explorable.php:341
+msgid "Place Thumbs on Posts"
+msgstr ""
+
+#: ../epanel/options_explorable.php:345
+msgid ""
+"By default thumbnails are placed at the beginning of your post on single "
+"post pages. If you would like to remove this initial thumbnail image to "
+"avoid repetition simply disable this option. "
+msgstr ""
+
+#: ../epanel/options_explorable.php:348
+msgid "Show comments on posts"
+msgstr ""
+
+#: ../epanel/options_explorable.php:352
+msgid ""
+"You can disable this option if you want to remove the comments and comment "
+"form from single post pages. "
+msgstr ""
+
+#: ../epanel/options_explorable.php:363
+msgid "Place Thumbs on Pages"
+msgstr ""
+
+#: ../epanel/options_explorable.php:367
+msgid ""
+"By default thumbnails are not placed on pages (they are only used on posts). "
+"However, if you want to use thumbnails on posts you can! Just enable this "
+"option. "
+msgstr ""
+
+#: ../epanel/options_explorable.php:370
+msgid "Show comments on pages"
+msgstr ""
+
+#: ../epanel/options_explorable.php:374
+msgid ""
+"By default comments are not placed on pages, however, if you would like to "
+"allow people to comment on your pages simply enable this option. "
+msgstr ""
+
+#: ../epanel/options_explorable.php:385
+msgid "Post info section"
+msgstr ""
+
+#: ../epanel/options_explorable.php:389
+msgid ""
+"Here you can choose which items appear in the postinfo section on pages. "
+"This is the area, usually below the post title, which displays basic "
+"information about your post. The highlighted itmes shown below will appear. "
+msgstr ""
+
+#: ../epanel/options_explorable.php:394
+msgid "Show Thumbs on Index pages"
+msgstr ""
+
+#: ../epanel/options_explorable.php:398
+msgid "Enable this option to show thumbnails on Index Pages."
+msgstr ""
+
+#: ../epanel/options_explorable.php:400
+msgid "Show Author Avatar on Blog Posts"
+msgstr ""
+
+#: ../epanel/options_explorable.php:404
+msgid "Enable this option to show the post author avatar on Blog Posts."
+msgstr ""
+
+#: ../epanel/options_explorable.php:423
+msgid "Homepage SEO"
+msgstr ""
+
+#: ../epanel/options_explorable.php:428
+msgid "Single Post Page SEO"
+msgstr ""
+
+#: ../epanel/options_explorable.php:433
+msgid "Index Page SEO"
+msgstr ""
+
+#: ../epanel/options_explorable.php:441
+msgid " Enable custom title "
+msgstr ""
+
+#: ../epanel/options_explorable.php:445
+msgid ""
+"By default the theme uses a combination of your blog name and your blog "
+"description, as defined when you created your blog, to create your homepage "
+"titles. However if you want to create a custom title then simply enable this "
+"option and fill in the custom title field below. "
+msgstr ""
+
+#: ../epanel/options_explorable.php:448
+msgid " Enable meta description"
+msgstr ""
+
+#: ../epanel/options_explorable.php:452
+msgid ""
+"By default the theme uses your blog description, as defined when you created "
+"your blog, to fill in the meta description field. If you would like to use a "
+"different description then enable this option and fill in the custom "
+"description field below. "
+msgstr ""
+
+#: ../epanel/options_explorable.php:455
+msgid " Enable meta keywords"
+msgstr ""
+
+#: ../epanel/options_explorable.php:459
+msgid ""
+"By default the theme does not add keywords to your header. Most search "
+"engines don't use keywords to rank your site anymore, but some people define "
+"them anyway just in case. If you want to add meta keywords to your header "
+"then enable this option and fill in the custom keywords field below. "
+msgstr ""
+
+#: ../epanel/options_explorable.php:462 ../epanel/options_explorable.php:595
+msgid " Enable canonical URL's"
+msgstr ""
+
+#: ../epanel/options_explorable.php:466
+msgid ""
+"Canonicalization helps to prevent the indexing of duplicate content by "
+"search engines, and as a result, may help avoid duplicate content penalties "
+"and pagerank degradation. Some pages may have different URLs all leading to "
+"the same place. For example domain.com, domain.com/index.html, and www."
+"domain.com are all different URLs leading to your homepage. From a search "
+"engine's perspective these duplicate URLs, which also occur often due to "
+"custom permalinks, may be treaded individually instead of as a single "
+"destination. Defining a canonical URL tells the search engine which URL you "
+"would like to use officially. The theme bases its canonical URLs off your "
+"permalinks and the domain name defined in the settings tab of wp-admin."
+msgstr ""
+
+#: ../epanel/options_explorable.php:471
+msgid "Homepage custom title (if enabled)"
+msgstr ""
+
+#: ../epanel/options_explorable.php:475
+msgid ""
+"If you have enabled custom titles you can add your custom title here. "
+"Whatever you type here will be placed between the < title >< /title > tags "
+"in header.php"
+msgstr ""
+
+#: ../epanel/options_explorable.php:479
+msgid "Homepage meta description (if enabled)"
+msgstr ""
+
+#: ../epanel/options_explorable.php:483
+msgid ""
+"If you have enabled meta descriptions you can add your custom description "
+"here."
+msgstr ""
+
+#: ../epanel/options_explorable.php:487
+msgid "Homepage meta keywords (if enabled)"
+msgstr ""
+
+#: ../epanel/options_explorable.php:491
+msgid ""
+"If you have enabled meta keywords you can add your custom keywords here. "
+"Keywords should be separated by comas. For example: wordpress,themes,"
+"templates,elegant"
+msgstr ""
+
+#: ../epanel/options_explorable.php:495 ../epanel/options_explorable.php:573
+msgid "If custom titles are disabled, choose autogeneration method"
+msgstr ""
+
+#: ../epanel/options_explorable.php:500
+msgid ""
+"If you are not using cutsom post titles you can still have control over how "
+"your titles are generated. Here you can choose which order you would like "
+"your post title and blog name to be displayed, or you can remove the blog "
+"name from the title completely."
+msgstr ""
+
+#: ../epanel/options_explorable.php:503 ../epanel/options_explorable.php:581
+#: ../epanel/options_explorable.php:619
+msgid "Define a character to separate BlogName and Post title"
+msgstr ""
+
+#: ../epanel/options_explorable.php:507 ../epanel/options_explorable.php:585
+msgid ""
+"Here you can change which character separates your blog title and post name "
+"when using autogenerated post titles. Common values are | or -"
+msgstr ""
+
+#: ../epanel/options_explorable.php:517
+msgid "Enable custom titles"
+msgstr ""
+
+#: ../epanel/options_explorable.php:521
+msgid ""
+"By default the theme creates post titles based on the title of your post and "
+"your blog name. If you would like to make your meta title different than "
+"your actual post title you can define a custom title for each post using "
+"custom fields. This option must be enabled for custom titles to work, and "
+"you must choose a custom field name for your title below."
+msgstr ""
+
+#: ../epanel/options_explorable.php:524
+msgid "Enable custom description"
+msgstr ""
+
+#: ../epanel/options_explorable.php:528
+msgid ""
+"If you would like to add a meta description to your post you can do so using "
+"custom fields. This option must be enabled for descriptions to be displayed "
+"on post pages. You can add your meta description using custom fields based "
+"off the custom field name you define below."
+msgstr ""
+
+#: ../epanel/options_explorable.php:533
+msgid "Enable custom keywords"
+msgstr ""
+
+#: ../epanel/options_explorable.php:537
+msgid ""
+"If you would like to add meta keywords to your post you can do so using "
+"custom fields. This option must be enabled for keywords to be displayed on "
+"post pages. You can add your meta keywords using custom fields based off the "
+"custom field name you define below."
+msgstr ""
+
+#: ../epanel/options_explorable.php:540
+msgid "Enable canonical URL's"
+msgstr ""
+
+#: ../epanel/options_explorable.php:544 ../epanel/options_explorable.php:599
+msgid ""
+"Canonicalization helps to prevent the indexing of duplicate content by "
+"search engines, and as a result, may help avoid duplicate content penalties "
+"and pagerank degradation. Some pages may have different URL's all leading to "
+"the same place. For example domain.com, domain.com/index.html, and www."
+"domain.com are all different URLs leading to your homepage. From a search "
+"engine's perspective these duplicate URLs, which also occur often due to "
+"custom permalinks, may be treaded individually instead of as a single "
+"destination. Defining a canonical URL tells the search engine which URL you "
+"would like to use officially. The theme bases its canonical URLs off your "
+"permalinks and the domain name defined in the settings tab of wp-admin."
+msgstr ""
+
+#: ../epanel/options_explorable.php:549
+msgid "Custom field Name to be used for title"
+msgstr ""
+
+#: ../epanel/options_explorable.php:553
+msgid ""
+"When you define your title using custom fields you should use this value for "
+"the custom field Name. The Value of your custom field should be the custom "
+"title you would like to use."
+msgstr ""
+
+#: ../epanel/options_explorable.php:557
+msgid "Custom field Name to be used for description"
+msgstr ""
+
+#: ../epanel/options_explorable.php:561
+msgid ""
+"When you define your meta description using custom fields you should use "
+"this value for the custom field Name. The Value of your custom field should "
+"be the custom description you would like to use."
+msgstr ""
+
+#: ../epanel/options_explorable.php:565
+msgid "Custom field Name to be used for keywords"
+msgstr ""
+
+#: ../epanel/options_explorable.php:569
+msgid ""
+"When you define your keywords using custom fields you should use this value "
+"for the custom field Name. The Value of your custom field should be the meta "
+"keywords you would like to use, separated by comas."
+msgstr ""
+
+#: ../epanel/options_explorable.php:578
+msgid ""
+"If you are not using cutsom post titles you can still have control over hw "
+"your titles are generated. Here you can choose which order you would like "
+"your post title and blog name to be displayed, or you can remove the blog "
+"name from the title completely."
+msgstr ""
+
+#: ../epanel/options_explorable.php:602
+msgid "Enable meta descriptions"
+msgstr ""
+
+#: ../epanel/options_explorable.php:606
+msgid ""
+"Check this box if you want to display meta descriptions on category/archive "
+"pages. The description is based off the category description you choose when "
+"creating/edit your category in wp-admin."
+msgstr ""
+
+#: ../epanel/options_explorable.php:611
+msgid "Choose title autogeneration method"
+msgstr ""
+
+#: ../epanel/options_explorable.php:616
+msgid ""
+"Here you can choose how your titles on index pages are generated. You can "
+"change which order your blog name and index title are displayed, or you can "
+"remove the blog name from the title completely."
+msgstr ""
+
+#: ../epanel/options_explorable.php:623
+msgid ""
+"Here you can change which character separates your blog title and index page "
+"name when using autogenerated post titles. Common values are | or -"
+msgstr ""
+
+#: ../epanel/options_explorable.php:644
+msgid "Code Integration"
+msgstr ""
+
+#: ../epanel/options_explorable.php:652
+msgid "Enable header code"
+msgstr ""
+
+#: ../epanel/options_explorable.php:656
+msgid ""
+"Disabling this option will remove the header code below from your blog. This "
+"allows you to remove the code while saving it for later use."
+msgstr ""
+
+#: ../epanel/options_explorable.php:659
+msgid "Enable body code"
+msgstr ""
+
+#: ../epanel/options_explorable.php:663
+msgid ""
+"Disabling this option will remove the body code below from your blog. This "
+"allows you to remove the code while saving it for later use."
+msgstr ""
+
+#: ../epanel/options_explorable.php:668
+msgid "Enable single top code"
+msgstr ""
+
+#: ../epanel/options_explorable.php:672
+msgid ""
+"Disabling this option will remove the single top code below from your blog. "
+"This allows you to remove the code while saving it for later use."
+msgstr ""
+
+#: ../epanel/options_explorable.php:675
+msgid "Enable single bottom code"
+msgstr ""
+
+#: ../epanel/options_explorable.php:679
+msgid ""
+"Disabling this option will remove the single bottom code below from your "
+"blog. This allows you to remove the code while saving it for later use."
+msgstr ""
+
+#: ../epanel/options_explorable.php:684
+msgid "Add code to the < head > of your blog"
+msgstr ""
+
+#: ../epanel/options_explorable.php:688
+msgid ""
+"Any code you place here will appear in the head section of every page of "
+"your blog. This is useful when you need to add javascript or css to all "
+"pages."
+msgstr ""
+
+#: ../epanel/options_explorable.php:691
+msgid ""
+"Add code to the < body > (good for tracking codes such as google analytics)"
+msgstr ""
+
+#: ../epanel/options_explorable.php:695
+msgid ""
+"Any code you place here will appear in body section of all pages of your "
+"blog. This is usefull if you need to input a tracking pixel for a state "
+"counter such as Google Analytics."
+msgstr ""
+
+#: ../epanel/options_explorable.php:698
+msgid "Add code to the top of your posts"
+msgstr ""
+
+#: ../epanel/options_explorable.php:702 ../epanel/options_explorable.php:709
+msgid ""
+"Any code you place here will be placed at the top of all single posts. This "
+"is useful if you are looking to integrating things such as social "
+"bookmarking links."
+msgstr ""
+
+#: ../epanel/options_explorable.php:705
+msgid "Add code to the bottom of your posts, before the comments"
+msgstr ""
+
+#: ../epanel/options_explorable.php:727
+msgid "Documentation"
+msgstr ""
+
+#: ../epanel/options_explorable.php:753
+msgid "Manage Un-widgetized Advertisements"
+msgstr ""
+
+#: ../epanel/options_explorable.php:761
+msgid "Enable Single Post 468x60 banner"
+msgstr ""
+
+#: ../epanel/options_explorable.php:765
+msgid ""
+"Enabling this option will display a 468x60 banner ad on the bottom of your "
+"post pages below the single post content. If enabled you must fill in the "
+"banner image and destination url below."
+msgstr ""
+
+#: ../epanel/options_explorable.php:770
+msgid "Input 468x60 advertisement banner image"
+msgstr ""
+
+#: ../epanel/options_explorable.php:774
+msgid "Here you can provide 468x60 banner image url"
+msgstr ""
+
+#: ../epanel/options_explorable.php:778
+msgid "Input 468x60 advertisement destination url"
+msgstr ""
+
+#: ../epanel/options_explorable.php:782
+msgid "Here you can provide 468x60 banner destination url"
+msgstr ""
+
+#: ../epanel/options_explorable.php:786
+msgid "Input 468x60 adsense code"
+msgstr ""
+
+#: ../epanel/options_explorable.php:790
+msgid "Place your adsense code here."
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:22
+msgid "Captcha"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:22
+msgid "Fill"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:22
+msgid "field"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:22
+msgid "Invalid email"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:37
+msgid "ET Page Template Settings"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:64
+msgid ""
+"Additional settings appear here, when one of ET page templates is selected "
+"( Page Attributes -> Template )"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:69
+msgid "Full Width Page"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:74
+msgid "Regenerate captcha numbers"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:78
+msgid "Email To:"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:84
+msgid "Blog Style mode"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:89
+msgid "Hide Auto Thumbnail"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:94
+msgid "Show Titles"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:99
+msgid "Show Descriptions"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:104
+msgid "Detect Portrait Images"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:108
+msgid "Thumbnail Size:"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:109
+msgid "Small"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:110
+msgid "Medium"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:111
+msgid "Large"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:115
+#: ../epanel/page_templates/page_templates.php:120
+msgid "Number of posts per page:"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:125
+msgid "Select blog categories:"
+msgstr ""
+
+#: ../epanel/page_templates/page_templates.php:144
+msgid "Select gallery categories:"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:15
+msgid "Previous"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:15
+msgid "Next"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:302
+msgid "Member Login"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:305
+msgid "Username: "
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:306
+msgid "Password: "
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:307
+msgid "Login"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:343
+msgid "Add a Tooltip Text"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:365
+msgid "Click here to learn more"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:973
+msgid "Caption"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:974
+msgid "Caption goes here"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:975
+msgid "Caption title goes here"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:979
+msgid "State"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:981
+msgid "Select between expanded and closed state"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:986
+#: ../epanel/shortcodes/shortcodes.php:1002
+#: ../epanel/shortcodes/shortcodes.php:1031
+#: ../epanel/shortcodes/shortcodes.php:1111
+msgid "Content"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:987
+#: ../epanel/shortcodes/shortcodes.php:1003
+#: ../epanel/shortcodes/shortcodes.php:1089
+#: ../epanel/shortcodes/shortcodes.php:1112
+msgid "Content goes here"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:988
+#: ../epanel/shortcodes/shortcodes.php:1004
+#: ../epanel/shortcodes/shortcodes.php:1033
+msgid "Content text or html"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:997
+msgid "Type of the box"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1011
+msgid "Link"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1013
+msgid "URL"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1019
+msgid "Choose button type"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1024
+msgid "Color"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1026
+msgid "Choose button color"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1032
+msgid "Link text"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1037
+msgid "Icon"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1039
+msgid "Used for icon button type"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1044
+msgid "Open link in new window"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1046
+msgid "Select yes if the link should be opened in a new window"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1054
+msgid "Slider Type"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1056
+msgid "Select Slider Type here"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1061
+msgid "Effect"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1063
+msgid "Select Animation Effect"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1068
+msgid "Auto"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1070
+msgid "Choose yes if you want for automatic slider animation"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1075
+msgid "Auto Speed"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1077
+msgid "Automattic slider speed (works only if Auto is set to yes)"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1081
+msgid "Tab Text"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1088
+msgid "Tab Content"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1090
+msgid "Paste image url here, if you chose \"images\" slider type"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1098
+msgid "Image Url"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1100
+msgid "Author Image URL"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1104
+msgid "Use resizing"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1181
+msgid "+ Add One More Tab"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1331
+msgid "Image Height"
+msgstr ""
+
+#: ../epanel/shortcodes/shortcodes.php:1332
+msgid "Image Width"
+msgstr ""
+
+#: ../includes/breadcrumbs.php:7
+msgid "Posts Tagged "
+msgstr "Artikel getaggt mit"
+
+#: ../includes/breadcrumbs.php:9 ../includes/breadcrumbs.php:11
+#: ../includes/breadcrumbs.php:13
+msgid "Posts made in"
+msgstr "Gepostet im"
+
+#: ../includes/breadcrumbs.php:15
+msgid "Search results for"
+msgstr "Suchresultate"
+
+#: ../includes/breadcrumbs.php:61
+msgid "Posts by "
+msgstr "Gepostet von"
+
+#: ../includes/entry.php:36
+msgid "Read More"
+msgstr "Mehr"
+
+#: ../includes/fullwidth_map.php:136
+msgid "F j"
+msgstr ""
+
+#: ../includes/fullwidth_map.php:137
+msgid "Y"
+msgstr ""
+
+#: ../includes/fullwidth_map.php:163
+msgid "More Information"
+msgstr "Weitere Informationen"
+
+#: ../includes/fullwidth_map.php:237
+msgid "Listing Results"
+msgstr ""
+
+#: ../includes/navigation.php:2
+msgid "&laquo; Older Entries"
+msgstr "&laquo; &Auml;ltere Eintr&auml;ge"
+
+#: ../includes/navigation.php:3
+msgid "Next Entries &raquo;"
+msgstr "Neuere Eintr&auml;ge &raquo;"
+
+#: ../includes/no-results.php:3
+msgid "No Results Found"
+msgstr "Nicht gefunden"
+
+#: ../includes/no-results.php:4
+msgid ""
+"The page you requested could not be found. Try refining your search, or use "
+"the navigation above to locate the post."
+msgstr "Keine Seite gefunden. Etwas anderes Suchen?"
+
+#: ../includes/functions/comments.php:15
+#, php-format
+msgid "%1$s"
+msgstr "%1$s"
+
+#: ../includes/functions/comments.php:18
+msgid "(Edit)"
+msgstr "(Bearbeiten)"
+
+#: ../includes/functions/comments.php:27
+msgid "Your comment is awaiting moderation."
+msgstr "Dein Kommentar wartet auf die &Uuml;berpr&uuml;fung."
+
+#: ../includes/functions/comments.php:35
+msgid "Reply"
+msgstr "Beantworten"
+
+#: ../includes/functions/installation.php:1
+msgid "Read Explorable Documentation"
+msgstr ""

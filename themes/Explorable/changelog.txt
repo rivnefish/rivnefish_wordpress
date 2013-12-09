@@ -1,0 +1,62 @@
+version 1.3 ( 06-26-2013 )
+- Fixed validation issues
+	* header.php
+- Fixed issue with single quote on homepage and single post pages
+	* includes/fullwidth_map.php
+	* single-listing.php
+- Added Map Type and Homepage Map Zoom Level options
+	* epanel/options_explorable.php
+	* includes/fullwidth_map.php
+- Fixed Google Map copyright position
+	* style.css
+- Fixed Post/Page Editor Word Count Problem
+- Fixed issue with left tabs shortcode
+- Fixed tooltip glitch
+- Fixed issue with span in pricing table
+- Fixed get_current_theme warning message.
+- Fixed the issue with Fancybox videos not working on second launch in WordPress 3.6
+- Added shortcodes names to shortcode_atts() to enable filtering
+
+List of modified files:
+* epanel/custom_functions.php
+* epanel/page_templates/js/et-ptemplates-frontend.js
+* epanel/page_templates/js/fancybox/jquery.fancybox-1.3.4.pack.js
+* epanel/shortcodes/css/shortcodes.css
+* epanel/shortcodes/js/et_shortcodes_frontend.js
+* epanel/shortcodes/js/et_shortcodes_frontend.dev.js
+* epanel/shortcodes/shortcodes.php
+
+version 1.2 ( 05-15-2013 )
+- Added premade colorschemes to customizer
+- Changed et_filter_text class to avoid issues with font options
+	* style.css
+	* epanel/google-fonts/et_google_fonts.js
+	* fullwidth_map.php
+
+version 1.1 ( 05-02-2013 )
+- Fixed 'Default map position' bug
+- Added readme.url file
+- Fixed notification messages in WP-Admin
+- Added 'Google Maps Default Zoom Level' option to ePanel
+- Integrated Google Fonts options into Customizer
+
+List of modified files:
+epanel/custom_functions.php
+epanel/google-fonts/et_google_fonts.css
+epanel/google-fonts/et_google_fonts.js
+epanel/google-fonts/images/all-fonts.png
+epanel/options_explorable.php
+functions.php
+includes/fullwidth_map.php
+lang/de_DE.mo
+lang/de_DE.po
+lang/en_US.mo
+lang/en_US.po
+lang/ru_RU.mo
+lang/ru_RU.po
+readme.url
+single-listing.php
+
+version 1.0 ( 04-01-2013 )
+
+- initial release
