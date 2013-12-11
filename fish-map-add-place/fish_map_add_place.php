@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Add Fishing Place
+Plugin Name: Fish Map Add Fishing Place
 Plugin URI:
 Description: This plugin allows adding fishing places to the map.
              Integrates into the page/post by using shortcode [add-fish-place].
@@ -25,8 +25,9 @@ class FishMapAddPlacePlugin
         register_deactivation_hook($path . '/fish_map_add_place.php', 'fish_map_uninstall');
 
         add_action( 'plugins_loaded', 'fish_map_update_check' );
-
         add_action('wp_ajax_fish_map_add_place_save', array($this, 'savePlace'));
+        add_action('admin_post_save_photos', array($this, 'savePhotos'));
+
         add_shortcode('fish-map-add-place-from', array($this, 'renderForm'));
 
         $this->_model = new MarkerModel();
@@ -43,6 +44,10 @@ class FishMapAddPlacePlugin
 
         wp_register_script('jquery.scrollTo', plugins_url('js/3p/jquery.scrollTo.js', __FILE__));
         wp_enqueue_script('jquery.scrollTo');
+
+        /* plupload */
+        wp_register_script('jquery.plupload', plugins_url('js/3p/plupload-2.0.0/plupload.full.min.js', __FILE__));
+        wp_enqueue_script('jquery.plupload');
 
         wp_register_script('add-fish-place', plugins_url('js/add_fish_place.js', __FILE__));
         wp_enqueue_script('add-fish-place');
@@ -87,6 +92,29 @@ class FishMapAddPlacePlugin
         }
         echo json_encode($response);
         die();
+    }
+
+    public function savePhotos()
+    {
+        if (!function_exists('wp_handle_upload')) {
+            require_once(ABSPATH . 'wp-admin/includes/file.php');
+        }
+        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+        header("Cache-Control: no-store, no-cache, must-revalidate");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+
+        die(print_r($_FILES, 1));
+        $uploadedfile = $_FILES['image'];
+        $upload_overrides = array( 'test_form' => false );
+        $movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
+        if ( $movefile ) {
+            echo "File is valid, and was successfully uploaded.\n";
+            var_dump( $movefile);
+        } else {
+            echo "Possible file upload attack!\n";
+        }
     }
 }
 

@@ -11,6 +11,7 @@ var AddMarkerForm = (function ($) {
         this.form.submit($.proxy(this.savePlace, this));
 
         this.initMap();
+        this.initPhotoUpload();
 
         $('#permit').change(this.togglePermitInfo).trigger('change');
     },
@@ -58,6 +59,51 @@ var AddMarkerForm = (function ($) {
         google.maps.event.addListener(this.map, 'click', $.proxy(function(e) {
             this.placeMarker(e.latLng, this.map);
         }, this));
+    },
+
+    initPhotoUpload : function () {
+        var uploader = new plupload.Uploader({
+            runtimes : 'html5,flash,silverlight',
+            browse_button : 'photo_upload',
+            container : 'add_place_form',
+            max_file_size : '10mb',
+            url : '/wp-admin/admin-post.php?action=save_photos',
+            flash_swf_url : '/wp-content/plugins/fish-map-add-place/js/3p/plupload-2.0.0/Moxie.swf',
+            silverlight_xap_url : '/wp-content/plugins/fish-map-add-place/js/3p/plupload-2.0.0/Moxie.xap',
+            filters : [
+                {title : "Малюнки", extensions : "jpg,gif,png"}
+            ],
+            resize : {width : 320, height : 240, quality : 90}
+        });
+
+        uploader.bind('Init', function(up, params) {
+            $('#filelist').html("<div>Current runtime: " + params.runtime + "</div>");
+        });
+
+        uploader.init();
+
+        uploader.bind('FilesAdded', function(up, files) {
+            uploader.start();
+            up.refresh();
+            $('#photo_upload').hide();
+            $('#loading').show();
+        });
+
+        uploader.bind('Error', function(up, err) {
+            $('#upload_error').text(
+                "Помилка: " + err.message + (err.file ? ", Файл: " + err.file.name : "")
+            );
+            up.refresh(); // Reposition Flash/Silverlight
+            $('#loading').hide();
+            $('#photo_upload').show();
+        });
+
+        uploader.bind('FileUploaded', function(up, file, info) {
+            $('#loading').hide();
+            $('#photo_upload').show();
+            console.log(info);
+        });
+        this.uploader = uploader;
     },
 
     togglePermitInfo : function () {
