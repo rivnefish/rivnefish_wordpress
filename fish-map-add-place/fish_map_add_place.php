@@ -67,6 +67,7 @@ class FishMapAddPlacePlugin
             $this->addStylesheets();
 
             $fishes = $this->_model->getFishes();
+            $showUploadPhotos = $this->_isUploaderInstalled();
             include 'tpls/add_place_form.phtml';
         } else {
             include 'tpls/add_place_login.phtml';
@@ -94,27 +95,31 @@ class FishMapAddPlacePlugin
         die();
     }
 
+    private function _getUploaderClass()
+    {
+        return WP_PLUGIN_DIR . '/nextgen-public-uploader/inc/class.npu_uploader.php';
+    }
+
+    private function _isUploaderInstalled()
+    {
+        return file_exists($this->_getUploaderClass());
+    }
+
     public function savePhotos()
     {
-        if (!function_exists('wp_handle_upload')) {
-            require_once(ABSPATH . 'wp-admin/includes/file.php');
+        if (!$this->_isUploaderInstalled()) {
+            return;
         }
-        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-        header("Cache-Control: no-store, no-cache, must-revalidate");
-        header("Cache-Control: post-check=0, pre-check=0", false);
-        header("Pragma: no-cache");
+        require_once $this->_getUploaderClass();
 
-        die(print_r($_FILES, 1));
-        $uploadedfile = $_FILES['image'];
-        $upload_overrides = array( 'test_form' => false );
-        $movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
-        if ( $movefile ) {
-            echo "File is valid, and was successfully uploaded.\n";
-            var_dump( $movefile);
-        } else {
-            echo "Possible file upload attack!\n";
-        }
+        $_FILES['file']['name'] = $_REQUEST['name'];
+
+        $uploader = new UploaderNggAdmin();
+        $uploader->upload_images();
+        $arrImageIds    = $uploader->arrImageIds;
+        $strGalleryPath = $uploader->strGalleryPath;
+        $arrImageNames  = $uploader->arrImageNames;
+        echo json_encode(compact('messagetext', 'arrImageIds', 'strGalleryPath', 'arrImageNames'));
     }
 }
 
