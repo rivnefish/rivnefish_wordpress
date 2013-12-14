@@ -48,6 +48,8 @@ class FishMapAddPlacePlugin
         /* plupload */
         wp_register_script('jquery.plupload', plugins_url('js/3p/plupload-2.0.0/plupload.full.min.js', __FILE__));
         wp_enqueue_script('jquery.plupload');
+        wp_register_script('jquery.plupload.uk', plugins_url('js/3p/plupload-2.0.0/i18n/uk_UA.js', __FILE__));
+        wp_enqueue_script('jquery.plupload.uk');
 
         wp_register_script('add-fish-place', plugins_url('js/add_fish_place.js', __FILE__));
         wp_enqueue_script('add-fish-place');
