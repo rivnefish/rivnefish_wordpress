@@ -1,3 +1,18 @@
+version 1.5 ( updated 09-13-2013 )
+- Fixed issue with titles on index page
+	* includes/entry.php
+- Fixed Tabs shortcode layout issues with the slide effect
+	* epanel/shortcodes/css/shortcodes.css
+	* epanel/shortcodes/shortcodes.php
+- Bumped version number
+	* style.css
+
+version 1.4 ( updated 08-02-2013 )
+- Fixed separate_comments function notice
+	* epanel/custom_functions.php
+- Bumped version number
+	* style.css
+
 version 1.3 ( 06-26-2013 )
 - Fixed validation issues
 	* header.php

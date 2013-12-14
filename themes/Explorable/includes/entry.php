@@ -27,6 +27,17 @@
 		<?php echo '<span class="et-avatar">' . $author_avatar . '</span>'; ?>
 	<?php endif; ?>
 	</div> <!-- .post-thumbnail -->
+<?php } else { ?>
+	<div class="post-description no_thumb">
+			<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+		<?php
+			if ( $index_postinfo ) {
+				echo '<p class="meta-info">';
+				et_postinfo_meta( $index_postinfo, et_get_option( 'explorable_date_format', 'M j, Y' ), esc_html__( '0 comments', 'Explorable' ), esc_html__( '1 comment', 'Explorable' ), '% ' . esc_html__( 'comments', 'Explorable' ) );
+				echo '</p>';
+			}
+		?>
+	</div> <!-- .post-description -->
 <?php } ?>
 	<?php if ( 'false' == et_get_option( 'explorable_blog_style', 'false' ) ) { ?>
 		<p><?php truncate_post( 370 ); ?></p>

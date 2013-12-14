@@ -1020,7 +1020,7 @@ function et_comment_count( $count ) {
 	if ( ! is_admin() ) {
 		global $id;
 		$get_comments = get_comments( array('post_id' => $id, 'status' => 'approve') );
-		$comments_by_type = &separate_comments($get_comments);
+		$comments_by_type = separate_comments($get_comments);
 		return count($comments_by_type['comment']);
 	} else {
 		return $count;

@@ -1,7 +1,7 @@
 /*
 Theme Name: Explorable
 Theme URI: http://www.elegantthemes.com/gallery/
-Version: 1.3
+Version: 1.5
 Description: 2 Column theme from Elegant Themes
 Author: Elegant Themes
 Author URI: http://www.elegantthemes.com
@@ -129,6 +129,9 @@ body.et_map_full_screen.single-listing #main-header { position: relative; }
 			.thumbnail:before { position: absolute; content: ''; top: 0; left: 0; width: 100%; height: 100%; -moz-box-shadow: inset 0 0 20px rgba(0,0,0,0.75); -webkit-box-shadow: inset 0 0 20px rgba(0,0,0,0.75); box-shadow: inset 0 0 20px rgba(0,0,0,0.75); }
 				.et-description, .post-description { position: absolute; top: 90px; width: 100%; text-shadow: 0 0 5px rgba(0, 0, 0, 0.6); }
 				.post-description { top: 113px; }
+				.post-description.no_thumb { top: 0px; position: relative;}
+				.post-description.no_thumb h2 a { color: #6e6e6e; text-shadow: none; }
+				.post-description.no_thumb .meta-info,.post-description.no_thumb .meta-info a { text-shadow: none; color: #6e6e6e; }
 					.et-description h1, .post-description h2, .post-description h1 { font-size: 36px; color: #fff; }
 						.et-description h1 a, .post-description h2 a { text-decoration: none; color: inherit; }
 					.et-description p { color: #fff; font-size: 18px; padding-bottom: 3px; }

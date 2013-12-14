@@ -585,8 +585,10 @@ function et_tabcontent($atts, $content = null) {
 
 	$output = "
 		<div{$id} class='et-tabs-content{$class}'>
-			<div class='et-tabs-content-wrapper'>
-				{$content}
+			<div class='et-tabs-content-main-wrap'>
+				<div class='et-tabs-content-wrapper'>
+					{$content}
+				</div>
 			</div>
 		</div>";
 
