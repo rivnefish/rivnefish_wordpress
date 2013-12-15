@@ -103,7 +103,7 @@ body.et_map_full_screen.single { overflow-y: auto; }
 body.et_map_full_screen #main-header { position: absolute; top: 0; left: 0; width: 100%; z-index: 3; }
 body.et_map_full_screen.single-listing #main-header { position: relative; }
 #main-header:before { content: ''; bottom: 0; left: 50%; margin-left: -10px; width: 20px; }
-	#main-header .container, #filter-bar .container { text-align: left; margin: 0 auto; width: 750px; position: relative; }
+	#main-header .container, #filter-bar .container { text-align: left; margin: 0 auto; position: relative; }
 	.container { text-align: left; margin: 0 auto; width: 960px; position: relative; }
 		#logo, #top-navigation { float: left; }
 		#top-navigation { padding-right: 145px; }
@@ -457,6 +457,16 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 		#et-slider-wrapper .viewport { width: 280px; height: 119px; }
 
 		#et-slider-wrapper:after { width: 394px; }
+}
+
+@media only screen and ( min-width: 1250px ) {
+    .container { width: 1200px; }
+    #left-area { width: 740px; }
+}
+
+@media only screen and ( min-width: 1150px ) and (max-width: 1249px) {
+    .container { width: 1100px; }
+    #left-area { width: 640px; }
 }
 
 @media only screen and ( max-width: 960px ) {
