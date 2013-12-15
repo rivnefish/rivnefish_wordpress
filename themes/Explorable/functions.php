@@ -96,13 +96,7 @@ function et_explorable_load_scripts_styles(){
 	}
 
 	if ( 'off' !== _x( 'on', 'Lobster font: on or off', 'Explorable' ) ) {
-		$subsets = 'latin,latin-ext';
-
-		$subset = _x( 'no-subset', 'Lobster font: add cyrillic subset', 'Explorable' );
-
-		if ( 'cyrillic' == $subset )
-			$subsets .= ',cyrillic,cyrillic-ext';
-
+        $subsets = 'latin,latin-ext,cyrillic,cyrillic-ext';
 		$query_args = array(
 			'family' => 'Lobster',
 			'subset' => $subsets,
