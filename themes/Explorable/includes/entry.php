@@ -2,7 +2,7 @@
 	$index_postinfo = et_get_option( 'explorable_postinfo1' );
 
 	$thumb = '';
-	$width = (int) apply_filters( 'et_blog_image_width', 640 );
+	$width = (int) apply_filters( 'et_blog_image_width', 880 );
 	$height = (int) apply_filters( 'et_blog_image_height', 280 );
 	$classtext = '';
 	$titletext = get_the_title();

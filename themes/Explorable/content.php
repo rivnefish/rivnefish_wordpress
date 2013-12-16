@@ -18,9 +18,9 @@
 
 	$thumb = '';
 
-	$width = (int) apply_filters( 'et_blog_image_width', 640 );
+	$width = (int) apply_filters( 'et_blog_image_width', 880 );
 	if ( $et_fullwidth )
-		$width = (int) apply_filters( 'et_blog_image_width_fullwidth', 960 );
+		$width = (int) apply_filters( 'et_blog_image_width_fullwidth', 1200 );
 	$height = (int) apply_filters( 'et_blog_image_height', 280 );
 
 	$classtext = '';
@@ -51,7 +51,7 @@
 <?php } ?>
 
 	<div class="entry-content">
-	<?php if ( is_page() && ( '' == $thumb || 'false' == $show_thumb ) ) : ?>
+	<?php if ('' == $thumb || 'false' == $show_thumb) : ?>
 		<h1 class="title"><?php the_title(); ?></h1>
 	<?php endif; ?>
 	<?php
