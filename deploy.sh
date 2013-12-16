@@ -27,3 +27,5 @@ for i in ${!plugins[*]}
 do
     rsync -rtvu --delete $REPO_DIR_PATH/${plugins[$i]}/ $WORDPRESS_PATH/wp-content/plugins/${plugins[$i]}/
 done
+    
+rsync -rtvu --delete $REPO_DIR_PATH/themes/Explorable/ $WORDPRESS_PATH/wp-content/themes/Explorable/
