@@ -708,3 +708,14 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 	-webkit-box-shadow: inset 0 1px 0 #67dc3e, 0 2px 4px rgba(0,0,0,0.3);
 	-moz-box-shadow: inset 0 1px 0 #67dc3e, 0 2px 4px rgba(0,0,0,0.3);
 	box-shadow: inset 0 1px 0 #67dc3e, 0 2px 4px rgba(0,0,0,0.3); display: inline-block; }
+
+/* Overrides */
+/* Fixing legacy posts layout */
+.entry-content > table > tr > td:first-child,
+.entry-content > table > tbody > tr > td:first-child {
+    width: 40%;
+}
+.entry-content > table > tr > td:first-child img,
+.entry-content > table > tbody > tr > td:first-child img {
+    width: 90%;
+}
