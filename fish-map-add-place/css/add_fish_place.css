@@ -81,6 +81,19 @@ div.success {
     overflow: auto;
 }
 
+#add_place_form img.photo {
+    float: left;
+    max-height: 100px;
+    border: 0;
+    margin: 3px;
+}
+
+#loading {
+    background: url(../images/ajax-loader.gif) no-repeat;
+    width: 220px;
+    height: 19px;
+}
+
 .controls {
     clear: both;
     margin: 10px 0 3px;

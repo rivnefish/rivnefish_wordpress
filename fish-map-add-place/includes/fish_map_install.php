@@ -1,7 +1,7 @@
 <?php
 
 define('FISH_MAP_DB_VER_OPTION', 'fish_map_db_ver');
-define('FISH_MAP_DB_VER', '2');
+define('FISH_MAP_DB_VER', '3');
 
 function fish_map_install() {
     global $wpdb;
@@ -9,7 +9,7 @@ function fish_map_install() {
     if ($db_ver == 0) {
         $wpdb->query("
             CREATE TABLE `fishes` (
-              `id` smallint(4) unsigned NOT NULL AUTO_INCREMENT,
+              `fish_id` smallint(4) unsigned NOT NULL AUTO_INCREMENT,
               `name` varchar(255) NOT NULL,
               `ukr_name` varchar(255) DEFAULT NULL,
               `eng_name` varchar(255) DEFAULT NULL,
@@ -26,7 +26,7 @@ function fish_map_install() {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
         $wpdb->query("
             CREATE TABLE `markers` (
-              `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+              `marker_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
               `name` varchar(60) NOT NULL COMMENT 'Name of the marker',
               `address` varchar(100) DEFAULT NULL COMMENT 'Marler''s address (for geocoding)',
               `lat` float(10,6) NOT NULL COMMENT 'Latitude',
@@ -77,6 +77,16 @@ function fish_map_install() {
             ALTER TABLE `markers`
             CHANGE COLUMN `time_to_fish` `time_to_fish` ENUM('24h','daylight','unknown')
             DEFAULT '24h' COMMENT 'Дозволений час рибалки'");
+    }
+
+    if ($db_ver < 3) {
+        $wpdb->query("
+            CREATE  TABLE `markers_pictures` (
+              `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+              `marker_id` INT UNSIGNED NOT NULL ,
+              `picture_id` INT UNSIGNED NOT NULL ,
+              PRIMARY KEY (`id`)
+            )");
     }
     update_option(FISH_MAP_DB_VER_OPTION, FISH_MAP_DB_VER);
 }
