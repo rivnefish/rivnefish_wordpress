@@ -320,7 +320,7 @@ html, body { height: 100%; margin: 0; padding: 0; }
 
 	#commentform input[type="text"], #et-rating > div { width: 40%; }
 	#commentform textarea { width: 89%; }
-	#commentform textarea, #commentform input[type="text"], #et-rating > div {  border: 1px solid #e2e2e2; padding: 13px; color: #c5c5c5; -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.07); -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.07); box-shadow: 0 1px 2px rgba(0,0,0,0.07); }
+	#commentform textarea, #commentform input[type="text"], #et-rating > div {  border: 1px solid #e2e2e2; padding: 13px; -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.07); -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.07); box-shadow: 0 1px 2px rgba(0,0,0,0.07); }
 
 	#reply-title small { display: block; padding-top: 5px; font-weight: bold; letter-spacing: 0; font-size: 12px; }
 
@@ -726,11 +726,24 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 }
 
 /* Fixing legacy posts layout */
-.entry-content > table > tr > td:first-child,
-.entry-content > table > tbody > tr > td:first-child {
+.entry-content > table > tr > td.photos,
+.entry-content > table > tbody > tr > td.photos {
     width: 40%;
 }
-.entry-content > table > tr > td:first-child img,
-.entry-content > table > tbody > tr > td:first-child img {
-    width: 90%;
+.entry-content > table > tr > td.photos img,
+.entry-content > table > tbody > tr > td.photos img {
+    width: 98%;
+}
+#main-area .entry-content > table > tr > td,
+#main-area .entry-content > table > tbody > tr > td {
+    padding: 6px;
+}
+
+
+/* Comments form */
+.form-submit #submit {
+    cursor: pointer;
+}
+#commentform .form-allowed-tags {
+    display: none;
 }
