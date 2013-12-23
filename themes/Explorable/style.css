@@ -725,6 +725,10 @@ img.alignright { display:inline; float:right; margin-left:15px; }
     max-width: none;
 }
 
+.map_canvas .marker-info {
+    line-height: 1.35;
+}
+
 /* Fixing legacy posts layout */
 .entry-content > table > tr > td.photos,
 .entry-content > table > tbody > tr > td.photos {

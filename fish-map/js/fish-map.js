@@ -351,7 +351,7 @@ function showInfoWindow(marker) {
         var photo4 = markerInfo["photo_url4"];
         var url_suffix = markerInfo["url_suffix"];
 
-        var html = "<div class='markers'>"
+        var html = "<div class='marker-info'>"
                         + "<div><strong>"+ name + "</strong></div>";
 
         // Add fishes
