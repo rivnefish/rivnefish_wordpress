@@ -47,16 +47,25 @@ TODO:
  * <?php get_the_title(); ?>
  */
 
-// Add the Google Maps API and JQuery headers
+require_once 'fish_map_views.php';
+
+add_shortcode('map', 'fish_map');
+add_shortcode('fish_map_elegant', 'fish_map_elegant');
 add_action('wp_enqueue_scripts', 'add_scripts_map');
 add_action('wp_print_styles', 'add_stylesheets_map');
+add_action('wp_ajax_nopriv_fish_map_markers', 'fish_map_markers');
+add_action('wp_ajax_nopriv_fish_map_markers_search', 'fish_map_markers_search');
+add_action('wp_ajax_nopriv_fish_map_marker_info', 'fish_map_marker_info');
+add_action('wp_ajax_fish_map_markers', 'fish_map_markers');
+add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
+add_action('wp_ajax_fish_map_marker_info', 'fish_map_marker_info');
 
 function add_scripts_map() {
         wp_deregister_script('jquery');
         wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js');
         # BACKUP wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
         wp_enqueue_script('jquery');
-        
+
         wp_deregister_script('jquery-migrate');
         wp_register_script('jquery-migrate', 'http://code.jquery.com/jquery-migrate-1.0.0.min.js');
         wp_enqueue_script('jquery-migrate');
@@ -66,23 +75,23 @@ function add_scripts_map() {
         # BACKUP wp_register_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js');
         wp_enqueue_script('jquery-ui');
 
-    if (is_page('Мапа') || is_page(2)) {
+    if (is_page('Мапа') || is_page(2) || $_GET['debug']) {
         /* !!! TODO: update Post's TITLE and ID in case changed*/
         //wp_register_script('google-map', 'http://maps.google.com/maps/api/js?sensor=false&language=uk');
-        wp_register_script('google-map', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyBmqWVqXVRZS4BXyoeOaUWTlok9KWzwZso&sensor=false&language=uk&libraries=weather');
+        wp_register_script('google-map', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCByg67-8HjM_17CVdq9iOiN95Nhz7izCw&sensor=false&language=uk&libraries=weather');
         # BACKUP wp_register_script('google-map', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyBmqWVqXVRZS4BXyoeOaUWTlok9KWzwZso&sensor=false&language=uk');
         wp_enqueue_script('google-map');
 
         wp_register_script('fish-map', plugins_url('js/fish-map.js', __FILE__));
         wp_enqueue_script('fish-map');
-        
+
         // Load MarkerClusterer
         wp_deregister_script('markerclusterer');
         // URL: http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer_compiled.js
         wp_register_script('markerclusterer', plugins_url('js/markerclusterer.min.js', __FILE__));
         wp_enqueue_script('markerclusterer');
     }
-    
+
 }
 
 function add_stylesheets_map() {
@@ -124,10 +133,66 @@ function fish_map($attr) {
         'scrollwheel' => 'true'
             ), $attr);
 
-    require_once 'fish_map_views.php';
-
     $return_body = fish_map_main_form();
     return $return_body;
 }
 
-add_shortcode('map', 'fish_map');
+function fish_map_elegant() {
+    include 'tpls/fish_map_elegant.phtml';
+}
+
+/* AJAX Calls */
+function fish_map_markers() {
+    global $wpdb;
+
+    /* @TODO Extract queries to model */
+    $query_markers = 'SELECT marker_id, name, address, lat, lng
+        FROM markers WHERE approval IN ("approved","pending") order by name';
+    $markers = $wpdb->get_results($query_markers, ARRAY_A);
+    echo json_encode($markers);
+    die();
+}
+
+function fish_map_markers_search() {
+    die('fish_map_markers_search');
+}
+
+function fish_map_marker_info() {
+    global $wpdb;
+    $marker_id = $_GET['marker_id'];
+
+    /* @TODO Extract queries to model */
+    $query_marker = $wpdb->prepare(
+        "SELECT marker_id, name, paid_fish, contact, photo_url1, photo_url2, photo_url3, photo_url4
+        FROM markers
+        WHERE marker_id = %d
+        LIMIT 1", $marker_id);
+
+    $query_fish = $wpdb->prepare(
+        "SELECT name, icon_url, icon_width, icon_height, weight_avg, weight_max, amount, article_url
+        FROM markers_fishes mf
+        INNER JOIN fishes f on f.fish_id = mf.fish_id
+        WHERE mf.marker_id = %d
+        ORDER BY amount DESC", $marker_id);
+
+    $query_passport = $wpdb->prepare(
+        "SELECT url_suffix
+        FROM passports
+        WHERE marker_id = %d", $marker_id);
+
+    $marker_row = $wpdb->get_row($query_marker, ARRAY_A);
+
+    $passport_row = $wpdb->get_row($query_passport, ARRAY_A);
+    if ($passport_row) {
+        $marker_row = array_merge($marker_row, $passport_row);
+    }
+
+    $fishes = $wpdb->get_results($query_fish, ARRAY_A);
+
+    $response = array(
+        'marker' => $marker_row,
+        'fishes' => $fishes
+    );
+    echo json_encode($response);
+    die();
+}

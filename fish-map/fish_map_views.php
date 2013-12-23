@@ -2,6 +2,9 @@
 
 function fish_map_main_form() {
     ?>
+    <script type="text/javascript">
+        var WP_AJAX_URL = "<?php echo admin_url('admin-ajax.php');?>";
+    </script>
     <div id="fish_map_main_form">
         <div id="map_search" style="padding:4px 4px;">
             <div>

@@ -710,6 +710,21 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 	box-shadow: inset 0 1px 0 #67dc3e, 0 2px 4px rgba(0,0,0,0.3); display: inline-block; }
 
 /* Overrides */
+#main-header {
+    z-index: 1;
+}
+
+#et_map_canvas {
+    height: 100%;
+    margin-top: -89px;
+    padding-top: 89px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#et_map_canvas img {
+    max-width: none;
+}
+
 /* Fixing legacy posts layout */
 .entry-content > table > tr > td:first-child,
 .entry-content > table > tbody > tr > td:first-child {
