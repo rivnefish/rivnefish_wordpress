@@ -739,6 +739,10 @@ img.alignright { display:inline; float:right; margin-left:15px; }
     padding: 6px;
 }
 
+#et-list-view .et-date {
+    left: -135px;
+}
+
 
 /* Comments form */
 .form-submit #submit {
