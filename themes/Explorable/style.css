@@ -711,12 +711,12 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 
 /* Overrides */
 /* Fixing legacy posts layout */
-.entry-content > table > tr > td:first-child,
-.entry-content > table > tbody > tr > td:first-child {
+.entry-content > table > tr > td.photos,
+.entry-content > table > tbody > tr > td.photos {
     width: 40%;
 }
-.entry-content > table > tr > td:first-child img,
-.entry-content > table > tbody > tr > td:first-child img {
+.entry-content > table > tr > td.photos img,
+.entry-content > table > tbody > tr > td.photos img {
     width: 98%;
 }
 #main-area .entry-content > table > tr > td,
