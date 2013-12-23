@@ -1,4 +1,4 @@
-<?php if ( ! et_is_listing_page() || ( is_single() && 'listing' == get_post_type() ) ) : ?>
+<?php if (!isset($hide_footer) && (! et_is_listing_page() || ( is_single() && 'listing' == get_post_type() )) ) : ?>
 	<footer id="main-footer">
 		<div class="container">
 			<?php get_sidebar( 'footer' ); ?>
