@@ -711,8 +711,8 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 
 /* Overrides */
 #logo {
-    width: 55px;
-    margin-top: -10px;
+    width: 66px;
+    margin-top: -20px;
 }
 #main-header {
     z-index: 1;
