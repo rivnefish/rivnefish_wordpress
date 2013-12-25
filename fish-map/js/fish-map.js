@@ -430,7 +430,7 @@ function showInfoWindow(marker) {
         if (url_suffix) {
             html += "<div>";
             html += "<a title='Прочитати статтю про цю точку, переглянути/додати коментарі'"+
-                     " href='/" + url_suffix + "'>Деталі/Коментарі &gt;&gt;&gt;</a>";
+                     " href='" + url_suffix + "'>Деталі/Коментарі &gt;&gt;&gt;</a>";
             html += "</div>";
         }
         html += "</div>";
