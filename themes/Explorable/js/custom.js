@@ -217,7 +217,8 @@
 			$('#et-list-view.et-normal-listings').append( '<a href="#" class="et-date">' + et_custom.toggle_text + '</a>' );
             /* Fixing listing button */
             var listingButton = $('#et-list-view .et-date');
-            listingButton.css('left', '-' + (parseInt(listingButton.width()) - 24) + 'px');
+            var leftPos = Math.round((listingButton.outerWidth() + listingButton.outerHeight()) / 2);
+            listingButton.css('left', '-' + leftPos + 'px');
 
 			$et_list_view = $('#et-list-view.et-normal-listings');
 
