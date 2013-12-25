@@ -1,7 +1,9 @@
-/**
- * JavaScript code
- *
- **/
+(function ($) {
+
+jQuery(document).ready(function ($) {
+    initialize();
+});
+
 var map = null;
 var weatherLayer = null;
 var cloudLayer = null;
@@ -14,9 +16,6 @@ var markerCluster = null;
 var sideBar = null;
 var sideBarTotal = null;
 var infoWindow = null;
-var siteUrl = 'http://rivnefish.com';
-var searchUrlPrefix =
-    'http://rivnefish.com/wp-content/plugins/fish-map/fish_map_genxml.php'
 var locationSelect = null;
 var fishIcon = null;
 var fishIconShadow = null;
@@ -52,7 +51,8 @@ function initialize() {
     //MapTypeId.HYBRID displays a mixture of normal and satellite views
     //MapTypeId.TERRAIN displays a physical map based on terrain information.
     };
-    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    var mapCanvas = $('#map_canvas, .map_canvas')[0];
+    map = new google.maps.Map(mapCanvas, myOptions);
     sideBar = document.getElementById("markersList");
     sideBarTotal = document.getElementById("markersListTotal");
 
@@ -78,13 +78,13 @@ function initialize() {
         new google.maps.Point(0,0),
         new google.maps.Point(0,59));
 
-    locationSelect = document.getElementById("locationSelect");
-    locationSelect.onchange = function() {
-        var markerNum = locationSelect.options[locationSelect.selectedIndex].value;
-        if (markerNum != "none"){
-            google.maps.event.trigger(markers[markerNum], 'click');
-        }
-    };
+    // locationSelect = document.getElementById("locationSelect");
+    // locationSelect.onchange = function() {
+    //     var markerNum = locationSelect.options[locationSelect.selectedIndex].value;
+    //     if (markerNum != "none"){
+    //         google.maps.event.trigger(markers[markerNum], 'click');
+    //     }
+    // };
     // Init Marker Clusterer
     markerCluster = new MarkerClusterer(map);
 
@@ -157,12 +157,12 @@ function clearLocations() {
     sideBar.innerHTML = "";
     sideBarTotal.innerHTML = "";
 
-    locationSelect.innerHTML = "";
-    var option = document.createElement("option");
-    option.value = "none";
-    option.innerHTML = "See all results:";
-    locationSelect.appendChild(option);
-    
+    // locationSelect.innerHTML = "";
+    // var option = document.createElement("option");
+    // option.value = "none";
+    // option.innerHTML = "See all results:";
+    // locationSelect.appendChild(option);
+
     // Clear Marker Clusterer
     markerCluster.clearMarkers();
 }
@@ -172,8 +172,8 @@ function searchLocationsNear(center) {
     map.setCenter(center);
 
     var radius = document.getElementById('radiusSelect').value;
-    var searchUrl = searchUrlPrefix + '?action=search&lat=' + center.lat() + '&lng=' + center.lng() + '&radius=' + radius;
-    downloadUrl(searchUrl, function(data) {
+    var searchUrl = WP_AJAX_URL + '?action=fish_map_markers_search&lat=' + center.lat() + '&lng=' + center.lng() + '&radius=' + radius;
+    $.get(searchUrl, function(data) {
         var xml = parseXml(data);
         var markerNodes = xml.documentElement.getElementsByTagName("marker");
         var bounds = new google.maps.LatLngBounds();
@@ -196,7 +196,7 @@ function searchLocationsNear(center) {
             map.fitBounds(bounds);
         }
         countSideBar(); //window.setTimeout(countSideBar, 0);
-        
+
         // Refresh Marker Clusterer
         markerCluster.addMarkers(markers);
 
@@ -205,25 +205,24 @@ function searchLocationsNear(center) {
             var markerNum = locationSelect.options[locationSelect.selectedIndex].value;
             google.maps.event.trigger(markers[markerNum], 'click');
         };
-    }); // End downloadUrl()
+    }); // End $.get()
 }
 
 function setupAllMarkers () {
     clearLocations();
     map.setCenter(RivneLatLng);
 
-    var searchUrl = searchUrlPrefix + '?action=show&lat=' + RivneLatLng.lat() + '&lng=' + RivneLatLng.lng();
-    downloadUrl(searchUrl, function(data) {
-        var xml = parseXml(data);
-        var markerNodes = xml.documentElement.getElementsByTagName("marker");
+    var searchUrl = WP_AJAX_URL + '?action=fish_map_markers&lat=' + RivneLatLng.lat() + '&lng=' + RivneLatLng.lng();
+    $.getJSON(searchUrl, function(data) {
         var bounds = new google.maps.LatLngBounds();
-        for (var i = 0; i < markerNodes.length; i++) {
-            var id = markerNodes[i].getAttribute("marker_id");
-            var name = markerNodes[i].getAttribute("name");
-            var address = markerNodes[i].getAttribute("address");
+        for (var i = 0; i < data.length; i++) {
+            var id = data[i]["marker_id"];
+            var name = data[i]["name"];
+            var address = data[i]["address"];
             var latlng = new google.maps.LatLng(
-                parseFloat(markerNodes[i].getAttribute("lat")),
-                parseFloat(markerNodes[i].getAttribute("lng")));
+                parseFloat(data[i]["lat"]),
+                parseFloat(data[i]["lng"])
+            );
 
             createMarker(latlng, name, address, id);
             bounds.extend(latlng);
@@ -235,11 +234,13 @@ function setupAllMarkers () {
 //        }
 
         countSideBar();    //window.setTimeout(countSideBar, 0);
-
         // Refresh Marker Clusterer
         markerCluster.addMarkers(markers);
 
-    }); // End downloadUrl()
+        et_listing_make_fluid();
+        // et_make_mobile_listing();
+
+    }); // End $.get()
 }
 
 function createMarker(latlng, name, address, id) {
@@ -269,22 +270,6 @@ function createOption(name, distance, num) {
     option.value = num;
     option.innerHTML = name + " - " + distance.toFixed(2) + " km";
     locationSelect.appendChild(option);
-}
-
-function downloadUrl(url, callback) {
-    var request = window.ActiveXObject ?
-    new ActiveXObject('Microsoft.XMLHTTP') :
-    new XMLHttpRequest;
-
-    request.onreadystatechange = function() {
-        if (request.readyState == 4) {
-            request.onreadystatechange = doNothing;
-            callback(request.responseText, request.status);
-        }
-    };
-
-    request.open('GET', url, true);
-    request.send(null);
 }
 
 function parseXml(str) {
@@ -360,49 +345,43 @@ var fish_scores = new Array(
 ); // condensed array
 
 function showInfoWindow(marker) {
-    var searchUrl = searchUrlPrefix + '?action=info&marker_id=' + marker.id;
-    downloadUrl(searchUrl, function(data) {
-        var xml = parseXml(data);
+    var searchUrl = WP_AJAX_URL + '?action=fish_map_marker_info&marker_id=' + marker.id;
+    $.getJSON(searchUrl, function(data) {
         // Create marker
-        var markerNode = xml.documentElement.getElementsByTagName("marker")[0];
-        var name = markerNode.getAttribute("name");
-        var payment = markerNode.getAttribute("paid_fish") ? markerNode.getAttribute("paid_fish") : "-";
-        var contact = markerNode.getAttribute("contact") ? markerNode.getAttribute("contact") : "-";
-        var photo1 = markerNode.getAttribute("photo_url1");
-        var photo2 = markerNode.getAttribute("photo_url2");
-        var photo3 = markerNode.getAttribute("photo_url3");
-        var photo4 = markerNode.getAttribute("photo_url4");
-        var url_suffix = markerNode.getAttribute("url_suffix");
+        var markerInfo = data['marker'];
+        var name = markerInfo["name"];
+        var payment = markerInfo["paid_fish"] ? markerInfo["paid_fish"] : "-";
+        var contact = markerInfo["contact"] ? markerInfo["contact"] : "-";
+        var photo1 = markerInfo["photo_url1"];
+        var photo2 = markerInfo["photo_url2"];
+        var photo3 = markerInfo["photo_url3"];
+        var photo4 = markerInfo["photo_url4"];
+        var url_suffix = markerInfo["url_suffix"];
 
-        var html = "<table class='markers'>" +
-        "<tr>"+
-        "<th>"+ name + "</th>"+
-        "</tr>";
+        var html = "<div class='marker-info'>"
+                        + "<div><strong>"+ name + "</strong></div>";
 
         // Add fishes
-        var fishNodes = xml.documentElement.getElementsByTagName("fish");
-        if (fishNodes) {
-            html += "<tr><td><i>Риба: </i>";
-            for (var i = 0; i < fishNodes.length; i++) {
-                var fish_name = fishNodes[i].getAttribute("name");
-                var article_url = fishNodes[i].getAttribute("article_url");
-                var icon_url = fishNodes[i].getAttribute("icon_url");
-                var icon_width = fishNodes[i].getAttribute("icon_width");
-                var icon_height = fishNodes[i].getAttribute("icon_height");
-                var weight_avg = fishNodes[i].getAttribute("weight_avg") ? new Number(fishNodes[i].getAttribute("weight_avg")) : "- ";
-                var weight_max = fishNodes[i].getAttribute("weight_max") ? new Number(fishNodes[i].getAttribute("weight_max")) : "- ";
-                var amount = fishNodes[i].getAttribute("amount") ? fishNodes[i].getAttribute("amount") : "-";
+        var fishes = data['fishes'];
+        if (fishes) {
+            html += "<div><i>Риба: </i>";
+            for (var i = 0; i < fishes.length; i++) {
+                var article_url = fishes[i]["article_url"];
+                var icon_url = fishes[i]["icon_url"];
+                var weight_avg = fishes[i]["weight_avg"] || "- ";
+                var weight_max = fishes[i]["weight_max"] || "- ";
+                var amount = fishes[i]["amount"] || "-";
                 if (article_url){
                     html += "<a href='"+article_url+"' >";
                 }
-                html += "<img class='fish_icon' style='width:"+icon_width+
-                    "px; height:"+icon_height+
-                    "px' src='"+icon_url+
-                    "' alt='"+fish_name+
-                    "' title='"+fish_name+
-                        ", середня вага: "+weight_avg+
-                        "гр, максимальна "+weight_max+
-                        "гр, кльов "+amount+"/10"+
+                html += "<img class='fish_icon' style='width:" + fishes[i]["icon_width"] +
+                    "px; height:" + fishes[i]["icon_height"] +
+                    "px' src='" + fishes[i]["icon_url"] +
+                    "' alt='" + fishes[i]["name"] +
+                    "' title='" + fishes[i]["name"] +
+                        ", середня вага: " + weight_avg +
+                        "гр, максимальна " + weight_max +
+                        "гр, кльов " + amount + "/10" +
                     "' />";
                 if (article_url){
                     html += "</a>";
@@ -410,31 +389,20 @@ function showInfoWindow(marker) {
                 // Add score image if necessary
                 var score = parseInt(amount);
                 if (score) {
-                html += "<img class='fish_score' style='width:3px; height:28px'"+
-                    " src='"+fish_scores[score-1]+
-                    "' alt='"+score+
+                    html += "<img class='fish_score' style='width:3px; height:28px'" +
+                    " src='" + fish_scores[score-1] +
+                    "' alt='" + score +
                     "' />";
                 }
-                /*
-                var brief_info = "<span class='brief-info'>C:"+
-                    (weight_avg == '- ') ? '- ' : (weight_avg/1000).toFixed(1)+"гр,M:"+
-                    (weight_max == '- ') ? '- ' : (weight_max/1000).toFixed(1)+"гр,"+
-                    amount+"/10</span>";
-                html += "<br/>" + brief_info;
-                */
             }
-            html += "</td></tr>";
+            html += "</div>";
         }
 
-        html += "<tr>"+
-        "<td><i>Оплата: </i>"+ payment + "</td>"+
-        "</tr>"+
-        "<tr>"+
-        "<td><i>Контакт: </i>"+ contact + "</td>"+
-        "</tr>";
+        html += "<div><i>Оплата: </i>" + payment + "</div>"
+              + "<div><i>Контакт: </i>" + contact + "</div>";
 
         if (photo1 || photo2 || photo2 || photo4) {
-            html += "<tr><td>";
+            html += "<div>";
             if (photo1) {
                 var photo1_ico = scaled_url(photo1);
                 html += "<a href='"+photo1+"' target='_blank' title='Збільшити'>"+
@@ -455,18 +423,18 @@ function showInfoWindow(marker) {
                 html += "<a href='"+photo4+"' target='_blank' title='Збільшити'>"+
                 "<img class='marker_photo' style='width:53px; height:40px' src='"+photo4_ico+"'/></a>";
             }
-            html += "</td></tr>";
+            html += "</div>";
         }
         if (url_suffix) {
-            html += "<tr><td>";
+            html += "<div>";
             html += "<a title='Прочитати статтю про цю точку, переглянути/додати коментарі'"+
-                     " href='"+siteUrl+url_suffix+"'>Деталі/Коментарі &gt;&gt;&gt;</a>";
-            html += "</td></tr>";
+                     " href='/" + url_suffix + "'>Деталі/Коментарі &gt;&gt;&gt;</a>";
+            html += "</div>";
         }
-        html += "</table>";
+        html += "</div>";
 
         openInfoWindow(marker, html);
-    }); // End downloadUrl()
+    }); // End $.get()
 }
 
 function scaled_url(str) {
@@ -481,60 +449,31 @@ function scaled_url(str) {
 
 function countSideBar() {
     var cnt = sideBar.childNodes.length; /*without Rivne*/
-    var label = document.createElement("p");
-    label.style.fontStyle = "italic";
-    label.innerHTML = "Всього водойм:&nbsp;" + cnt;
-    sideBarTotal.appendChild(label);
-  }
+    $(sideBarTotal).text('(' + cnt + ')');
+}
 
 function addToSideBar(marker, caption) {
-    var label = document.createElement("a");
-    if (caption) {
-      label.innerHTML = caption;
-    } else {
-      label.innerHTML = marker.title;
-    }
-    label.href = "#";
-    label.style.display = "block";
-    label.style.textDecoration="none";
-    label.title = "Клацніть двічі для центрування";
-    label.onclick = function(){
+    var $li = $('<li class="clearfix"></li>'),
+        $h3 = $("<h3></h3>").text(caption || marker.title),
+        $textWrapper = $('<div class="listing-text"></div>');
+
+    $textWrapper.append($h3);
+    $li.append($textWrapper);
+
+    $li.click(function(){
+        $('.et-active-listing').removeClass('et-active-listing');
+        $(this).addClass('et-active-listing');
         google.maps.event.trigger(marker, 'click');
+        map.setCenter(marker.position);
+        return false;
+    });
+
+    $(sideBar).append($li);
+
+    google.maps.event.addListener(marker, "click", function() {
         return false
-        };
-    label.ondblclick = function()
-      {map.setCenter(marker.getPosition());return false;};
-
-    /* START. Code that inserts LABEL to the sideBar in alphabetical order */
-    var a = new Array();
-    for(var i = 0; i < sideBar.childNodes.length; i++) {
-      a[i] = sideBar.childNodes[i].innerHTML;
-    }
-    a.push(caption);
-    a.sort();
-    var j = 0;
-    for(var i = 0; i < a.length; i++) {
-        if(a[i] == caption) {j = i;break;}
-    }
-
-    if (sideBar.childNodes[j]) {
-      sideBar.insertBefore(label, sideBar.childNodes[j]);
-    } else {
-      sideBar.appendChild(label);
-    }
-    /* END. Alphabetical code */
-    /*sideBar.appendChild(label);*/
-
-    google.maps.event.addListener(marker,"click",
-      function() {
-        label.focus();
-        return false
-      });
-  }
-
-jQuery(document).ready(function() {
-    initialize();
-});
+    });
+}
 
 function WeatherControl(controlDiv) {
 
@@ -580,9 +519,11 @@ function setupWeather() {
 
     cloudLayer = new google.maps.weather.CloudLayer();
     // cloudLayer.setMap(map);
-    
+
     var weatherControlDiv = document.createElement('div');
     var weatherControl = new WeatherControl(weatherControlDiv);
     weatherControlDiv.index = 1;
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(weatherControlDiv);
 }
+
+}(jQuery));

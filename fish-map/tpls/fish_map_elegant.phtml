@@ -1,0 +1,46 @@
+<script type="text/javascript">
+    var WP_AJAX_URL = "<?php echo admin_url('admin-ajax.php');?>";
+</script>
+<div id="et_main_map" class="map_canvas"></div>
+
+<div id="filter-bar">
+    <div class="container">
+        <form method="get" id="et-filter-map" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+            <a href="#" class="filter-type listing-type"><span class="et_explorable_filter_text"><?php esc_html_e( 'All Listing Types', 'Explorable' ); ?></span><span class="et_filter_arrow"></span></a>
+            <a href="#" class="filter-type listing-location"><span class="et_explorable_filter_text"><?php esc_html_e( 'All Locations', 'Explorable' ); ?></span><span class="et_filter_arrow"></span></a>
+            <a href="#" class="filter-type listing-rating"><span class="et_explorable_filter_text"><?php esc_html_e( 'Any Rating', 'Explorable' ); ?></span><span class="et_filter_arrow"></span></a>
+            <button id="et-filter"><?php esc_html_e( 'Filter', 'Explorable' ); ?></button>
+            <input type="hidden" value="" name="s" />
+            <input type="hidden" value="listing" name="post_type" />
+
+            <select name="et-listing-type" id="et-listing-type">
+                <option value="none"><?php esc_html_e( 'All Listing Types', 'Explorable' ); ?></option>
+            </select>
+
+            <select name="et-listing-location" id="et-listing-location">
+                <option value="none"><?php esc_html_e( 'All Locations', 'Explorable' ); ?></option>
+            </select>
+
+            <select name="et-listing-rating" id="et-listing-rating">
+                <option value="none"><?php esc_html_e( 'Any Rating', 'Explorable' ); ?></option>
+            </select>
+        </form>
+    </div> <!-- .container -->
+</div> <!-- #filter-bar -->
+
+
+<div id="et-list-view" class="et-normal-listings">
+    <h2 id="listing-results"><?php esc_html_e( 'Рибні місця', 'Explorable' ); ?>
+        <span id="markersListTotal" title="Всього водойм"></span>
+    </h2>
+
+    <div id="et-listings">
+        <div class="viewport">
+            <div class="overview">
+                <ul id="markersList" >
+                </ul>
+                <div id="markersListTotal"></div>
+            </div> <!-- .overview -->
+        </div> <!-- .viewport -->
+    </div> <!-- #et-listings -->
+</div> <!-- #et-list-view -->

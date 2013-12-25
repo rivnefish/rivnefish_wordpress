@@ -50,7 +50,7 @@ class MarkerModel
 
     public function getFishIds()
     {
-        return $this->db->get_col("SELECT id FROM fishes");
+        return $this->db->get_col("SELECT fish_id FROM fishes");
     }
 
     public function insertMarkerFishes($markerId, $fishes)

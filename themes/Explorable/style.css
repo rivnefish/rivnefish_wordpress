@@ -484,7 +484,7 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 	body.et_map_full_screen { overflow-y: auto; }
 
 	#et-slider-wrapper, .et-search-form, #et-list-view .et-date, #et-listings:before, #top-navigation { display: none; }
-	#et_main_map { height: 398px; }
+	#et_main_map { height: 398px; margin-top: 0;}
 	body.et_map_full_screen #main-header { position: relative; z-index: 10; }
 	#filter-bar { position: relative; }
 	#et-list-view { position: relative; right: auto; width: auto; height: auto; }
@@ -557,7 +557,7 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 	.et-description h1, .post-description h2, .post-description h1 { font-size: 30px; padding-bottom: 2px; }
 	.meta-info, .et-description p { font-size: 14px; }
 
-	#et_main_map, #et-single-map { height: 180px; }
+	#et_main_map, #et-single-map { height: 180px; margin-top: 0;}
 	#main-area .et-description { top: 48px; }
 
 	.entry-post .post-thumbnail { margin: 0 -43px 52px; }
@@ -710,6 +710,20 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 	box-shadow: inset 0 1px 0 #67dc3e, 0 2px 4px rgba(0,0,0,0.3); display: inline-block; }
 
 /* Overrides */
+#main-header {
+    z-index: 1;
+}
+
+#et-list-view.et-normal-listings .viewport {
+    padding-right: 30px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.map_canvas .marker-info {
+    line-height: 1.35;
+}
+
 /* Fixing legacy posts layout */
 .entry-content > table > tr > td.photos,
 .entry-content > table > tbody > tr > td.photos {
