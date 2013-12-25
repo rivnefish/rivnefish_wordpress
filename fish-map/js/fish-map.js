@@ -86,7 +86,9 @@ function initialize() {
     //     }
     // };
     // Init Marker Clusterer
-    markerCluster = new MarkerClusterer(map);
+    markerCluster = new MarkerClusterer(map, [], {
+        minimumClusterSize: 4
+    });
 
     // Show all marker in the end of INITIALIZE()
     // TODO: experimental setupWeather();
