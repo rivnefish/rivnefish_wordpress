@@ -36,7 +36,7 @@
 <body <?php body_class(); ?>>
 	<header id="main-header">
 		<div class="container clearfix">
-			<?php $logo = ( $user_logo = et_get_option( 'explorable_logo' ) ) && '' != $user_logo ? $user_logo : $template_directory_uri . '/images/logo.png'; ?>
+			<?php $logo = ( $user_logo = et_get_option( 'explorable_logo' ) ) && '' != $user_logo ? $user_logo : $template_directory_uri . '/images/rivnefish_logo.png'; ?>
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_attr( $logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" id="logo"/></a>
 
 			<div id="top-navigation">

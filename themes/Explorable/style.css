@@ -710,6 +710,10 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 	box-shadow: inset 0 1px 0 #67dc3e, 0 2px 4px rgba(0,0,0,0.3); display: inline-block; }
 
 /* Overrides */
+#logo {
+    width: 55px;
+    margin-top: -10px;
+}
 #main-header {
     z-index: 1;
 }
