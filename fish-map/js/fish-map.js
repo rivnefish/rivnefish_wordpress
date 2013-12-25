@@ -1,4 +1,9 @@
 (function ($) {
+
+jQuery(document).ready(function ($) {
+    initialize();
+});
+
 var map = null;
 var weatherLayer = null;
 var cloudLayer = null;
@@ -229,9 +234,11 @@ function setupAllMarkers () {
 //        }
 
         countSideBar();    //window.setTimeout(countSideBar, 0);
-
         // Refresh Marker Clusterer
         markerCluster.addMarkers(markers);
+
+        et_listing_make_fluid();
+        // et_make_mobile_listing();
 
     }); // End $.get()
 }
@@ -442,10 +449,7 @@ function scaled_url(str) {
 
 function countSideBar() {
     var cnt = sideBar.childNodes.length; /*without Rivne*/
-    var label = document.createElement("p");
-    label.style.fontStyle = "italic";
-    label.innerHTML = "Всього водойм:&nbsp;" + cnt;
-    sideBarTotal.appendChild(label);
+    $(sideBarTotal).text('(' + cnt + ')');
 }
 
 function addToSideBar(marker, caption) {
@@ -460,6 +464,7 @@ function addToSideBar(marker, caption) {
         $('.et-active-listing').removeClass('et-active-listing');
         $(this).addClass('et-active-listing');
         google.maps.event.trigger(marker, 'click');
+        map.setCenter(marker.position);
         return false;
     });
 
@@ -469,11 +474,6 @@ function addToSideBar(marker, caption) {
         return false
     });
 }
-
-jQuery(document).ready(function ($) {
-    ajaxUrl = $('#fish_map_main_form').data('ajax-url');
-    initialize();
-});
 
 function WeatherControl(controlDiv) {
 

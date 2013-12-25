@@ -484,7 +484,7 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 	body.et_map_full_screen { overflow-y: auto; }
 
 	#et-slider-wrapper, .et-search-form, #et-list-view .et-date, #et-listings:before, #top-navigation { display: none; }
-	#et_main_map { height: 398px; }
+	#et_main_map { height: 398px; margin-top: 0;}
 	body.et_map_full_screen #main-header { position: relative; z-index: 10; }
 	#filter-bar { position: relative; }
 	#et-list-view { position: relative; right: auto; width: auto; height: auto; }
@@ -557,7 +557,7 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 	.et-description h1, .post-description h2, .post-description h1 { font-size: 30px; padding-bottom: 2px; }
 	.meta-info, .et-description p { font-size: 14px; }
 
-	#et_main_map, #et-single-map { height: 180px; }
+	#et_main_map, #et-single-map { height: 180px; margin-top: 0;}
 	#main-area .et-description { top: 48px; }
 
 	.entry-post .post-thumbnail { margin: 0 -43px 52px; }
@@ -714,15 +714,10 @@ img.alignright { display:inline; float:right; margin-left:15px; }
     z-index: 1;
 }
 
-#et_map_canvas {
-    height: 100%;
-    margin-top: -89px;
-    padding-top: 89px;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-#et_map_canvas img {
-    max-width: none;
+#et-list-view.et-normal-listings .viewport {
+    padding-right: 30px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .map_canvas .marker-info {
@@ -741,10 +736,6 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 #main-area .entry-content > table > tr > td,
 #main-area .entry-content > table > tbody > tr > td {
     padding: 6px;
-}
-
-#et-list-view .et-date {
-    left: -135px;
 }
 
 

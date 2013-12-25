@@ -1,7 +1,7 @@
 <script type="text/javascript">
     var WP_AJAX_URL = "<?php echo admin_url('admin-ajax.php');?>";
 </script>
-<div id="et_map_canvas" class="map_canvas"></div>
+<div id="et_main_map" class="map_canvas"></div>
 
 <div id="filter-bar">
     <div class="container">
@@ -30,10 +30,11 @@
 
 
 <div id="et-list-view" class="et-normal-listings">
-    <h2 id="listing-results"><?php esc_html_e( 'Рибні місця', 'Explorable' ); ?></h2>
+    <h2 id="listing-results"><?php esc_html_e( 'Рибні місця', 'Explorable' ); ?>
+        <span id="markersListTotal" title="Всього водойм"></span>
+    </h2>
 
     <div id="et-listings">
-        <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
         <div class="viewport">
             <div class="overview">
                 <ul id="markersList" >
