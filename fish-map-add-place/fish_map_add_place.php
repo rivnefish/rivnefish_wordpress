@@ -28,7 +28,7 @@ class FishMapAddPlacePlugin
         add_action('wp_ajax_fish_map_add_place_save', array($this, 'savePlace'));
         add_action('admin_post_save_photos', array($this, 'savePhotos'));
 
-        add_shortcode('fish-map-add-place-from', array($this, 'renderForm'));
+        add_shortcode('fish-map-add-place-form', array($this, 'renderForm'));
 
         $this->_model = new MarkerModel();
     }
