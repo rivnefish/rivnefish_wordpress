@@ -5,7 +5,7 @@
 
 <div id="filter-bar">
     <div class="container">
-        <form method="get" id="et-filter-map" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+        <!--form method="get" id="et-filter-map" action="<?php echo esc_url( home_url( '/' ) ); ?>">
             <a href="#" class="filter-type listing-type"><span class="et_explorable_filter_text"><?php esc_html_e( 'All Listing Types', 'Explorable' ); ?></span><span class="et_filter_arrow"></span></a>
             <a href="#" class="filter-type listing-location"><span class="et_explorable_filter_text"><?php esc_html_e( 'All Locations', 'Explorable' ); ?></span><span class="et_filter_arrow"></span></a>
             <a href="#" class="filter-type listing-rating"><span class="et_explorable_filter_text"><?php esc_html_e( 'Any Rating', 'Explorable' ); ?></span><span class="et_filter_arrow"></span></a>
@@ -24,7 +24,26 @@
             <select name="et-listing-rating" id="et-listing-rating">
                 <option value="none"><?php esc_html_e( 'Any Rating', 'Explorable' ); ?></option>
             </select>
-        </form>
+        </form-->
+        <div id="map_search">
+            <div>
+                <input type="text" id="addressInput" size="25" autocomplete="on" title="Введіть адресу, наприклад Бочаниця"/>
+                <select id="radiusSelect" title="Допустимі відстані 25км, 50км, 100км, 200км">
+                    <option value="25" selected>25 km</option>
+                    <option value="50">50 km</option>
+                    <option value="100">100 km</option>
+                    <option value="200">200 km</option>
+                </select>
+                <a id="search_button"
+                   title="Всі рибні точки на відстані 25km, 50km,... від введеної адреси"
+                   class="small-button smallsilver"
+                >Шукати</a>
+                <a id="show_all_button"
+                   class="small-button smallblack"
+                >Показати всі точки</a>
+            </div>
+            <div><select id="locationSelect" style="width:100%; display:none"></select></div>
+        </div>
     </div> <!-- .container -->
 </div> <!-- #filter-bar -->
 
