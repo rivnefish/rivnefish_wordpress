@@ -710,6 +710,7 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 	box-shadow: inset 0 1px 0 #67dc3e, 0 2px 4px rgba(0,0,0,0.3); display: inline-block; }
 
 /* Overrides */
+
 #logo {
     width: 66px;
     margin-top: -20px;
@@ -749,4 +750,10 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 }
 #commentform .form-allowed-tags {
     display: none;
+}
+
+/* Form controls */
+input[type="text"], input.text, input.title, textarea, select {
+    padding: 6px;
+    border-radius: 5px;
 }

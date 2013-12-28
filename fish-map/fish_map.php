@@ -154,7 +154,22 @@ function fish_map_markers() {
 }
 
 function fish_map_markers_search() {
-    die('fish_map_markers_search');
+    global $wpdb;
+    $center_lat = $_GET["lat"];
+    $center_lng = $_GET["lng"];
+    $radius = $_GET["radius"];
+
+    $query_markers = $wpdb->prepare(
+        "SELECT marker_id, name, address, lat, lng,
+            ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') )
+            + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance
+        FROM markers
+        HAVING distance < '%s'
+        ORDER BY distance", $center_lat, $center_lng, $center_lat, $radius);
+
+    $markers = $wpdb->get_results($query_markers, ARRAY_A);
+    echo json_encode($markers);
+    die();
 }
 
 function fish_map_marker_info() {

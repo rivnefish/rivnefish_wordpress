@@ -1,28 +1,33 @@
 (function ($) {
 
 jQuery(document).ready(function ($) {
-    initialize();
+    initializeMap();
+    $('#search_button').click(searchLocations);
+    $('#show_all_button').click(function () {
+        _setMarkers(fishMapAllMarkers);
+    });
 });
 
-var map = null;
-var weatherLayer = null;
-var cloudLayer = null;
+var map = null,
+    weatherLayer = null,
+    cloudLayer = null,
 
-var RivneLatLng = new google.maps.LatLng(50.619616, 26.251379);
-var browserSupportFlag =  new Boolean();
-var initialLocation;
-var markers = [];
-var markerCluster = null;
-var sideBar = null;
-var sideBarTotal = null;
-var infoWindow = null;
-var locationSelect = null;
-var fishIcon = null;
-var fishIconShadow = null;
-var fishIconBig = null;
-var fishIconShadowBig = null;
+    RivneLatLng = new google.maps.LatLng(50.619616, 26.251379),
+    browserSupportFlag = false,
+    initialLocation,
+    markers = [],
+    fishMapAllMarkers = [],
+    markerCluster = null,
+    sideBar = null,
+    sideBarTotal = null,
+    infoWindow = null,
+    locationSelect = null,
+    fishIcon = null,
+    fishIconShadow = null,
+    fishIconBig = null,
+    fishIconShadowBig = null;
 
-function initialize() {
+function initializeMap() {
     // Стилі для карти. Можна виділяти кольором водойми, парки, траси і т.п.
     var emphasizeLakesStyles = [
         {
@@ -149,99 +154,58 @@ function searchLocations() {
     });
 }
 
-function clearLocations() {
+function clearMarkers() {
     infoWindow.close();
     for (var i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
     }
-    markers.length = 0;
+    markers = [];
 
     sideBar.innerHTML = "";
     sideBarTotal.innerHTML = "";
-
-    // locationSelect.innerHTML = "";
-    // var option = document.createElement("option");
-    // option.value = "none";
-    // option.innerHTML = "See all results:";
-    // locationSelect.appendChild(option);
-
-    // Clear Marker Clusterer
     markerCluster.clearMarkers();
 }
 
+function _setMarkers(data) {
+    clearMarkers();
+    for (var i = 0; i < data.length; i++) {
+        var latlng = new google.maps.LatLng(
+            parseFloat(data[i]["lat"]),
+            parseFloat(data[i]["lng"]));
+        createMarker(latlng, data[i]["name"], data[i]["address"], data[i]["marker_id"]);
+    }
+    updateMarkersCount();
+    markerCluster.addMarkers(markers);
+    et_listing_make_fluid();
+}
+
+function _extendBounds() {
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0, n = markers.length; i < n; ++i) {
+        bounds.extend(markers[i].position);
+    }
+    map.fitBounds(bounds);
+}
+
 function searchLocationsNear(center) {
-    clearLocations();
     map.setCenter(center);
 
     var radius = document.getElementById('radiusSelect').value;
     var searchUrl = WP_AJAX_URL + '?action=fish_map_markers_search&lat=' + center.lat() + '&lng=' + center.lng() + '&radius=' + radius;
-    $.get(searchUrl, function(data) {
-        var xml = parseXml(data);
-        var markerNodes = xml.documentElement.getElementsByTagName("marker");
-        var bounds = new google.maps.LatLngBounds();
-        for (var i = 0; i < markerNodes.length; i++) {
-            var id = markerNodes[i].getAttribute("marker_id");
-            var name = markerNodes[i].getAttribute("name");
-            var address = markerNodes[i].getAttribute("address");
-            var distance = parseFloat(markerNodes[i].getAttribute("distance"));
-            var latlng = new google.maps.LatLng(
-                parseFloat(markerNodes[i].getAttribute("lat")),
-                parseFloat(markerNodes[i].getAttribute("lng")));
-
-            createOption(name, distance, i);
-            createMarker(latlng, name, address, id);
-            bounds.extend(latlng);
+    $.getJSON(searchUrl, function(data) {
+        _setMarkers(data);
+        if (data.length > 3) {
+            // _extendBounds();
         }
-
-        if (markerNodes.length > 3) {
-            // Sets the viewport to contain the given bounds.
-            map.fitBounds(bounds);
-        }
-        countSideBar(); //window.setTimeout(countSideBar, 0);
-
-        // Refresh Marker Clusterer
-        markerCluster.addMarkers(markers);
-
-        locationSelect.style.visibility = "visible";
-        locationSelect.onchange = function() {
-            var markerNum = locationSelect.options[locationSelect.selectedIndex].value;
-            google.maps.event.trigger(markers[markerNum], 'click');
-        };
-    }); // End $.get()
+    });
 }
 
 function setupAllMarkers () {
-    clearLocations();
     map.setCenter(RivneLatLng);
-
     var searchUrl = WP_AJAX_URL + '?action=fish_map_markers&lat=' + RivneLatLng.lat() + '&lng=' + RivneLatLng.lng();
     $.getJSON(searchUrl, function(data) {
-        var bounds = new google.maps.LatLngBounds();
-        for (var i = 0; i < data.length; i++) {
-            var id = data[i]["marker_id"];
-            var name = data[i]["name"];
-            var address = data[i]["address"];
-            var latlng = new google.maps.LatLng(
-                parseFloat(data[i]["lat"]),
-                parseFloat(data[i]["lng"])
-            );
-
-            createMarker(latlng, name, address, id);
-            bounds.extend(latlng);
-        }
-        // Sets the viewport to contain the given bounds. Rather unnecessary
-//        if (markerNodes.length > 3) {
-//            // Sets the viewport to contain the given bounds.
-//            map.fitBounds(bounds);
-//        }
-
-        countSideBar();    //window.setTimeout(countSideBar, 0);
-        // Refresh Marker Clusterer
-        markerCluster.addMarkers(markers);
-
-        et_listing_make_fluid();
-        // et_make_mobile_listing();
-
+        _setMarkers(data);
+        fishMapAllMarkers = data;
     }); // End $.get()
 }
 
@@ -266,13 +230,6 @@ function openInfoWindow(marker, html) {
     infoWindow.setContent(html);
     infoWindow.open(map, marker);
   }
-
-function createOption(name, distance, num) {
-    var option = document.createElement("option");
-    option.value = num;
-    option.innerHTML = name + " - " + distance.toFixed(2) + " km";
-    locationSelect.appendChild(option);
-}
 
 function parseXml(str) {
     if (window.ActiveXObject) {
@@ -449,8 +406,8 @@ function scaled_url(str) {
     return res
 }
 
-function countSideBar() {
-    var cnt = sideBar.childNodes.length; /*without Rivne*/
+function updateMarkersCount() {
+    var cnt = sideBar.childNodes.length;
     $(sideBarTotal).text('(' + cnt + ')');
 }
 
