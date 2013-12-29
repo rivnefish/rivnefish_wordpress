@@ -59,7 +59,7 @@
 						$curauth = $wp_query->get_queried_object();
 					?>
 					<?php esc_html_e('Posts by ','Explorable'); echo ' ',$curauth->nickname; ?>
-				<?php } elseif (is_page()) { ?>
+				<?php } else { ?>
 					<?php wp_title(''); ?>
 				<?php }; ?>
 	<?php } ?>

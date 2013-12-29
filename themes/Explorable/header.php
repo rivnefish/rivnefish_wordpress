@@ -13,7 +13,7 @@
 <!--<![endif]-->
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
-	<title><?php elegant_titles(); ?></title>
+	<title><?php wp_title( '|', true, 'right' ); bloginfo( 'name' ); ?></title>
 	<?php elegant_description(); ?>
 	<?php elegant_keywords(); ?>
 	<?php elegant_canonical(); ?>
