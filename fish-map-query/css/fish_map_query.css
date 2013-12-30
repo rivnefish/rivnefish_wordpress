@@ -17,8 +17,6 @@ input.error {
 }
 
 #fish_map_form {
-    background: url("../images/form_texture.png") repeat-x scroll 0 0 #00131F;
-    background-size: auto 100%;
     border: 1px outset #CCCCCC;
     border-radius: 5px;
     font-size: 12px;
