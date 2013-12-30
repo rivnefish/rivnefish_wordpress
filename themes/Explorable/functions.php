@@ -113,6 +113,7 @@ function et_explorable_load_scripts_styles(){
 	wp_enqueue_script( 'superfish', $template_dir . '/js/superfish.js', array( 'jquery' ), '1.0', true );
 	wp_enqueue_script( 'fitvids', $template_dir . '/js/jquery.fitvids.js', array( 'jquery' ), '1.0', true );
 	wp_enqueue_script( 'custom_script', $template_dir . '/js/custom.js', array( 'jquery' ), '1.0', true );
+    wp_enqueue_script( 'jquery.tooltip', $template_dir . '/js/jquery.tooltip.min.js', array( 'jquery' ), '1.0', true );
 	wp_localize_script( 'custom_script', 'et_custom', array(
 		'toggle_text'		=> __( '<span>Toggle</span> List View', 'Explorable' ),
 		'mobile_nav_text' 	=> esc_html__( 'Navigation Menu', 'Explorable' ),
@@ -131,6 +132,8 @@ function et_explorable_load_scripts_styles(){
 	 * Loads the main stylesheet.
 	 */
 	wp_enqueue_style( 'explorable-style', get_stylesheet_uri() );
+
+    wp_enqueue_style( 'jquery.tooltip', $template_dir . '/css/jquery.tooltip.css' );
 
 	if ( is_single() && 'listing' == get_post_type() ) {
 		wp_enqueue_script( 'metadata', $template_dir . '/js/jquery.MetaData.js', array('jquery'), '4.11', true );
