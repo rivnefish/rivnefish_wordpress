@@ -44,7 +44,7 @@
 			}
 		?>
 		</div> <!-- .post-description -->
-	<?php if ( ( $author_avatar = get_avatar( get_the_author_meta( 'ID' ), 61 ) ) && 'on' == et_get_option( 'explorable_show_avatar_on_posts', 'on' ) && '' != $author_avatar && ! is_page() ) : ?>
+	<?php if ( ( $author_avatar = get_avatar( get_the_author_meta( 'ID' ), 64 ) ) && 'on' == et_get_option( 'explorable_show_avatar_on_posts', 'on' ) && '' != $author_avatar && ! is_page() ) : ?>
 		<?php echo '<span class="et-avatar">' . $author_avatar . '</span>'; ?>
 	<?php endif; ?>
 	</div> <!-- .post-thumbnail -->
