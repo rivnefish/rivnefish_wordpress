@@ -894,6 +894,19 @@ if ( function_exists( 'get_custom_header' ) ) {
 			endif;
 		?>
 		</style>
+
+		<?php
+			add_filter('the_content', 'custom_category_text');
+			function custom_category_text($content){
+			global $post;
+			$custom_category_text = '<p><i>Якщо сподобався допис — підпишись на <a href="http://feeds.feedburner.com/rivnefish/qKIS">RSS стрічку</a> або отримуй оновлення <a href="http://feedburner.google.com/fb/a/mailverify?uri=rivnefish/qKIS&loc=ru_RU">на email</a></i></p>';
+			if(in_category('1' or '2' or '3')){ // change catetegory ID 1
+				$content =  $content . $custom_category_text;
+			}
+			return $content;
+			}
+		?>
+
 	<?php }
 
 	/*
