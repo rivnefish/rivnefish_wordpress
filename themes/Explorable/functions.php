@@ -898,8 +898,8 @@ if ( function_exists( 'get_custom_header' ) ) {
     <?php
             add_filter('the_content', 'subscribe_rss_text');
 	    function subscribe_rss_text($content){
-	    $subscribe_rss_text = '<p><i>]O OO O . &[ <a href="http://feeds.feedburner.com/rivnefish/qKIS">RSS &^</a> O O OO        $content =  $content . $subscribe_rss_text;
-	    return $content;
+	    $subscribe_rss_text = '<p><i>Якщо сподобався допис — підпишись на <a href="http://feeds.feedburner.com/rivnefish/qKIS">RSS стрічку</a> O O або отримуй оновлення <a href="http://feedburner.google.com/fb/a/mailverify?uri=rivnefish/qKIS&loc=ru_RU">на email</a></i></p>';
+  	    return $content;
 	    }
     ?>
 
