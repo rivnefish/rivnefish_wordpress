@@ -896,9 +896,9 @@ if ( function_exists( 'get_custom_header' ) ) {
 		</style>
 
     <?php
-            add_filter('the_content', 'custom_category_text');
-	    function custom_category_text($content){
-	    $custom_category_text = '<p><i>]O OO O . &[ <a href="http://feeds.feedburner.com/rivnefish/qKIS">RSS &^</a> O O OO        $content =  $content . $custom_category_text;
+            add_filter('the_content', 'subscribe_rss_text');
+	    function subscribe_rss_text($content){
+	    $subscribe_rss_text = '<p><i>]O OO O . &[ <a href="http://feeds.feedburner.com/rivnefish/qKIS">RSS &^</a> O O OO        $content =  $content . $subscribe_rss_text;
 	    return $content;
 	    }
     ?>
