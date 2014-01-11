@@ -102,6 +102,9 @@ img[id$='_note'] {
     margin: 0;
 }
 
-#fish_table_results td {
+#main-area #fish_table_results {
+    border: 1px solid #000;
+}
+#main-area #fish_table_results td {
     padding: 6px;
 }
