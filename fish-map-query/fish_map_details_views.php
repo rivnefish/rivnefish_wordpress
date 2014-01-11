@@ -49,5 +49,4 @@ function fish_map_details_table($fishes) {
     </table>
 
 <?php
-    //return ob_get_clean();
 }

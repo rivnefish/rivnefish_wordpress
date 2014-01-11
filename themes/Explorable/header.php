@@ -32,6 +32,9 @@
 	</script>
 
 	<?php wp_head(); ?>
+    <script type="text/javascript">
+        window.$ = jQuery;
+    </script>
 </head>
 <body <?php body_class(); ?>>
 	<header id="main-header">

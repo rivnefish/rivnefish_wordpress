@@ -4,9 +4,9 @@
  **/
 
 var queryUrlPrefix =
-    'http://rivnefish.com/wp-content/plugins/fish-map-query/fish_map_query_json.php';
+    '/wp-content/plugins/fish-map-query/fish_map_query_json.php';
 var queryUrlDetailsPrefix =
-    'http://rivnefish.com/wp-content/plugins/fish-map-query/fish_map_query_html.php';
+    '/wp-content/plugins/fish-map-query/fish_map_query_html.php';
 var fishMapForm = '#fish_map_form';
 
 function init_query() {
@@ -97,19 +97,6 @@ function toggleFishDetails(id) {
     $(row_element).toggle('slow');
 }
 
-function initRegions(country_obj) {
-    if (country_obj.selected)
-        $('#country_'+country_obj.value).show();
-    else
-        $('#country_'+country_obj.value).hide();
-}
-function initDistricts(region_obj) {
-    if (region_obj.selected)
-        $('#region_'+region_obj.value).show();
-    else
-        $('#region_'+region_obj.value).hide()
-}
-
 function addMarkersComment(name) {
     $('#comment').html("<b>Зауваження щодо водойми '" +name+ "':</b>");
     $('#comment').focus();
@@ -126,12 +113,7 @@ function initFormTooltips() {
     });
 }
 
-$(document).ready(function() {
+jQuery(function ($) {
     init_query();
     initFormTooltips();
-    $('#fontsizer').jfontsizer({
-        applyTo: '#fish_table_results',
-        changesmall: '2',
-        changelarge: '2',
-        expire: 30});
 });
