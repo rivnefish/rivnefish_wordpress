@@ -180,7 +180,13 @@ body.et_map_full_screen.single-listing #main-header { position: relative; }
 
 html, body { height: 100%; margin: 0; padding: 0; }
 
-#et_main_map { height: 100%; margin-top: -89px; }
+#et_main_map_wrapper {
+    position: absolute;
+    top: 80px;
+    bottom: 0;
+    width: 100%;
+}
+#et_main_map { height: 100%;}
 
 .et_marker_info { opacity: 0; background: #fff; bottom: 50px; position: absolute; z-index: 3; display: none; }
 
@@ -484,6 +490,9 @@ img.alignright { display:inline; float:right; margin-left:15px; }
 	body.et_map_full_screen { overflow-y: auto; }
 
 	#et-slider-wrapper, .et-search-form, #et-list-view .et-date, #et-listings:before, #top-navigation { display: none; }
+    #et_main_map_wrapper {
+        position: static;
+    }
 	#et_main_map { height: 398px; margin-top: 0;}
 	body.et_map_full_screen #main-header { position: relative; z-index: 10; }
 	#filter-bar { position: relative; }
