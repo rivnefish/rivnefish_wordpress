@@ -65,7 +65,6 @@ div#fish_map_table_count {
 
 div#fish_map_table {
     margin-bottom: 5px;
-    overflow: auto;
 }
 
 table.fish_map_details {
@@ -107,4 +106,8 @@ img[id$='_note'] {
 }
 #main-area #fish_table_results td {
     padding: 6px;
+    vertical-align: top;
+}
+table.fish_map_details td {
+    color: #fff;
 }
