@@ -101,3 +101,7 @@ img[id$='_note'] {
     padding: 0;
     margin: 0;
 }
+
+#fish_table_results td {
+    padding: 6px;
+}
