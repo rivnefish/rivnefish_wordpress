@@ -760,10 +760,12 @@ input.search_input {
 }
 
 #left-area {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
     float: left;
-    width: 520px;
+    width: 640px;
     position: relative;
-    padding: 60px;
+    padding: 30px;
 }
 
 #meta-info {
@@ -805,7 +807,7 @@ input.search_input {
 }
 
 .entry-post .post-thumbnail {
-    margin: 0 -60px 52px;
+    margin: 0 -30px 52px;
 }
 
 .post-thumbnail img {
@@ -855,7 +857,7 @@ input.search_input {
 }
 
 .entry-post:first-child .post-thumbnail {
-    margin-top: -60px;
+    margin-top: -30px;
 }
 
 .meta-info {
@@ -1437,8 +1439,8 @@ html, body {
     content: '';
     position: absolute;
     top: 0;
-    left: -60px;
-    right: -60px;
+    left: -30px;
+    right: -30px;
     width: auto;
     height: 1px;
     background: #e5e5e5;
@@ -1645,9 +1647,9 @@ html, body {
 
 #sidebar {
     float: left;
-    width: 203px;
+    width: 229px;
     position: relative;
-    padding: 58px;
+    padding: 45px;
     color: #ababab;
     text-shadow: 1px 1px 0 #fff;
 }
@@ -1895,7 +1897,7 @@ img.alignright {
 
 #left-area .wp-pagenavi {
     border-top: 1px solid #e5e5e5;
-    margin: 0 -60px;
+    margin: 0 -30px;
     padding-top: 60px;
     text-align: center;
     color: #383838;
@@ -1921,7 +1923,10 @@ img.alignright {
     margin: 0 10px;
 }
 
-.location-title h2, .et-description h1, .post-description h2, .post-description h1, #listing-results, #et-listings-no-results h1, #et-listings-no-results h2, #comments, #reply-title, #left-area .wp-pagenavi, .entry-content h1, .entry-content h2, .entry-content h3, .entry-content h4 {
+.location-title h2, .et-description h1, .post-description h2, .post-description h1,
+#listing-results, #et-listings-no-results h1, #et-listings-no-results h2,
+#comments, #reply-title, #left-area .wp-pagenavi,
+.entry-content h1, .entry-content h2, .entry-content h3, .entry-content h4 {
     font-family: 'Lobster', Arial, sans-serif;
 }
 
@@ -1990,7 +1995,8 @@ img.alignright {
     margin-left: 55px !important;
 }
 
-#left-area #et_pt_gallery .wp-pagenavi, #left-area #et_pt_portfolio_gallery .wp-pagenavi {
+#left-area #et_pt_gallery .wp-pagenavi,
+#left-area #et_pt_portfolio_gallery .wp-pagenavi {
     display: none;
 }
 
@@ -2033,7 +2039,7 @@ img.alignright {
     }
 
     #left-area {
-        width: 760px;
+        width: 880px;
     }
 }
 
@@ -2043,7 +2049,7 @@ img.alignright {
     }
 
     #left-area {
-        width: 660px;
+        width: 780px;
     }
 }
 
@@ -2192,7 +2198,7 @@ img.alignright {
     }
 
     #left-area {
-        width: 369px;
+        width: 489px;
     }
 
     #sidebar {
