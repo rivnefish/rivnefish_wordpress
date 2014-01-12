@@ -917,6 +917,18 @@ if ( function_exists( 'get_custom_header' ) ) {
 	}
 }
 
+
+/* Our custom filters */
+add_filter('the_content', 'subscribe_rss_text');
+function subscribe_rss_text($content){
+    return $content . '<p><i>'
+        . 'Якщо сподобався допис — підпишись на '
+        . '<a href="http://feeds.feedburner.com/rivnefish/qKIS">RSS стрічку</a>'
+        . ' або отримуй оновлення '
+        . '<a href="http://feedburner.google.com/fb/a/mailverify?uri=rivnefish/qKIS&loc=ru_RU">на email</a>'
+    . '</i></p>';
+}
+
 add_filter('comment_form_default_fields', 'disable_comment_url');
 function disable_comment_url($fields) {
     unset($fields['url']);
