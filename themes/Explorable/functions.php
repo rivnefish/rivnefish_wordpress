@@ -894,14 +894,17 @@ if ( function_exists( 'get_custom_header' ) ) {
 			endif;
 		?>
 		</style>
-	<?php
-		add_filter('the_content', 'subscribe_rss_text');
-		function subscribe_rss_text($content){
-		$subscribe_rss_text = '<p><i>Якщо сподобався допис — підпишись на <a href="http://feeds.feedburner.com/rivnefish/qKIS">RSS стрічку</a> або отримуй оновлення <a href="http://feedburner.google.com/fb/a/mailverify?uri=rivnefish/qKIS&loc=ru_RU">на email</a></i></p>';
-		return $content;
-		}
-	?>
 	<?php }
+
+    add_filter('the_content', 'subscribe_rss_text');
+    function subscribe_rss_text($content){
+        return $content . '<p><i>'
+            . 'Якщо сподобався допис — підпишись на '
+            . '<a href="http://feeds.feedburner.com/rivnefish/qKIS">RSS стрічку</a>'
+            . ' або отримуй оновлення '
+            . '<a href="http://feedburner.google.com/fb/a/mailverify?uri=rivnefish/qKIS&loc=ru_RU">на email</a>'
+        . '</i></p>';
+    }
 
 	/*
 	 * Adds color scheme class to the body tag
