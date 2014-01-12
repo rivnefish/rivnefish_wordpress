@@ -2,7 +2,7 @@
 	$index_postinfo = et_get_option( 'explorable_postinfo1' );
 
 	$thumb = '';
-	$width = (int) apply_filters( 'et_blog_image_width', 640 );
+	$width = (int) apply_filters( 'et_blog_image_width', 880 );
 	$height = (int) apply_filters( 'et_blog_image_height', 280 );
 	$classtext = '';
 	$titletext = get_the_title();
@@ -23,7 +23,7 @@
 			}
 		?>
 		</div> <!-- .post-description -->
-	<?php if ( ( $author_avatar = get_avatar( get_the_author_meta( 'ID' ), 61 ) ) && 'on' == et_get_option( 'explorable_show_avatar_on_posts', 'on' ) && '' != $author_avatar ) : ?>
+	<?php if ( ( $author_avatar = get_avatar( get_the_author_meta( 'ID' ), 64 ) ) && 'on' == et_get_option( 'explorable_show_avatar_on_posts', 'on' ) && '' != $author_avatar ) : ?>
 		<?php echo '<span class="et-avatar">' . $author_avatar . '</span>'; ?>
 	<?php endif; ?>
 	</div> <!-- .post-thumbnail -->

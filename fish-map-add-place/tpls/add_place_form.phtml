@@ -42,7 +42,7 @@
             <div class="fishes">
                 <?php foreach ($fishes as $fish) { ?>
                     <label class="check">
-                        <input type="checkbox" name="fishes[]" value="<?php echo $fish->id ?>" />
+                        <input type="checkbox" name="fishes[]" value="<?php echo $fish->fish_id ?>" />
                         <?php echo $fish->name ?>
                     </label>
                 <?php } ?>
@@ -92,21 +92,14 @@
                 <small>(чи є доступ до питної води, де ставити палатку, чи є мангали й столики і таке інше)</small>
             </div>
 
-            <div class="controls photo_urls">
+            <?php if ($showUploadPhotos) { ?>
+            <div class="controls">
                 <label>Фото водойми</label>
-                <div>
-                    <input type="text" name="photo_url1" id="marker_photo_url1" placeholder="Фото 1" />
-                </div>
-                <div>
-                    <input type="text" name="photo_url2" id="marker_photo_url2" placeholder="Фото 2" />
-                </div>
-                <div>
-                    <input type="text" name="photo_url3" id="marker_photo_url3" placeholder="Фото 3" />
-                </div>
-                <div>
-                    <input type="text" name="photo_url4" id="marker_photo_url4" placeholder="Фото 4" />
-                </div>
+                <button id="photo_upload">Додати фото...</button>
+                <div id="loading" class="hidden"></div>
+                <div id="pictures"></div>
             </div>
+            <?php } ?>
 
             <div class="controls">
                 <div class="col col-3">

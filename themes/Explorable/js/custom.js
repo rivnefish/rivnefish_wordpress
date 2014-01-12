@@ -141,6 +141,33 @@
 
 	var et_window_width;
 
+    function et_listing_make_fluid() {
+        var $et_main_map = $( '#et_main_map' ),
+            new_listing_height;
+
+        if ( $et_main_map.length ) {
+            if ( et_window_width < 960 )
+                new_listing_height = $('.et-normal-listings #et-listings .overview ul').height();
+            else
+                new_listing_height = $('.et-normal-listings').height() - 81;
+
+            $('.et-normal-listings #et-listings, .et-normal-listings .viewport').height( new_listing_height );
+
+            // $('.et-normal-listings #et-listings').tinyscrollbar_update();
+        }
+    }
+
+    function et_make_mobile_listing() {
+        $('.et-mobile-listings').remove();
+        $('body').append( $('#et-list-view').clone().removeClass('et-normal-listings').addClass('et-mobile-listings') );
+        $et_mobile_listings_item = $('.et-mobile-listings li');
+    }
+
+    $.extend(window, {
+        et_listing_make_fluid : et_listing_make_fluid,
+        et_make_mobile_listing : et_make_mobile_listing
+    });
+
 	$(document).ready( function(){
 		var $et_top_menu = $( 'ul.nav' ),
 			$featured_slider = $('#et-slider-wrapper'),
@@ -183,11 +210,15 @@
 
 			$this_li.addClass( 'et-active-listing' );
 
-			google.maps.event.trigger( $("#et_main_map").gmap3({ get: { id: "et_marker_" + $this_li.index() } }), 'click' );
+			// google.maps.event.trigger( $("#et_main_map").gmap3({ get: { id: "et_marker_" + $this_li.index() } }), 'click' );
 		} );
 
 		if ( $('#et-list-view.et-normal-listings').length ){
 			$('#et-list-view.et-normal-listings').append( '<a href="#" class="et-date">' + et_custom.toggle_text + '</a>' );
+            /* Fixing listing button */
+            var listingButton = $('#et-list-view .et-date');
+            var leftPos = Math.round((listingButton.outerWidth() + listingButton.outerHeight()) / 2);
+            listingButton.css('left', '-' + leftPos + 'px');
 
 			$et_list_view = $('#et-list-view.et-normal-listings');
 
@@ -207,7 +238,7 @@
 				slide : '.et-map-slide',
 				use_controls : false,
 				on_slide_changing : function( $next_slide ){
-					google.maps.event.trigger($("#et_main_map").gmap3({ get: { id: "et_marker_" + $next_slide.index() } }), 'click');
+					// google.maps.event.trigger($("#et_main_map").gmap3({ get: { id: "et_marker_" + $next_slide.index() } }), 'click');
 
 					$et_listings_item.filter( '.et-active-listing' ).removeClass( 'et-active-listing' );
 					$et_listings_item.eq( $next_slide.index() ).addClass( 'et-active-listing' );
@@ -216,7 +247,7 @@
 					$et_mobile_listings_item.eq( $next_slide.index() ).addClass( 'et-active-listing' );
 				},
 				on_slide_change_end : function( $next_slide ){
-					if ( et_window_width >= 960 ) $('.et-place-main-text:visible').tinyscrollbar_update();
+					// if ( et_window_width >= 960 ) $('.et-place-main-text:visible').tinyscrollbar_update();
 
 					$next_slide.siblings().removeClass( 'et-active-map-slide' );
 					$next_slide.addClass( 'et-active-map-slide' );
@@ -276,9 +307,6 @@
 		});
 
 		et_duplicate_menu( $('ul.nav'), $('.mobile_nav'), 'mobile_menu', 'et_mobile_menu' );
-
-		$('body').append( $('#et-list-view').clone().removeClass('et-normal-listings').addClass('et-mobile-listings') );
-		$et_mobile_listings_item = $('.et-mobile-listings li');
 
 		function et_duplicate_menu( menu, append_to, menu_id, menu_class ){
 			var $cloned_nav;
@@ -404,30 +432,7 @@
 		}
 	});
 
-	function et_listing_make_fluid() {
-		var $et_main_map = $( '#et_main_map' ),
-			new_listing_height;
 
-		if ( $et_main_map.length ) {
-			if ( et_window_width < 960 )
-				new_listing_height = $('.et-normal-listings #et-listings .overview ul').height();
-			else
-				new_listing_height = $('.et-normal-listings').height() - 81;
-
-			$('.et-normal-listings #et-listings, .et-normal-listings .viewport').height( new_listing_height );
-
-			$('.et-normal-listings #et-listings').tinyscrollbar_update();
-		}
-	}
-
-	$(window).load( function(){
-		$('.et-normal-listings #et-listings').tinyscrollbar();
-
-		et_listing_make_fluid();
-
-		if ( $("#et_main_map").length )
-			google.maps.event.trigger( $("#et_main_map").gmap3({ get: { id: "et_marker_0" } }), 'click' );
-	} );
 
 	$(window).resize( function(){
 		var $et_main_map = $( '#et_main_map' ),
@@ -436,21 +441,21 @@
 		et_window_width = $(window).width();
 
 		if ( $et_main_map.length ) {
-			$et_main_map.gmap3("get").panTo( et_active_marker.position );
+			// $et_main_map.gmap3("get").panTo( et_active_marker.position );
 
-			if ( $('.et-place-main-text:visible') ) $('.et-place-main-text:visible').tinyscrollbar_update();
+			// if ( $('.et-place-main-text:visible') ) $('.et-place-main-text:visible').tinyscrollbar_update();
 
 			et_listing_make_fluid();
 		}
 
 		if ( $et_single_map.length ) {
-			$et_single_map.gmap3("get").panTo(
-				$et_single_map.gmap3({
-					get: {
-						id : 'et_single_marker'
-					}
-				}).position
-			);
+			// $et_single_map.gmap3("get").panTo(
+			// 	$et_single_map.gmap3({
+			// 		get: {
+			// 			id : 'et_single_marker'
+			// 		}
+			// 	}).position
+			// );
 		}
 	} );
 })(jQuery)

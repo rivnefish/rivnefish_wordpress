@@ -13,7 +13,7 @@
 <!--<![endif]-->
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
-	<title><?php elegant_titles(); ?></title>
+	<title><?php wp_title('|', true, 'right' );?></title>
 	<?php elegant_description(); ?>
 	<?php elegant_keywords(); ?>
 	<?php elegant_canonical(); ?>
@@ -32,11 +32,14 @@
 	</script>
 
 	<?php wp_head(); ?>
+    <script type="text/javascript">
+        window.$ = jQuery;
+    </script>
 </head>
 <body <?php body_class(); ?>>
 	<header id="main-header">
 		<div class="container clearfix">
-			<?php $logo = ( $user_logo = et_get_option( 'explorable_logo' ) ) && '' != $user_logo ? $user_logo : $template_directory_uri . '/images/logo.png'; ?>
+			<?php $logo = ( $user_logo = et_get_option( 'explorable_logo' ) ) && '' != $user_logo ? $user_logo : $template_directory_uri . '/images/rivnefish_logo_christmas.png'; ?>
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_attr( $logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" id="logo"/></a>
 
 			<div id="top-navigation">
@@ -73,6 +76,6 @@
 		<?php do_action( 'et_header_top' ); ?>
 	</header> <!-- #main-header -->
 
-<?php if ( ! et_is_listing_page() ) : ?>
+<?php if (!isset($hide_head_bg) && ! et_is_listing_page() ) : ?>
 	<div id="et-header-bg"></div>
 <?php endif; ?>

@@ -4,7 +4,7 @@ function et_custom_comments_display($comment, $args, $depth) {
 	<li <?php comment_class(); ?> id="li-comment-<?php comment_ID() ?>">
 		<article id="comment-<?php comment_ID(); ?>" class="comment-body clearfix">
 			<div class="comment_avatar">
-				<?php echo get_avatar( $comment, $size = '60' ); ?>
+				<?php echo get_avatar( $comment, $size = '64' ); ?>
 			</div> <!-- end .comment_avatar -->
 
 			<div class="comment_postinfo clearfix">

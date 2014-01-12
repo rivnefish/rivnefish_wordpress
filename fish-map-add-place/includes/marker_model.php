@@ -50,7 +50,7 @@ class MarkerModel
 
     public function getFishIds()
     {
-        return $this->db->get_col("SELECT id FROM fishes");
+        return $this->db->get_col("SELECT fish_id FROM fishes");
     }
 
     public function insertMarkerFishes($markerId, $fishes)
@@ -64,6 +64,17 @@ class MarkerModel
                     'fish_id' => $fishId
                 ));
             }
+        }
+    }
+
+    public function insertMarkerPictures($markerId, $pictures)
+    {
+        foreach ($pictures as $pictureId) {
+            $pictureId = intval($pictureId);
+            $this->db->insert('markers_pictures', array(
+                'marker_id' => $markerId,
+                'picture_id' => $pictureId
+            ));
         }
     }
 
@@ -87,18 +98,16 @@ class MarkerModel
             '24h_price' => $data['24h_price'],
             'dayhour_price' => $data['dayhour_price'],
             'boat_usage' => $data['boat_usage'],
-            'time_to_fish' => $data['time_to_fish'],
-
-            'photo_url1' => $data['photo_url1'],
-            'photo_url2' => $data['photo_url2'],
-            'photo_url3' => $data['photo_url3'],
-            'photo_url4' => $data['photo_url4']
+            'time_to_fish' => $data['time_to_fish']
         );
         $this->db->insert('markers', $marker);
         $markerId = $this->db->insert_id;
 
         if (isset($data['fishes'])) {
             $this->insertMarkerFishes($markerId, $data['fishes']);
+        }
+        if (isset($data['pictures'])) {
+            $this->insertMarkerPictures($markerId, $data['pictures']);
         }
 
         return $markerId;

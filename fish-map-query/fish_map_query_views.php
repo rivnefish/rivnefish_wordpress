@@ -4,7 +4,7 @@
  * iconv("UTF-8", "ISO-8859-1//TRANSLIT", $text)
  */
 
-function fish_map_query_form($fishes, $countries, $regions, $districts) {
+function fish_map_query_form($fishes) {
     ?>
     <div id="wrapper">
         <div id="waiting" style="display: none;">
@@ -21,6 +21,18 @@ function fish_map_query_form($fishes, $countries, $regions, $districts) {
                     style="cursor:pointer;">Пошукова форма</h4>
                 <div id="form_params">
                     <table id="form_params_table">
+                        <tr>
+                            <td>
+                                <label for="name">Назва водойми:</label>
+                                <img src="<?php bloginfo('template_url'); ?>/images/info.gif"
+                                     id="name_tip"
+                                     alt="Info"
+                                     title="|Введіть хоча б кілька літер з назви водойми" />
+                            </td>
+                            <td>
+                                <input type="text" name="name" id="name" value="" />
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <label for="permit_all">Всі водойми:</label>
@@ -127,17 +139,18 @@ function fish_map_query_form($fishes, $countries, $regions, $districts) {
                         </tr>
                         <tr>
                             <td>
-                                <label for="name">Назва водойми:</label>
+                                <label for="fish_weight">вага риби &ge;:</label>
                                 <img src="<?php bloginfo('template_url'); ?>/images/info.gif"
-                                     id="name_tip"
+                                     id="fish_weight_tip"
                                      alt="Info"
-                                     title="|Введіть хоча б кілька літер з назви водойми" />
+                                     title="|Вага риби більша або рівна за задану" />
                             </td>
                             <td>
-                                <input type="text" name="name" id="name" value="" />
+                                <input type="text" name="fish_weight" id="fish_weight" value="" />
+                                <label for="fish_weight">гр.</label>
                             </td>
                         </tr>
-                        <tr>
+     <!--                    <tr>
                             <td>
                                 <label for="add_opts">Застосувати додаткові параметри:</label>
                             </td>
@@ -145,7 +158,7 @@ function fish_map_query_form($fishes, $countries, $regions, $districts) {
                                 <input type="checkbox" name="add_opts" id="add_opts" value="true"
                                        onchange="$('#additional_opts').toggle('fast');"/>
                             </td>
-                        </tr>
+                        </tr> -->
                     </table>
                     <div id="additional_opts" style="display:none">
                         <table id="form_add_params_table">
@@ -162,7 +175,7 @@ function fish_map_query_form($fishes, $countries, $regions, $districts) {
                                     <label for="fish_weight">гр.</label>
                                 </td>
                             </tr>
-                            <tr>
+                            <!--tr>
                                 <td>
                                     <label for="only_all_fishes">наявність всіх вибраних риб</label>
                                     <img src="<?php bloginfo('template_url'); ?>/images/info.gif"
@@ -173,72 +186,7 @@ function fish_map_query_form($fishes, $countries, $regions, $districts) {
                                 <td>
                                     <input type="checkbox" name="only_all_fishes" id="only_all_fishes" value="true" />
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="countries">Країна:</label>
-                                </td>
-                                <td>
-                                    <select id="countries" size="4" multiple="multiple" name="countries[]">
-                                        <?php foreach ($countries as $country) { ?>
-                                            <option value="<?php echo $country['country_id'] ?>"
-                                                    onclick="initRegions(this)">
-                                            <?php echo $country['name'] ?>
-                                            </option>
-                                            <?php
-                                        } ?>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="regions">Область:</label>
-                                </td>
-                                <td>
-                                    <select id="regions" size="4" multiple="multiple" name="regions[]">
-                                        <?php foreach ($countries as $country) { ?>
-                                            <optgroup label="<?php echo $country['name'] ?>"
-                                                      id="country_<?php echo $country['country_id'] ?>"
-                                                      style="display: none">
-                                            <?php foreach ($regions as $region) {
-                                                if ($region['country_id'] == $country['country_id']) { ?>
-                                                    <option value="<?php echo $region['region_id'] ?>"
-                                                            onclick="initDistricts(this)">
-                                                        <?php echo $region['name'] ?>
-                                                    </option>
-                                                <?php
-                                                }
-                                            } ?>
-                                            </optgroup>
-                                            <?php
-                                        } ?>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="districts">Район:</label>
-                                </td>
-                                <td>
-                                    <select id="districts" size="10" multiple="multiple" name="districts[]">
-                                        <?php foreach ($regions as $region) { ?>
-                                            <optgroup label="<?php echo $region['name'] ?>"
-                                                      id="region_<?php echo $region['region_id'] ?>"
-                                                      style="display: none">
-                                            <?php foreach ($districts as $district) {
-                                                if ($district['region_id'] == $region['region_id']) { ?>
-                                                    <option value="<?php echo $district['district_id'] ?>">
-                                                        <?php echo $district['name'] ?>
-                                                    </option>
-                                                <?php
-                                                }
-                                            } ?>
-                                            </optgroup>
-                                            <?php
-                                        } ?>
-                                    </select>
-                                </td>
-                            </tr>
+                            </tr-->
                         </table>
                     </div>
                     <p>

@@ -18,9 +18,9 @@
 
 	$thumb = '';
 
-	$width = (int) apply_filters( 'et_blog_image_width', 640 );
+	$width = (int) apply_filters( 'et_blog_image_width', 880 );
 	if ( $et_fullwidth )
-		$width = (int) apply_filters( 'et_blog_image_width_fullwidth', 960 );
+		$width = (int) apply_filters( 'et_blog_image_width_fullwidth', 1200 );
 	$height = (int) apply_filters( 'et_blog_image_height', 280 );
 
 	$classtext = '';
@@ -44,14 +44,14 @@
 			}
 		?>
 		</div> <!-- .post-description -->
-	<?php if ( ( $author_avatar = get_avatar( get_the_author_meta( 'ID' ), 61 ) ) && 'on' == et_get_option( 'explorable_show_avatar_on_posts', 'on' ) && '' != $author_avatar && ! is_page() ) : ?>
+	<?php if ( ( $author_avatar = get_avatar( get_the_author_meta( 'ID' ), 64 ) ) && 'on' == et_get_option( 'explorable_show_avatar_on_posts', 'on' ) && '' != $author_avatar && ! is_page() ) : ?>
 		<?php echo '<span class="et-avatar">' . $author_avatar . '</span>'; ?>
 	<?php endif; ?>
 	</div> <!-- .post-thumbnail -->
 <?php } ?>
 
 	<div class="entry-content">
-	<?php if ( is_page() && ( '' == $thumb || 'false' == $show_thumb ) ) : ?>
+	<?php if ('' == $thumb || 'false' == $show_thumb) : ?>
 		<h1 class="title"><?php the_title(); ?></h1>
 	<?php endif; ?>
 	<?php

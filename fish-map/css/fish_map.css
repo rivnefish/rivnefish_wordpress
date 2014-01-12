@@ -76,3 +76,8 @@ div#add_post_button_div {
     white-space: nowrap;
     width: auto;
 }
+
+.yarpp-related,
+.addthis_toolbox {
+    display: none;
+}

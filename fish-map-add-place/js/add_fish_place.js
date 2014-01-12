@@ -10,7 +10,10 @@ var AddMarkerForm = (function ($) {
         this.form = $('#add_place_form');
         this.form.submit($.proxy(this.savePlace, this));
 
+        this.pictures = $('#pictures');
+
         this.initMap();
+        this.initPhotoUpload();
 
         $('#permit').change(this.togglePermitInfo).trigger('change');
     },
@@ -58,6 +61,65 @@ var AddMarkerForm = (function ($) {
         google.maps.event.addListener(this.map, 'click', $.proxy(function(e) {
             this.placeMarker(e.latLng, this.map);
         }, this));
+    },
+
+    initPhotoUpload : function () {
+        var uploadingCnt = 0;
+        var uploader = new plupload.Uploader({
+            runtimes : 'html5,flash,silverlight',
+            browse_button : 'photo_upload',
+            container : 'add_place_form',
+            max_file_size : '10mb',
+            url : '/wp-admin/admin-post.php?action=save_photos',
+            flash_swf_url : '/wp-content/plugins/fish-map-add-place/js/3p/plupload-2.0.0/Moxie.swf',
+            silverlight_xap_url : '/wp-content/plugins/fish-map-add-place/js/3p/plupload-2.0.0/Moxie.xap',
+            filters : [
+                {title : "Малюнки", extensions : "jpg,gif,png"}
+            ],
+            resize : {width : 320, height : 240, quality : 90}
+        });
+
+        uploader.bind('Init', function(up, params) {
+            $('#filelist').html("<div>Current runtime: " + params.runtime + "</div>");
+        });
+
+        uploader.init();
+
+        uploader.bind('FilesAdded', function(up, files) {
+            console.log('FilesAdded');
+            uploader.start();
+            up.refresh();
+            $('#loading').show();
+            uploadingCnt += files.length;
+        });
+
+        uploader.bind('Error', function(up, err) {
+            alert("Помилка: " + err.message + (err.file ? ", Файл: " + err.file.name : ""));
+            up.refresh();
+        });
+
+        uploader.bind('FileUploaded', $.proxy(function(up, file, info) {
+            var response = JSON.parse(info.response),
+                imageId = response.arrImageIds[0],
+                imagePath = '/' + response.strGalleryPath + '/' + response.arrImageNames[0];
+            this.pictures.append(
+                $('<img />').attr({
+                    'src' : imagePath,
+                    'class' : 'photo'
+                })
+            ).append(
+                $('<input />').attr({
+                    'name' : 'pictures[]',
+                    'type' : 'hidden',
+                    'value' : imageId
+                })
+            );
+
+            if (--uploadingCnt == 0) {
+                $('#loading').hide();
+            }
+        }, this));
+        this.uploader = uploader;
     },
 
     togglePermitInfo : function () {
@@ -142,6 +204,7 @@ var AddMarkerForm = (function ($) {
         this.marker.setMap(null);
         this.form.find('input[name=lat]').val('');
         this.form.find('input[name=lng]').val('');
+        this.pictures.html('');
     }
 };})(jQuery);
 

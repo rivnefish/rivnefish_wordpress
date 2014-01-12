@@ -1,17 +1,16 @@
 table.tablesorter {
 	font-size: 8pt;
-	background-color: #113355;
+	background-color: #fff;
 	width: 100%;
 	border: 1px solid #000;
 }
 table.tablesorter th {
 	text-align: left;
 	padding: 5px;
-	background-color: #6E6E6E;
+	background-color: #ededed;
     border: 1px solid #000000;
 }
 table.tablesorter td {
-	color: #CCCCCC;
     border: 1px solid #000000;
 	padding: 5px;
 }

@@ -6,9 +6,9 @@ global $et_theme_image_sizes;
 $et_theme_image_sizes = array(
 	'480x240' 	=> 'et-map-slide-thumb',
 	'60x60' 	=> 'et-listing-image-thumb',
-	'960x320' 	=> 'et-single-post-thumb',
-	'640x280' 	=> 'et-entry-post-thumb',
-	'960x280' 	=> 'et-entry-post-thumb-fullwidth',
+	'1200x320' 	=> 'et-single-post-thumb',
+	'880x280' 	=> 'et-entry-post-thumb',
+	'1200x280' 	=> 'et-entry-post-thumb-fullwidth',
 );
 
 $et_page_templates_image_sizes = array(

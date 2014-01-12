@@ -59,9 +59,10 @@
 						$curauth = $wp_query->get_queried_object();
 					?>
 					<?php esc_html_e('Posts by ','Explorable'); echo ' ',$curauth->nickname; ?>
-				<?php } elseif (is_page()) { ?>
-					<?php wp_title(''); ?>
-				<?php }; ?>
+				<?php } else {
+                    $post = $wp_query->get_queried_object();
+                    echo get_the_title($post);
+				}; ?>
 	<?php } ?>
 
 	<span class="raquo">&raquo;</span>

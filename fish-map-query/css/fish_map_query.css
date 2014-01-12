@@ -17,8 +17,6 @@ input.error {
 }
 
 #fish_map_form {
-    background: url("../images/form_texture.png") repeat-x scroll 0 0 #00131F;
-    background-size: auto 100%;
     border: 1px outset #CCCCCC;
     border-radius: 5px;
     font-size: 12px;
@@ -67,7 +65,6 @@ div#fish_map_table_count {
 
 div#fish_map_table {
     margin-bottom: 5px;
-    overflow: auto;
 }
 
 table.fish_map_details {
@@ -89,7 +86,6 @@ table.fish_map_details img {
 table.fish_map_details th {
 	text-align: left;
 	padding: 5px;
-	background-color: #6E6E6E !important;
     border: 1px solid #000000;
 }
 
@@ -103,4 +99,15 @@ img[id$='_note'] {
     border: 0 none;
     padding: 0;
     margin: 0;
+}
+
+#main-area #fish_table_results {
+    border: 1px solid #000;
+}
+#main-area #fish_table_results td {
+    padding: 6px;
+    vertical-align: top;
+}
+table.fish_map_details td {
+    color: #fff;
 }
