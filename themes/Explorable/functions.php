@@ -893,16 +893,6 @@ if ( function_exists( 'get_custom_header' ) ) {
 		</style>
 	<?php }
 
-    add_filter('the_content', 'subscribe_rss_text');
-    function subscribe_rss_text($content){
-        return $content . '<p><i>'
-            . 'Якщо сподобався допис — підпишись на '
-            . '<a href="http://feeds.feedburner.com/rivnefish/qKIS">RSS стрічку</a>'
-            . ' або отримуй оновлення '
-            . '<a href="http://feedburner.google.com/fb/a/mailverify?uri=rivnefish/qKIS&loc=ru_RU">на email</a>'
-        . '</i></p>';
-    }
-
 	/*
 	 * Adds color scheme class to the body tag
 	 */
@@ -925,6 +915,18 @@ if ( function_exists( 'get_custom_header' ) ) {
 	function et_load_google_fonts_styles() {
 		wp_enqueue_style( 'et_google_fonts_style', get_template_directory_uri() . '/epanel/google-fonts/et_google_fonts.css', array(), null );
 	}
+}
+
+
+/* Our custom filters */
+add_filter('the_content', 'subscribe_rss_text');
+function subscribe_rss_text($content){
+    return $content . '<p><i>'
+        . 'Якщо сподобався допис — підпишись на '
+        . '<a href="http://feeds.feedburner.com/rivnefish/qKIS">RSS стрічку</a>'
+        . ' або отримуй оновлення '
+        . '<a href="http://feedburner.google.com/fb/a/mailverify?uri=rivnefish/qKIS&loc=ru_RU">на email</a>'
+    . '</i></p>';
 }
 
 add_filter('comment_form_default_fields', 'disable_comment_url');
