@@ -24,14 +24,42 @@ class FishMapAddPlacePlugin
         register_activation_hook($path . '/fish_map_add_place.php', 'fish_map_install');
         register_deactivation_hook($path . '/fish_map_add_place.php', 'fish_map_uninstall');
 
-        add_action( 'plugins_loaded', 'fish_map_update_check' );
+        add_action('plugins_loaded', 'fish_map_update_check' );
         add_action('wp_ajax_fish_map_add_place_save', array($this, 'savePlace'));
         add_action('admin_post_save_photos', array($this, 'savePhotos'));
+        add_action('init', array($this, 'create_post_type'));
 
         add_shortcode('fish-map-add-place-form', array($this, 'renderForm'));
 
         $this->_model = new MarkerModel();
     }
+
+
+    public function create_post_type() {
+        register_post_type('lakes', array(
+            'labels' => array(
+                'name' => __( 'Lakes' ),
+                'singular_name' => __( 'Lake' )
+            ),
+            'public'             => true,
+            'publicly_queryable' => true,
+            'show_ui'            => true,
+            'can_export'         => true,
+            'show_in_nav_menus'  => false,
+            'query_var'          => true,
+            'has_archive'        => true,
+            'rewrite'            => apply_filters('fish_map_posttype_rewrite_args', array(
+                'slug'       => 'lakes',
+                'with_front' => false,
+                'feeds'      => true
+            )),
+            'capability_type'    => 'post',
+            'hierarchical'       => false,
+            'menu_position'      => null,
+            'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments', 'revisions', 'custom-fields' )
+        ));
+    }
+
 
     public function addScripts()
     {
