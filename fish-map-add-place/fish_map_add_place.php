@@ -116,14 +116,15 @@ class FishMapAddPlacePlugin
             $data['user_id'] = get_current_user_id();
 
             $markerId = $this->_model->insertMarker($data);
-            $postId = $this->_model->insertMarkerPost($markerId, $data);
 
             if (isset($data['fishes'])) {
                 $this->_model->insertMarkerFishes($markerId, $data['fishes']);
             }
-            if (isset($data['pictures'])) {
-                $this->_model->insertMarkerPictures($markerId, $data['pictures']);
-            }
+
+            $galleryId = $this->_model->createMarkerGallery($markerId, $data);
+            $data['gallery_id'] = $galleryId;
+
+            $postId = $this->_model->createMarkerPost($markerId, $data);
 
             $this->_model->sendEmailNotification($_REQUEST);
 

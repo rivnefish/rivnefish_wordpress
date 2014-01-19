@@ -67,28 +67,50 @@ class MarkerModel
         }
     }
 
-    public function insertMarkerPictures($markerId, $pictures)
+    private function _getNggFunctionsPath()
     {
-        foreach ($pictures as $pictureId) {
-            $pictureId = intval($pictureId);
-            $this->db->insert('markers_pictures', array(
-                'marker_id' => $markerId,
-                'picture_id' => $pictureId
-            ));
-        }
+        return WP_PLUGIN_DIR . '/nextgen-gallery/products/photocrati_nextgen/modules/ngglegacy/admin/functions.php';
     }
 
-    public function insertMarkerPost($markerId, $data)
+    public function createMarkerGallery($markerId, $data)
     {
-        $post = array(
+        require_once $this->_getNggFunctionsPath();
+        global $nggdb, $ngg;
+
+        $name = esc_attr($data['name']);
+        $defaultpath = $ngg->options['gallerypath'];
+        $galleryId = nggAdmin::create_gallery($name, $defaultpath, false);
+
+        $this->assignGalleryToMarker($galleryId, $markerId);
+
+        if (isset($data['pictures'])) {
+            ob_start();
+            $pictures = array_map('intval', $data['pictures']);
+            nggAdmin::move_images($pictures, $galleryId);
+            ob_get_clean();
+        }
+
+        return $galleryId;
+    }
+
+    public function assignGalleryToMarker($galleryId, $markerId)
+    {
+        $this->db->update('markers', array('gallery_id' => $galleryId), array('marker_id' => $markerId));
+    }
+
+    public function createMarkerPost($markerId, $data)
+    {
+        if (isset($data['gallery_id'])) {
+            $data['content'] .= "\n" . "[nggallery id={$data['gallery_id']}]";
+        }
+
+        $postId = wp_insert_post(array(
             'post_title'    => $data['name'],
             'post_content'  => $data['content'],
             'post_status'   => 'publish',
             'post_author'   => $data['user_id'],
             'post_type'     => 'lakes'
-        );
-
-        $postId = wp_insert_post($post);
+        ));
         $this->assignPostToMarker($postId, $markerId);
 
     }

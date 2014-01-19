@@ -6,9 +6,8 @@
     color: #f00;
 }
 
-div.success {
+.success {
     color: #000000;
-    background: #99CC33;
     border: 1px solid #336633;
     padding: 5px;
     margin: 7px;
