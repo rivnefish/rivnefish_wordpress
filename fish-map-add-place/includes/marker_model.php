@@ -78,6 +78,26 @@ class MarkerModel
         }
     }
 
+    public function insertMarkerPost($markerId, $data)
+    {
+        $post = array(
+            'post_title'    => $data['name'],
+            'post_content'  => $data['content'],
+            'post_status'   => 'publish',
+            'post_author'   => $data['user_id'],
+            'post_type'     => 'lakes'
+        );
+
+        $postId = wp_insert_post($post);
+        $this->assignPostToMarker($postId, $markerId);
+
+    }
+
+    public function assignPostToMarker($postId, $markerId)
+    {
+        $this->db->update('markers', array('post_id' => $postId), array('marker_id' => $markerId));
+    }
+
     public function insertMarker($data)
     {
         $marker = array(
@@ -98,18 +118,10 @@ class MarkerModel
             '24h_price' => $data['24h_price'],
             'dayhour_price' => $data['dayhour_price'],
             'boat_usage' => $data['boat_usage'],
-            'time_to_fish' => $data['time_to_fish']
+            'time_to_fish' => $data['time_to_fish'],
+            'author_id' => $data['user_id']
         );
         $this->db->insert('markers', $marker);
-        $markerId = $this->db->insert_id;
-
-        if (isset($data['fishes'])) {
-            $this->insertMarkerFishes($markerId, $data['fishes']);
-        }
-        if (isset($data['pictures'])) {
-            $this->insertMarkerPictures($markerId, $data['pictures']);
-        }
-
-        return $markerId;
+        return $this->db->insert_id;
     }
 }

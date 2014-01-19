@@ -112,8 +112,21 @@ class FishMapAddPlacePlugin
 
         $validator = $this->_model->validator($_POST);
         if ($validator->validate()) {
-            $result = $this->_model->insertMarker($_POST);
+            $data = $_POST;
+            $data['user_id'] = get_current_user_id();
+
+            $markerId = $this->_model->insertMarker($data);
+            $postId = $this->_model->insertMarkerPost($markerId, $data);
+
+            if (isset($data['fishes'])) {
+                $this->_model->insertMarkerFishes($markerId, $data['fishes']);
+            }
+            if (isset($data['pictures'])) {
+                $this->_model->insertMarkerPictures($markerId, $data['pictures']);
+            }
+
             $this->_model->sendEmailNotification($_REQUEST);
+
             $response = array('error' => false);
         } else {
             $response = array(
