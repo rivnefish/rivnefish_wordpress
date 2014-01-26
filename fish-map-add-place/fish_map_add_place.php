@@ -85,7 +85,6 @@ class FishMapAddPlacePlugin
 
     public function addStylesheets()
     {
-        /* !!! TODO: update Post's TITLE and ID in case changed*/
         wp_register_style('addFishPlaceStyleSheet', plugins_url('css/add_fish_place.css', __FILE__));
         wp_enqueue_style('addFishPlaceStyleSheet');
     }

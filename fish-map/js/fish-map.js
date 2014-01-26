@@ -315,7 +315,7 @@ function showInfoWindow(marker) {
         var photo2 = markerInfo["photo_url2"];
         var photo3 = markerInfo["photo_url3"];
         var photo4 = markerInfo["photo_url4"];
-        var url_suffix = markerInfo["url_suffix"];
+        var page_url = markerInfo["page_url"];
 
         var html = "<div class='marker-info'>"
                         + "<div><strong>"+ name + "</strong></div>";
@@ -383,11 +383,19 @@ function showInfoWindow(marker) {
                 "<img class='marker_photo' style='width:53px; height:40px' src='"+photo4_ico+"'/></a>";
             }
             html += "</div>";
+        } else if (markerInfo['photos']) {
+            html += '<div class="photos">';
+            for (var i in markerInfo['photos']) {
+                html += "<a href='" + markerInfo['photos'][i]['photo'] + "' target='_blank' title='Збільшити'>" +
+                        "<img class='marker_photo' src='" + markerInfo['photos'][i]['thumbnail'] + "'/></a>";
+//                html += markerInfo['photos'][i]['href'];
+            }
+            html += "</div>";
         }
-        if (url_suffix) {
+        if (page_url) {
             html += "<div>";
             html += "<a title='Прочитати статтю про цю точку, переглянути/додати коментарі'"+
-                     " href='" + url_suffix + "'>Деталі/Коментарі &gt;&gt;&gt;</a>";
+                     " href='" + page_url + "'>Деталі/Коментарі &gt;&gt;&gt;</a>";
             html += "</div>";
         }
         html += "</div>";

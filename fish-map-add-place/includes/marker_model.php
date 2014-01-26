@@ -108,7 +108,6 @@ class MarkerModel
             'post_title'    => $data['name'],
             'post_content'  => $data['content'],
             'post_status'   => 'publish',
-            'post_author'   => $data['user_id'],
             'post_type'     => 'lakes'
         ));
         $this->assignPostToMarker($postId, $markerId);

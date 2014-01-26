@@ -53,12 +53,18 @@ add_shortcode('map', 'fish_map');
 add_shortcode('fish_map_elegant', 'fish_map_elegant');
 add_action('wp_enqueue_scripts', 'add_scripts_map');
 add_action('wp_print_styles', 'add_stylesheets_map');
+
 add_action('wp_ajax_nopriv_fish_map_markers', 'fish_map_markers');
-add_action('wp_ajax_nopriv_fish_map_markers_search', 'fish_map_markers_search');
-add_action('wp_ajax_nopriv_fish_map_marker_info', 'fish_map_marker_info');
 add_action('wp_ajax_fish_map_markers', 'fish_map_markers');
+
+add_action('wp_ajax_nopriv_fish_map_markers_search', 'fish_map_markers_search');
 add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
+
+add_action('wp_ajax_nopriv_fish_map_marker_info', 'fish_map_marker_info');
 add_action('wp_ajax_fish_map_marker_info', 'fish_map_marker_info');
+
+
+add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
 
 function add_scripts_map() {
         wp_deregister_script('jquery');
@@ -105,34 +111,6 @@ function add_stylesheets_map() {
 }
 
 function fish_map($attr) {
-
-    // default atts
-    $attr = shortcode_atts(array(
-        'lat' => '0',
-        'lon' => '0',
-        'id' => 'map',
-        'z' => '1',
-        'w' => '400',
-        'h' => '300',
-        'maptype' => 'ROADMAP',
-        'address' => '',
-        'kml' => '',
-        'kmlautofit' => 'yes',
-        'marker' => '',
-        'markerimage' => '',
-        'traffic' => 'no',
-        'bike' => 'no',
-        'fusion' => '',
-        'start' => '',
-        'end' => '',
-        'infowindow' => '',
-        'infowindowdefault' => 'yes',
-        'directions' => '',
-        'hidecontrols' => 'false',
-        'scale' => 'false',
-        'scrollwheel' => 'true'
-            ), $attr);
-
     $return_body = fish_map_main_form();
     return $return_body;
 }
@@ -173,13 +151,12 @@ function fish_map_markers_search() {
 }
 
 function fish_map_marker_info() {
-    global $wpdb;
+    global $wpdb, $nggdb;
     $marker_id = $_GET['marker_id'];
 
     /* @TODO Extract queries to model */
     $query_marker = $wpdb->prepare(
-        "SELECT marker_id, name, paid_fish, contact, photo_url1, photo_url2, photo_url3, photo_url4
-        FROM markers
+        "SELECT * FROM markers
         WHERE marker_id = %d
         LIMIT 1", $marker_id);
 
@@ -197,9 +174,26 @@ function fish_map_marker_info() {
 
     $marker_row = $wpdb->get_row($query_marker, ARRAY_A);
 
-    $passport_row = $wpdb->get_row($query_passport, ARRAY_A);
-    if ($passport_row) {
-        $marker_row = array_merge($marker_row, $passport_row);
+    if ($marker_row['post_id']) {
+        $marker_row['page_url'] = get_permalink($marker_row['post_id']);
+    } else {
+        $passport_row = $wpdb->get_row($query_passport, ARRAY_A);
+        if ($passport_row) {
+            $marker_row['page_url'] = $passport_row['url_suffix'];
+        }
+    }
+
+    if ($marker_row['gallery_id']) {
+        $photos = array();
+        $gallery = $nggdb->get_gallery($marker_row['gallery_id'], 'sortorder', 'ASC', true, 4);
+        foreach ($gallery as $image) {
+            $photos[] = array(
+                'thumbnail' => $image->thumbURL,
+                'photo' => $image->imageURL,
+                'href' => $image->href
+            );
+        }
+        $marker_row['photos'] = $photos;
     }
 
     $fishes = $wpdb->get_results($query_fish, ARRAY_A);

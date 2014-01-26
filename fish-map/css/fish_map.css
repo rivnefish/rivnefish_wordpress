@@ -19,7 +19,9 @@ table.markers th {
   text-align: left;
 }
 
-img.marker_photo {
+img.marker_photo,
+#et_main_map .marker-info .photos img {
+  max-width: 53px;
   margin: 2px;
   border: 0;
   padding: 0;
@@ -80,4 +82,8 @@ div#add_post_button_div {
 .yarpp-related,
 .addthis_toolbox {
     display: none;
+}
+
+.pull-right {
+    float: right;
 }
