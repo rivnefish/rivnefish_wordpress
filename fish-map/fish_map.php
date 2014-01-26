@@ -189,8 +189,7 @@ function fish_map_marker_info() {
         foreach ($gallery as $image) {
             $photos[] = array(
                 'thumbnail' => $image->thumbURL,
-                'photo' => $image->imageURL,
-                'href' => $image->href
+                'photo' => $image->imageURL
             );
         }
         $marker_row['photos'] = $photos;

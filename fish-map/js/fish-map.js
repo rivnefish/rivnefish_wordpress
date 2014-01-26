@@ -388,7 +388,6 @@ function showInfoWindow(marker) {
             for (var i in markerInfo['photos']) {
                 html += "<a href='" + markerInfo['photos'][i]['photo'] + "' target='_blank' title='Збільшити'>" +
                         "<img class='marker_photo' src='" + markerInfo['photos'][i]['thumbnail'] + "'/></a>";
-//                html += markerInfo['photos'][i]['href'];
             }
             html += "</div>";
         }
