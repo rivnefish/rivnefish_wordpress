@@ -1,7 +1,7 @@
 <?php
 
 define('FISH_MAP_DB_VER_OPTION', 'fish_map_db_ver');
-define('FISH_MAP_DB_VER', '3');
+define('FISH_MAP_DB_VER', '4');
 
 function fish_map_install() {
     global $wpdb;
@@ -87,6 +87,12 @@ function fish_map_install() {
               `picture_id` INT UNSIGNED NOT NULL ,
               PRIMARY KEY (`id`)
             )");
+    }
+
+    if ($db_ver < 4) {
+        $wpdb->query("ALTER TABLE `markers` ADD COLUMN `author_id` INT(11) UNSIGNED DEFAULT NULL AFTER `modify_date`");
+        $wpdb->query("ALTER TABLE `markers` ADD COLUMN `post_id` INT(11) UNSIGNED DEFAULT NULL AFTER `author_id`");
+        $wpdb->query("ALTER TABLE `markers` ADD COLUMN `gallery_id` INT(11) UNSIGNED DEFAULT NULL AFTER `post_id`");
     }
     update_option(FISH_MAP_DB_VER_OPTION, FISH_MAP_DB_VER);
 }
