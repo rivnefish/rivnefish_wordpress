@@ -15,7 +15,7 @@ REPO_DIR_PATH=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)
 
 cd $REPO_DIR_PATH
 
-plugins=("fish-map" "fish-map-add-place" "fish-map-ads" "fish-map-query")
+plugins=("fish-map" "fish-map-ads" "fish-map-query")
 
 # backup plugins
 # backup database
