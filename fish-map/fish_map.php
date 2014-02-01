@@ -47,18 +47,28 @@ TODO:
  * <?php get_the_title(); ?>
  */
 
+require_once 'includes/fish_map_install.php';
+require_once 'includes/marker_model.php';
+require_once 'includes/fish_model.php';
 require_once 'fish_map_views.php';
+require_once 'fish_map_add_place.php';
 
 add_shortcode('map', 'fish_map');
 add_shortcode('fish_map_elegant', 'fish_map_elegant');
 add_action('wp_enqueue_scripts', 'add_scripts_map');
 add_action('wp_print_styles', 'add_stylesheets_map');
+
 add_action('wp_ajax_nopriv_fish_map_markers', 'fish_map_markers');
-add_action('wp_ajax_nopriv_fish_map_markers_search', 'fish_map_markers_search');
-add_action('wp_ajax_nopriv_fish_map_marker_info', 'fish_map_marker_info');
 add_action('wp_ajax_fish_map_markers', 'fish_map_markers');
+
+add_action('wp_ajax_nopriv_fish_map_markers_search', 'fish_map_markers_search');
 add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
+
+add_action('wp_ajax_nopriv_fish_map_marker_info', 'fish_map_marker_info');
 add_action('wp_ajax_fish_map_marker_info', 'fish_map_marker_info');
+
+
+add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
 
 function add_scripts_map() {
         wp_deregister_script('jquery');
@@ -95,44 +105,15 @@ function add_scripts_map() {
 }
 
 function add_stylesheets_map() {
+    wp_register_style('fishStyleSheet', plugins_url('css/fish_map.css', __FILE__));
+    wp_enqueue_style('fishStyleSheet');
     if (is_page('Мапа')) {
-        wp_register_style('fishStyleSheet', plugins_url('css/fish_map.css', __FILE__));
-        wp_enqueue_style('fishStyleSheet');
-
         wp_register_style('jquery-ui-sheet', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/dark-hive/jquery-ui.css');
         wp_enqueue_style('jquery-ui-sheet');
     }
 }
 
 function fish_map($attr) {
-
-    // default atts
-    $attr = shortcode_atts(array(
-        'lat' => '0',
-        'lon' => '0',
-        'id' => 'map',
-        'z' => '1',
-        'w' => '400',
-        'h' => '300',
-        'maptype' => 'ROADMAP',
-        'address' => '',
-        'kml' => '',
-        'kmlautofit' => 'yes',
-        'marker' => '',
-        'markerimage' => '',
-        'traffic' => 'no',
-        'bike' => 'no',
-        'fusion' => '',
-        'start' => '',
-        'end' => '',
-        'infowindow' => '',
-        'infowindowdefault' => 'yes',
-        'directions' => '',
-        'hidecontrols' => 'false',
-        'scale' => 'false',
-        'scrollwheel' => 'true'
-            ), $attr);
-
     $return_body = fish_map_main_form();
     return $return_body;
 }
@@ -143,66 +124,45 @@ function fish_map_elegant() {
 
 /* AJAX Calls */
 function fish_map_markers() {
-    global $wpdb;
-
-    /* @TODO Extract queries to model */
-    $query_markers = 'SELECT marker_id, name, address, lat, lng
-        FROM markers WHERE approval IN ("approved","pending") order by name';
-    $markers = $wpdb->get_results($query_markers, ARRAY_A);
+    $markerModel = new MarkerModel();
+    $markers = $markerModel->getListForMap();
     echo json_encode($markers);
     die();
 }
 
 function fish_map_markers_search() {
-    global $wpdb;
-    $center_lat = $_GET["lat"];
-    $center_lng = $_GET["lng"];
-    $radius = $_GET["radius"];
-
-    $query_markers = $wpdb->prepare(
-        "SELECT marker_id, name, address, lat, lng,
-            ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') )
-            + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance
-        FROM markers
-        HAVING distance < '%s'
-        ORDER BY distance", $center_lat, $center_lng, $center_lat, $radius);
-
-    $markers = $wpdb->get_results($query_markers, ARRAY_A);
+    $markerModel = new MarkerModel();
+    $markers = $markerModel->getInRadius($_GET["radius"], $_GET["lat"], $_GET["lng"]);
     echo json_encode($markers);
     die();
 }
 
 function fish_map_marker_info() {
-    global $wpdb;
+    global $nggdb;
     $marker_id = $_GET['marker_id'];
+    $markerModel = new MarkerModel();
+    $fishModel = new FishModel();
 
-    /* @TODO Extract queries to model */
-    $query_marker = $wpdb->prepare(
-        "SELECT marker_id, name, paid_fish, contact, photo_url1, photo_url2, photo_url3, photo_url4
-        FROM markers
-        WHERE marker_id = %d
-        LIMIT 1", $marker_id);
+    $marker_row = $markerModel->getById($marker_id);
 
-    $query_fish = $wpdb->prepare(
-        "SELECT name, icon_url, icon_width, icon_height, weight_avg, weight_max, amount, article_url
-        FROM markers_fishes mf
-        INNER JOIN fishes f on f.fish_id = mf.fish_id
-        WHERE mf.marker_id = %d
-        ORDER BY amount DESC", $marker_id);
-
-    $query_passport = $wpdb->prepare(
-        "SELECT url_suffix
-        FROM passports
-        WHERE marker_id = %d", $marker_id);
-
-    $marker_row = $wpdb->get_row($query_marker, ARRAY_A);
-
-    $passport_row = $wpdb->get_row($query_passport, ARRAY_A);
-    if ($passport_row) {
-        $marker_row = array_merge($marker_row, $passport_row);
+    $pageUrl = $markerModel->getPageUrl($marker_row);
+    if ($pageUrl) {
+        $marker_row['page_url'] = $pageUrl;
     }
 
-    $fishes = $wpdb->get_results($query_fish, ARRAY_A);
+    if ($marker_row['gallery_id']) {
+        $photos = array();
+        $gallery = $nggdb->get_gallery($marker_row['gallery_id'], 'sortorder', 'ASC', true, 4);
+        foreach ($gallery as $image) {
+            $photos[] = array(
+                'thumbnail' => $image->thumbURL,
+                'photo' => $image->imageURL
+            );
+        }
+        $marker_row['photos'] = $photos;
+    }
+
+    $fishes = $fishModel->getByMarker($marker_id);
 
     $response = array(
         'marker' => $marker_row,

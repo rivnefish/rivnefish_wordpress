@@ -86,7 +86,6 @@ var AddMarkerForm = (function ($) {
         uploader.init();
 
         uploader.bind('FilesAdded', function(up, files) {
-            console.log('FilesAdded');
             uploader.start();
             up.refresh();
             $('#loading').show();
@@ -180,9 +179,9 @@ var AddMarkerForm = (function ($) {
                     });
                 } else {
                     $('#add_place_result').html(data.result).show('fast');
-                    $('#add_place_result').addClass('success');
                     this.form.hide();
                     this.resetForm();
+                    $('body').scrollTo('#content', 200, {offset: -50});
                 }
             },
             error : function () {
