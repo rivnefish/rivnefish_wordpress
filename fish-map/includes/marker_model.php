@@ -43,28 +43,46 @@ class MarkerModel
         return $v;
     }
 
-    public function getFishes()
+    public function getById($markerId)
     {
-        return $this->db->get_results("SELECT fish_id, name FROM fishes ORDER BY name");
+        $query_marker = $this->db->prepare("SELECT * FROM markers WHERE marker_id = %d LIMIT 1", $markerId);
+        return $this->db->get_row($query_marker, ARRAY_A);
     }
 
-    public function getFishIds()
+    public function getPageUrlFromPassport($markerId)
     {
-        return $this->db->get_col("SELECT fish_id FROM fishes");
+        $query_passport = $this->db->prepare("SELECT url_suffix FROM passports WHERE marker_id = %d", $markerId);
+        return $this->db->get_var($query_passport);
     }
 
-    public function insertMarkerFishes($markerId, $fishes)
+    public function getPageUrl($marker)
     {
-        $fishIds = $this->getFishIds();
-        foreach ($fishes as $fishId) {
-            $fishId = intval($fishId);
-            if (in_array($fishId, $fishIds)) {
-                $this->db->insert('markers_fishes', array(
-                    'marker_id' => $markerId,
-                    'fish_id' => $fishId
-                ));
-            }
+        if ($marker['post_id']) {
+            return get_permalink($marker['post_id']);
+        } else {
+            return $this->getPageUrlFromPassport($marker['marker_id']);
         }
+    }
+
+    public function getInRadius($radius, $lat, $lng)
+    {
+        $distance_formula = "( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) "
+                          . "+ sin( radians('%s') ) * sin( radians( lat ) ) ) )";
+        $query_markers = $this->db->prepare(
+            "SELECT marker_id, name, address, lat, lng, $distance_formula AS distance
+             FROM markers
+             HAVING distance < '%s'
+             ORDER BY distance", $lat, $lng, $lat, $radius);
+
+        return $this->db->get_results($query_markers, ARRAY_A);
+    }
+
+    public function getListForMap()
+    {
+        return $this->db->get_results(
+            'SELECT marker_id, name, address, lat, lng
+            FROM markers WHERE approval IN ("approved","pending") order by name', ARRAY_A
+        );
     }
 
     private function _getNggFunctionsPath()
@@ -72,21 +90,21 @@ class MarkerModel
         return WP_PLUGIN_DIR . '/nextgen-gallery/products/photocrati_nextgen/modules/ngglegacy/admin/functions.php';
     }
 
-    public function createMarkerGallery($markerId, $data)
+    public function createMarkerGallery($markerId, $name, $imageIds = null)
     {
         require_once $this->_getNggFunctionsPath();
-        global $nggdb, $ngg;
+        global $ngg;
 
-        $name = esc_attr($data['name']);
+        $name = esc_attr($name);
         $defaultpath = $ngg->options['gallerypath'];
         $galleryId = nggAdmin::create_gallery($name, $defaultpath, false);
 
         $this->assignGalleryToMarker($galleryId, $markerId);
 
-        if (isset($data['pictures'])) {
+        if ($imageIds) {
             ob_start();
-            $pictures = array_map('intval', $data['pictures']);
-            nggAdmin::move_images($pictures, $galleryId);
+            $imageIds = array_map('intval', $imageIds);
+            nggAdmin::move_images($imageIds, $galleryId);
             ob_get_clean();
         }
 
@@ -98,15 +116,17 @@ class MarkerModel
         $this->db->update('markers', array('gallery_id' => $galleryId), array('marker_id' => $markerId));
     }
 
-    public function createMarkerPost($markerId, $data)
+    public function createMarkerPost($markerId, $name, $content, $galleryId = null)
     {
-        if (isset($data['gallery_id'])) {
-            $data['content'] .= "\n" . "[nggallery id={$data['gallery_id']}]";
+        $content = "[fish-map-marker-info id=$markerId]" . "\n" . $content;
+
+        if ($galleryId) {
+            $content .= "\n" . "[nggallery id={$galleryId}]";
         }
 
         $postId = wp_insert_post(array(
-            'post_title'    => $data['name'],
-            'post_content'  => $data['content'],
+            'post_title'    => $name,
+            'post_content'  => $content,
             'post_status'   => 'publish',
             'post_type'     => 'lakes'
         ));
@@ -121,28 +141,7 @@ class MarkerModel
 
     public function insertMarker($data)
     {
-        $marker = array(
-            'name' => $data['name'],
-            'lat' => $data['lat'],
-            'lng' => $data['lng'],
-            'permit' => $data['permit'],
-            'contact' => $data['contact'],
-            'paid_fish' => $data['paid_fish'],
-
-            // additional info
-            'address' => $data['address'],
-            'content' => $data['content'],
-            'conveniences' => $data['conveniences'],
-            'area' => $data['area'],
-            'max_depth' => $data['max_depth'],
-            'average_depth' => $data['average_depth'],
-            '24h_price' => $data['24h_price'],
-            'dayhour_price' => $data['dayhour_price'],
-            'boat_usage' => $data['boat_usage'],
-            'time_to_fish' => $data['time_to_fish'],
-            'author_id' => $data['user_id']
-        );
-        $this->db->insert('markers', $marker);
+        $this->db->insert('markers', $data);
         return $this->db->insert_id;
     }
 }

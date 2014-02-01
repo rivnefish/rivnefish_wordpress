@@ -1,22 +1,9 @@
 <?php
-/*
-Plugin Name: Fish Map Add Fishing Place
-Plugin URI:
-Description: This plugin allows adding fishing places to the map.
-             Integrates into the page/post by using shortcode [add-fish-place].
-Version: 0.1
-Author: Yaroslav Hrabar
-Author URI: http://rivnefish.com
-License: BSD
-Created: 29 January 2013
-*/
-
-require_once 'includes/fish_map_install.php';
-require_once 'includes/marker_model.php';
 
 class FishMapAddPlacePlugin
 {
-    private $_model;
+    private $_markerModel;
+    private $_fishModel;
 
     public function __construct()
     {
@@ -30,8 +17,10 @@ class FishMapAddPlacePlugin
         add_action('init', array($this, 'create_post_type'));
 
         add_shortcode('fish-map-add-place-form', array($this, 'renderForm'));
+        add_shortcode('fish-map-marker-info', array($this, 'markerInfo'));
 
-        $this->_model = new MarkerModel();
+        $this->_markerModel = new MarkerModel();
+        $this->_fishModel = new FishModel();
     }
 
 
@@ -95,7 +84,7 @@ class FishMapAddPlacePlugin
             $this->addScripts();
             $this->addStylesheets();
 
-            $fishes = $this->_model->getFishes();
+            $fishes = $this->_fishModel->getNames();
             $showUploadPhotos = $this->_isUploaderInstalled();
             include 'tpls/add_place_form.phtml';
         } else {
@@ -109,23 +98,16 @@ class FishMapAddPlacePlugin
             die();
         }
 
-        $validator = $this->_model->validator($_POST);
+        $validator = $this->_markerModel->validator($_POST);
         if ($validator->validate()) {
-            $data = $_POST;
-            $data['user_id'] = get_current_user_id();
+            $markerId = $this->saveMarker();
 
-            $markerId = $this->_model->insertMarker($data);
-
-            if (isset($data['fishes'])) {
-                $this->_model->insertMarkerFishes($markerId, $data['fishes']);
+            if (isset($_POST['fishes'])) {
+                $this->_fishModel->insertMarkerFishes($markerId, $_POST['fishes']);
             }
-
-            $galleryId = $this->_model->createMarkerGallery($markerId, $data);
-            $data['gallery_id'] = $galleryId;
-
-            $postId = $this->_model->createMarkerPost($markerId, $data);
-
-            $this->_model->sendEmailNotification($_REQUEST);
+            $galleryId = $this->_markerModel->createMarkerGallery($markerId, $_POST['name'], $_POST['pictures']);
+            $this->_markerModel->createMarkerPost($markerId, $_POST['name'], $_POST['content'], $galleryId);
+            $this->_markerModel->sendEmailNotification($_REQUEST);
 
             $response = array('error' => false);
         } else {
@@ -136,6 +118,33 @@ class FishMapAddPlacePlugin
         }
         echo json_encode($response);
         die();
+    }
+
+    private function saveMarker()
+    {
+        $data = array(
+            'name' => $_POST['name'],
+            'lat' => $_POST['lat'],
+            'lng' => $_POST['lng'],
+            'permit' => $_POST['permit'],
+            'contact' => $_POST['contact'],
+            'paid_fish' => $_POST['paid_fish'],
+
+            // additional info
+            'address' => $_POST['address'],
+            'content' => $_POST['content'],
+            'conveniences' => $_POST['conveniences'],
+            'area' => $_POST['area'],
+            'max_depth' => $_POST['max_depth'],
+            'average_depth' => $_POST['average_depth'],
+            '24h_price' => $_POST['24h_price'],
+            'dayhour_price' => $_POST['dayhour_price'],
+            'boat_usage' => $_POST['boat_usage'],
+            'time_to_fish' => $_POST['time_to_fish'],
+            'author_id' => $_POST['user_id'],
+            'user_id' => get_current_user_id()
+        );
+        return $this->_markerModel->insertMarker($data);
     }
 
     private function _getUploaderClass()
@@ -163,6 +172,45 @@ class FishMapAddPlacePlugin
         $strGalleryPath = $uploader->strGalleryPath;
         $arrImageNames  = $uploader->arrImageNames;
         echo json_encode(compact('messagetext', 'arrImageIds', 'strGalleryPath', 'arrImageNames'));
+    }
+
+    public function markerInfo($attrs)
+    {
+        $marker = $this->_markerModel->getById($attrs['id']);
+        $fishes = $this->_fishModel->getByMarker($attrs['id']);
+        include 'tpls/marker_info.phtml';
+    }
+
+    /* Html Helpers */
+    public function fishTitle($fish)
+    {
+        $weight_avg = $fish['weight_avg'] ? $fish['weight_avg'] : '-';
+        $weight_max = $fish['weight_max'] ? $fish['weight_max'] : '-';
+        $amount = $fish['amount'] ? $fish['amount'] : '-';
+
+        return implode(array(
+            $fish["name"],
+            "середня вага: {$weight_avg}гр",
+            "максимальна {$weight_max}гр",
+            "кльов {$amount}/10"
+        ), ", ");
+    }
+
+    public function amountImg($amount)
+    {
+        $amounts = array(
+            "https://lh3.googleusercontent.com/-pA3e1NFvUm8/Trz_UZ8Fs-I/AAAAAAAABdM/aEK8mt1ZS_I/s800/score_01.png",
+            "https://lh6.googleusercontent.com/-4DN2LTsUbG4/Trz_UYtEUtI/AAAAAAAABdI/YVTX3zrQTSo/s800/score_02.png",
+            "https://lh6.googleusercontent.com/-ZMiSp_fH5OE/Trz_URksCkI/AAAAAAAABdQ/dfnXeIogSiM/s800/score_03.png",
+            "https://lh4.googleusercontent.com/-3pJyfPwa85U/Trz_UsRN6YI/AAAAAAAABdY/Bai3V0RKzY8/s800/score_04.png",
+            "https://lh4.googleusercontent.com/-upUuE-VV6WQ/Trz_VH03c0I/AAAAAAAABdc/YDxOsgTmC-U/s800/score_05.png",
+            "https://lh5.googleusercontent.com/-cu-ov_hiSGc/Trz_VOgc8_I/AAAAAAAABdk/m3lw1UgdJ58/s800/score_06.png",
+            "https://lh6.googleusercontent.com/-L0vacmk1T6I/Trz_VQJw6UI/AAAAAAAABdo/a-D6BUkTsek/s800/score_07.png",
+            "https://lh3.googleusercontent.com/-nD79CO5CYYs/Trz_XhSMy4I/AAAAAAAABeM/5odbngZEYQc/s800/score_08.png",
+            "https://lh6.googleusercontent.com/-BRSSsL8dsVk/Trz_V1FCwEI/AAAAAAAABds/wdhGbYRQjL4/s800/score_09.png",
+            "https://lh5.googleusercontent.com/-gBXX50iC2uw/Trz_WGWwfSI/AAAAAAAABd4/RjzfJj0CbAQ/s800/score_10.png"
+        );
+        return $amounts[intval($amount) - 1];
     }
 }
 

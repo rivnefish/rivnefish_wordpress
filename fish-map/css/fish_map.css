@@ -87,3 +87,11 @@ div#add_post_button_div {
 .pull-right {
     float: right;
 }
+
+.marker-info .marker-fishes a {
+    text-decoration: none;
+}
+
+.marker-info .marker-info-item {
+    margin: 8px 0;
+}

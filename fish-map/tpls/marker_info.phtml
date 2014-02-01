@@ -1,0 +1,38 @@
+<div class="marker-info">
+    <?php if ($fishes) { ?>
+        <div class="marker-info-item marker-fishes">
+            <?php foreach ($fishes as $fish) { ?>
+                <?php if ($fish['article_url']) { ?>
+                    <a href="<?php echo $fish['article_url']; ?>" >
+                <?php } ?>
+
+                <img class="fish_icon"
+                     widht="<?php echo $fish["icon_width"];?>"
+                     height="<?php echo $fish["icon_height"];?>"
+                     src="<?php echo $fish["icon_url"]; ?>"
+                     alt="<?php echo $fish["name"];?>"
+                     title="<?php echo $this->fishTitle($fish); ?>"
+                    >
+
+                <?php if ($fish['article_url']) { ?>
+                    </a>
+                <?php } ?>
+
+                <?php if ($fish['amount']) { ?>
+                    <img class="fish_score" style="width:3px; height:28px"
+                         src="<?php echo $this->amountImg($fish['amount']) ?>"
+                         alt="<?php echo $fish['amount'];?>" />
+                <?php } ?>
+            <?php } ?>
+        </div>
+    <?php } ?>
+
+    <div>
+
+    <div class="marker-info-item">
+        <strong>Оплата:</strong> <?php echo $marker["paid_fish"] ? $marker["paid_fish"] : '-';?>
+    </div>
+    <div class="marker-info-item">
+        <strong>Контакт:</strong> <?php echo $marker["contact"] ? $marker["contact"] : '-';?>
+    </div>
+</div>
