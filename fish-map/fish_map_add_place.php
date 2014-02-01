@@ -105,8 +105,8 @@ class FishMapAddPlacePlugin
             if (isset($_POST['fishes'])) {
                 $this->_fishModel->insertMarkerFishes($markerId, $_POST['fishes']);
             }
-            $galleryId = $this->_markerModel->createMarkerGallery($markerId, $_POST['name'], $_POST['pictures']);
-            $this->_markerModel->createMarkerPost($markerId, $_POST['name'], $_POST['content'], $galleryId);
+            $galleryId = $this->_markerModel->createMarkerGallery($markerId, strip_tags($_POST['name']), $_POST['pictures']);
+            $this->_markerModel->createMarkerPost($markerId, strip_tags($_POST['name']), strip_tags($_POST['content']), $galleryId);
             $this->_markerModel->sendEmailNotification($_REQUEST);
 
             $response = array('error' => false);
@@ -123,17 +123,17 @@ class FishMapAddPlacePlugin
     private function saveMarker()
     {
         $data = array(
-            'name' => $_POST['name'],
+            'name' => strip_tags($_POST['name']),
             'lat' => $_POST['lat'],
             'lng' => $_POST['lng'],
             'permit' => $_POST['permit'],
-            'contact' => $_POST['contact'],
-            'paid_fish' => $_POST['paid_fish'],
+            'contact' => strip_tags($_POST['contact']),
+            'paid_fish' => strip_tags($_POST['paid_fish']),
 
             // additional info
-            'address' => $_POST['address'],
-            'content' => $_POST['content'],
-            'conveniences' => $_POST['conveniences'],
+            'address' => strip_tags($_POST['address']),
+            'content' => strip_tags($_POST['content']),
+            'conveniences' => strip_tags($_POST['conveniences']),
             'area' => $_POST['area'],
             'max_depth' => $_POST['max_depth'],
             'average_depth' => $_POST['average_depth'],
@@ -141,8 +141,7 @@ class FishMapAddPlacePlugin
             'dayhour_price' => $_POST['dayhour_price'],
             'boat_usage' => $_POST['boat_usage'],
             'time_to_fish' => $_POST['time_to_fish'],
-            'author_id' => $_POST['user_id'],
-            'user_id' => get_current_user_id()
+            'author_id' => get_current_user_id()
         );
         return $this->_markerModel->insertMarker($data);
     }
