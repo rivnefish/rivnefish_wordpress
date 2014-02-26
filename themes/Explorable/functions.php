@@ -926,18 +926,7 @@ function subscribe_rss_text($content){
         . '<a href="http://feeds.feedburner.com/rivnefish/qKIS">RSS стрічку</a>'
         . ' або отримуй оновлення '
         . '<a href="http://feedburner.google.com/fb/a/mailverify?uri=rivnefish/qKIS&loc=ru_RU">на email</a>'
-    . '</i></p>
-<!-- AddThis Button BEGIN -->
-<div class="addthis_toolbox addthis_default_style ">
-<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-<a class="addthis_button_tweet"></a>
-<a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
-<a class="addthis_counter addthis_pill_style"></a>
-</div>
-<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4ed41a681d1397fa"></script>
-<!-- AddThis Button END -->
-';
+    . '</i></p>';
 }
 
 add_filter('comment_form_default_fields', 'disable_comment_url');
