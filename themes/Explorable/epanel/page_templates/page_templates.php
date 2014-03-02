@@ -7,7 +7,6 @@ define( 'ET_PT_PATH', get_template_directory_uri() . '/epanel/page_templates' );
 add_action('wp_print_styles','et_ptemplates_css');
 function et_ptemplates_css(){
 	if ( !is_admin() && !(strstr( $_SERVER['PHP_SELF'], 'wp-login.php')) ) {
-		wp_enqueue_style( 'fancybox', ET_PT_PATH . '/js/fancybox/jquery.fancybox-1.3.4.css', array(), '1.3.4', 'screen' );
 		wp_enqueue_style( 'et_page_templates', ET_PT_PATH . '/page_templates.css', array(), '1.8', 'screen' );
 	}
 }
@@ -16,9 +15,6 @@ add_action('wp_print_scripts','et_ptemplates_footer_js');
 function et_ptemplates_footer_js(){
 	global $themename;
 	if ( !is_admin() ) {
-		wp_enqueue_script( 'easing', ET_PT_PATH . '/js/fancybox/jquery.easing-1.3.pack.js', array('jquery'), '1.3.4', true );
-		wp_enqueue_script( 'fancybox', ET_PT_PATH . '/js/fancybox/jquery.fancybox-1.3.4.pack.js', array('jquery'), '1.3.4', true );
-		wp_enqueue_script( 'et-ptemplates-frontend', ET_PT_PATH . '/js/et-ptemplates-frontend.js', array('jquery','fancybox'), '1.1', true );
 		wp_localize_script( 'et-ptemplates-frontend', 'et_ptemplates_strings', array( 'captcha' => esc_html__( 'Captcha', $themename ), 'fill' => esc_html__( 'Fill', $themename ), 'field' => esc_html__( 'field', $themename ), 'invalid' => esc_html__( 'Invalid email', $themename ) ) );
 	}
 }
