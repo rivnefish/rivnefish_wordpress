@@ -141,7 +141,8 @@ class FishMapAddPlacePlugin
             'dayhour_price' => $_POST['dayhour_price'],
             'boat_usage' => $_POST['boat_usage'],
             'time_to_fish' => $_POST['time_to_fish'],
-            'author_id' => get_current_user_id()
+            'author_id' => get_current_user_id(),
+            'create_date' => date("Y-m-d H:i:s")
         );
         return $this->_markerModel->insertMarker($data);
     }
