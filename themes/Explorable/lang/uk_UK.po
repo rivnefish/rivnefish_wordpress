@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-KeywordsList: _x;_n;_e;__;esc_html__;esc_html_e;esc_attr__;"
 "esc_attr_e\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.6.2\n"
+"X-Generator: Poedit 1.6.4\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -124,7 +124,7 @@ msgstr "немає підмножини"
 
 #: ../functions.php:123
 msgid "<span>Toggle</span> List View"
-msgstr "<span>Відобразити</span> перегляд списку"
+msgstr "<span>Відобразити</span> список водойм"
 
 #: ../functions.php:124 ../functions.php:149
 msgid "Navigation Menu"
