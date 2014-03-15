@@ -13,7 +13,9 @@ class FishMapAddPlacePlugin
 
         add_action('plugins_loaded', 'fish_map_update_check' );
         add_action('wp_ajax_fish_map_add_place_save', array($this, 'savePlace'));
-        add_action('admin_post_save_photos', array($this, 'savePhotos'));
+        add_action('wp_ajax_nopriv_fish_map_add_place_save', array($this, 'savePlace'));
+        add_action('wp_ajax_save_photos', array($this, 'savePhotos'));
+        add_action('wp_ajax_nopriv_save_photos', array($this, 'savePhotos'));
         add_action('init', array($this, 'create_post_type'));
 
         add_shortcode('fish-map-add-place-form', array($this, 'renderForm'));
@@ -80,24 +82,16 @@ class FishMapAddPlacePlugin
 
     public function renderForm($attr)
     {
-        if (is_user_logged_in()) {
-            $this->addScripts();
-            $this->addStylesheets();
+        $this->addScripts();
+        $this->addStylesheets();
 
-            $fishes = $this->_fishModel->getNames();
-            $showUploadPhotos = $this->_isUploaderInstalled();
-            include 'tpls/add_place_form.phtml';
-        } else {
-            include 'tpls/add_place_login.phtml';
-        }
+        $fishes = $this->_fishModel->getNames();
+        $showUploadPhotos = $this->_isUploaderInstalled();
+        include 'tpls/add_place_form.phtml';
     }
 
     public function savePlace()
     {
-        if (!is_user_logged_in()) {
-            die();
-        }
-
         $validator = $this->_markerModel->validator($_POST);
         if ($validator->validate()) {
             $markerId = $this->saveMarker();
@@ -106,10 +100,13 @@ class FishMapAddPlacePlugin
                 $this->_fishModel->insertMarkerFishes($markerId, $_POST['fishes']);
             }
             $galleryId = $this->_markerModel->createMarkerGallery($markerId, strip_tags($_POST['name']), $_POST['pictures']);
-            $this->_markerModel->createMarkerPost($markerId, strip_tags($_POST['name']), strip_tags($_POST['content']), $galleryId);
+            $postId = $this->_markerModel->createMarkerPost($markerId, strip_tags($_POST['name']), strip_tags($_POST['content']), $galleryId);
             $this->_markerModel->sendEmailNotification($_REQUEST);
 
-            $response = array('error' => false);
+            $response = array(
+                'error' => false,
+                'permalink' => get_permalink($postId)
+            );
         } else {
             $response = array(
                 'error' => true,
@@ -170,7 +167,7 @@ class FishMapAddPlacePlugin
         $arrImageIds    = $uploader->arrImageIds;
         $strGalleryPath = $uploader->strGalleryPath;
         $arrImageNames  = $uploader->arrImageNames;
-        echo json_encode(compact('messagetext', 'arrImageIds', 'strGalleryPath', 'arrImageNames'));
+        die(json_encode(compact('messagetext', 'arrImageIds', 'strGalleryPath', 'arrImageNames')));
     }
 
     public function markerInfo($attrs)

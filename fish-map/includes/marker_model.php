@@ -131,7 +131,7 @@ class MarkerModel
             'post_type'     => 'lakes'
         ));
         $this->assignPostToMarker($postId, $markerId);
-
+        return $postId;
     }
 
     public function assignPostToMarker($postId, $markerId)

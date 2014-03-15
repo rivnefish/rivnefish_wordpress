@@ -3,6 +3,9 @@
         <p>
             Рибне місце додано. <a href="#" id="add_more">Додати ще одне рибне місце</a>
         </p>
+        <p>
+            <a href="" id="view_place">Переглянути додане місце</a>
+        </p>
     </div>
 </div>
 
@@ -80,7 +83,15 @@
             <small>(телефон та ім'я чи т.п., щоб замовити місце, розпитати)</small>
         </div>
 
-        <h3 id="add_opts" class="expandable">Ввести додаткову інформацію</h3>
+        <?php if ($showUploadPhotos) { ?>
+            <div class="controls">
+                <label>Фото водойми</label>
+                <button id="photo_upload">Додати фото...</button>
+                <div id="loading" class="hidden"></div>
+                <div id="pictures"></div>
+            </div>
+        <?php } ?>
+
         <div id="additional_opts" >
 
             <div class="controls hidden">
@@ -95,15 +106,6 @@
                           name="conveniences" rows="6" cols="62" maxlength="10000"/></textarea>
                 <small>(чи є доступ до питної води, де ставити палатку, чи є мангали й столики і таке інше)</small>
             </div>
-
-            <?php if ($showUploadPhotos) { ?>
-            <div class="controls">
-                <label>Фото водойми</label>
-                <button id="photo_upload">Додати фото...</button>
-                <div id="loading" class="hidden"></div>
-                <div id="pictures"></div>
-            </div>
-            <?php } ?>
 
             <div class="controls">
                 <div class="col col-3">
@@ -157,11 +159,9 @@
                 </label>
             </div>
         </div>
-        <p>
+        <div class="form-actions">
             <input type="submit" name="add_submit" id="add_submit" class="submit"
                    value="Додати" />
-        </p>
-
-
+        </div>
     </div>
 </form>

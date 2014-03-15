@@ -70,13 +70,13 @@ var AddMarkerForm = (function ($) {
             browse_button : 'photo_upload',
             container : 'add_place_form',
             max_file_size : '10mb',
-            url : '/wp-admin/admin-post.php?action=save_photos',
+            url : '/wp-admin/admin-ajax.php?action=save_photos',
             flash_swf_url : '/wp-content/plugins/fish-map-add-place/js/3p/plupload-2.0.0/Moxie.swf',
             silverlight_xap_url : '/wp-content/plugins/fish-map-add-place/js/3p/plupload-2.0.0/Moxie.xap',
             filters : [
                 {title : "Малюнки", extensions : "jpg,gif,png"}
             ],
-            resize : {width : 320, height : 240, quality : 90}
+            resize : {width : 1024, height : 1024, quality : 90}
         });
 
         uploader.bind('Init', function(up, params) {
@@ -153,7 +153,6 @@ var AddMarkerForm = (function ($) {
 
     savePlace : function (e) {
         this.clearErrors();
-        // $('#add_place_result').hide('fast');
 
         var form = $(e.target);
         this.form.block({ message: 'Збереження...' })
@@ -178,7 +177,8 @@ var AddMarkerForm = (function ($) {
                         }
                     });
                 } else {
-                    $('#add_place_result').html(data.result).show('fast');
+                    $('#add_place_result').show('fast');
+                    $('#add_place_result').find('a#view_place').attr("href", data.permalink);
                     this.form.hide();
                     this.resetForm();
                     $('body').scrollTo('#content', 200, {offset: -50});
