@@ -6,6 +6,10 @@ jQuery(document).ready(function ($) {
     $('#show_all_button').click(function () {
         _setMarkers(fishMapAllMarkers);
     });
+    
+    // Init sidebar's markers filtering
+    listFilter($('#markersFilter'), $('#markersList'));
+
 });
 
 var map = null,
@@ -420,11 +424,12 @@ function updateMarkersCount() {
 
 function addToSideBar(marker, caption) {
     var $li = $('<li class="clearfix"></li>'),
-        $h3 = $("<h3></h3>").text(caption || marker.title),
-        $textWrapper = $('<div class="listing-text"></div>');
+        $h3 = $('<a href="#" style="color:#3283B4; font-weight:bold"></a>').text(caption || marker.title);//,
+        //$textWrapper = $('<div class="listing-text"></div>');
 
-    $textWrapper.append($h3);
-    $li.append($textWrapper);
+    //$textWrapper.append($h3);
+    //$li.append($textWrapper);
+    $li.append($h3);
 
     $li.click(function(){
         $('.et-active-listing').removeClass('et-active-listing');
@@ -491,5 +496,44 @@ function setupWeather() {
     weatherControlDiv.index = 1;
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(weatherControlDiv);
 }
+
+    /* Filter Markers functionality*/
+    // custom css expression for a case-insensitive contains()
+    jQuery.expr[':'].Contains = function(a, i, m) {
+        return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+    };
+
+    function listFilter(input, list) {
+        var form = $("<form>").attr({"class": "filterform", "action": "#"});
+
+        $(input)
+                .change(function() {
+                    var filter = $(this).val();
+                    if (filter) {
+                        $(list).find("a:not(:Contains(" + filter + "))").parent().hide();
+                        $(list).find("a:Contains(" + filter + ")").parent().show();
+                        $(list).find("a:Contains(" + filter + ")").each(function() {
+                            var $eleContainer = $(this);
+                            var text = $eleContainer.text();
+                            var index = text.toUpperCase().indexOf(filter.toUpperCase());
+                            $eleContainer.html(text.substring(0, index) +
+                                    '<span style="color: red;">' +
+                                    text.substring(index, index + filter.length) +
+                                    '</span>' + text.substring(index + filter.length));
+                        });
+                    } else {
+                        $(list).find("li").show();
+                        $(list).find("a").each(function() {
+                            var $eleContainer = $(this);
+                            $eleContainer.text($eleContainer.text());
+                        });
+                    }
+                    return false;
+                })
+                .keyup(function() {
+                    // fire the above change() event after every letter
+                    $(this).change();
+                });
+    }
 
 }(jQuery));
