@@ -414,7 +414,7 @@ function scaled_url(str) {
         str = clear_str;
     var scale = str.substr(str.lastIndexOf('/')); // e.g. /Bochanitsa_I.JPG
     res = str.replace(scale, '/s53'+scale);
-    return res
+    return res;
 }
 
 function updateMarkersCount() {
@@ -424,11 +424,8 @@ function updateMarkersCount() {
 
 function addToSideBar(marker, caption) {
     var $li = $('<li class="clearfix"></li>'),
-        $h3 = $('<a href="#" style="color:#3283B4; font-weight:bold"></a>').text(caption || marker.title);//,
-        //$textWrapper = $('<div class="listing-text"></div>');
+        $h3 = $('<a href="#" style="color:#3283B4; font-weight:bold"></a>').text(caption || marker.title);
 
-    //$textWrapper.append($h3);
-    //$li.append($textWrapper);
     $li.append($h3);
 
     $li.click(function(){
@@ -442,7 +439,7 @@ function addToSideBar(marker, caption) {
     $(sideBar).append($li);
 
     google.maps.event.addListener(marker, "click", function() {
-        return false
+        return false;
     });
 }
 
