@@ -149,7 +149,7 @@
             if ( et_window_width < 960 )
                 new_listing_height = $('.et-normal-listings #et-listings .overview ul').height();
             else
-                new_listing_height = $('.et-normal-listings').height() - 81;
+                new_listing_height = $('.et-normal-listings').height() - 131;
 
             $('.et-normal-listings #et-listings, .et-normal-listings .viewport').height( new_listing_height );
 

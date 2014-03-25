@@ -95,3 +95,18 @@ div#add_post_button_div {
 .marker-info .marker-info-item {
     margin: 8px 0;
 }
+
+a.sidebar-list {
+    color: #3283B4;
+    font-weight: bold;
+}
+
+div#markersFilterWrap {
+    padding-left: 30px;
+}
+
+input#markersFilter {
+    position: relative;
+    width: 80%;
+}
+    
