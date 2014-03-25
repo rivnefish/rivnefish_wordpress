@@ -424,9 +424,9 @@ function updateMarkersCount() {
 
 function addToSideBar(marker, caption) {
     var $li = $('<li class="clearfix"></li>'),
-        $h3 = $('<a href="#" style="color:#3283B4; font-weight:bold"></a>').text(caption || marker.title);
+        $anchor = $('<a class="sidebar-list" href="#"></a>').text(caption || marker.title);
 
-    $li.append($h3);
+    $li.append($anchor);
 
     $li.click(function(){
         $('.et-active-listing').removeClass('et-active-listing');
@@ -501,16 +501,15 @@ function setupWeather() {
     };
 
     function listFilter(input, list) {
-        var form = $("<form>").attr({"class": "filterform", "action": "#"});
 
-        $(input)
+        input
                 .change(function() {
                     var filter = $(this).val();
                     if (filter) {
-                        $(list).find("a:not(:Contains(" + filter + "))").parent().hide();
-                        $(list).find("a:Contains(" + filter + ")").parent().show();
-                        $(list).find("a:Contains(" + filter + ")").each(function() {
+                        list.find("a:not(:Contains(" + filter + "))").parent().hide();
+                        list.find("a:Contains(" + filter + ")").each(function() {
                             var $eleContainer = $(this);
+                            $eleContainer.parent().show();
                             var text = $eleContainer.text();
                             var index = text.toUpperCase().indexOf(filter.toUpperCase());
                             $eleContainer.html(text.substring(0, index) +
@@ -519,8 +518,8 @@ function setupWeather() {
                                     '</span>' + text.substring(index + filter.length));
                         });
                     } else {
-                        $(list).find("li").show();
-                        $(list).find("a").each(function() {
+                        list.find("li").show();
+                        list.find("a").each(function() {
                             var $eleContainer = $(this);
                             $eleContainer.text($eleContainer.text());
                         });
