@@ -503,33 +503,33 @@ function setupWeather() {
     function listFilter(input, list) {
 
         input
-                .change(function() {
-                    var filter = $(this).val();
-                    if (filter) {
-                        list.find("a:not(:Contains(" + filter + "))").parent().hide();
-                        list.find("a:Contains(" + filter + ")").each(function() {
-                            var $eleContainer = $(this);
-                            $eleContainer.parent().show();
-                            var text = $eleContainer.text();
-                            var index = text.toUpperCase().indexOf(filter.toUpperCase());
-                            $eleContainer.html(text.substring(0, index) +
-                                    '<span style="color: red;">' +
-                                    text.substring(index, index + filter.length) +
-                                    '</span>' + text.substring(index + filter.length));
-                        });
-                    } else {
-                        list.find("li").show();
-                        list.find("a").each(function() {
-                            var $eleContainer = $(this);
-                            $eleContainer.text($eleContainer.text());
-                        });
-                    }
-                    return false;
-                })
-                .keyup(function() {
-                    // fire the above change() event after every letter
-                    $(this).change();
-                });
+            .change(function() {
+                var filter = $(this).val();
+                if (filter) {
+                    list.find("a:not(:Contains(" + filter + "))").parent().hide();
+                    list.find("a:Contains(" + filter + ")").each(function() {
+                        var $eleContainer = $(this);
+                        $eleContainer.parent().show();
+                        var text = $eleContainer.text();
+                        var index = text.toUpperCase().indexOf(filter.toUpperCase());
+                        $eleContainer.html(text.substring(0, index) +
+                                '<span style="color: red;">' +
+                                text.substring(index, index + filter.length) +
+                                '</span>' + text.substring(index + filter.length));
+                    });
+                } else {
+                    list.find("li").show();
+                    list.find("a").each(function() {
+                        var $eleContainer = $(this);
+                        $eleContainer.text($eleContainer.text());
+                    });
+                }
+                return false;
+            })
+            .keyup(function() {
+                // fire the above change() event after every letter
+                $(this).change();
+            });
     }
 
 }(jQuery));
