@@ -13,8 +13,6 @@
 				<?php while ( have_posts() ) : the_post(); ?>
 
 					<?php get_template_part( 'content', get_post_format() ); ?>
-					
-					<?php if (et_get_option('explorable_integration_single_bottom') <> '' && et_get_option('explorable_integrate_singlebottom_enable') == 'on') echo(et_get_option('explorable_integration_single_bottom')); ?>
 
 					<?php
 						if ( comments_open() && 'on' == et_get_option( 'explorable_show_postcomments', 'on' ) )
@@ -22,6 +20,8 @@
 					?>
 
 				<?php endwhile; ?>
+
+                                <?php if (et_get_option('explorable_integration_single_bottom') <> '' && et_get_option('explorable_integrate_singlebottom_enable') == 'on') echo(et_get_option('explorable_integration_single_bottom')); ?>
 
 				<?php
 					if ( et_get_option('explorable_468_enable') == 'on' ){

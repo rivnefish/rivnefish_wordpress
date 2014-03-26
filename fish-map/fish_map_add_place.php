@@ -92,6 +92,9 @@ class FishMapAddPlacePlugin
 
     public function savePlace()
     {
+        $_POST["max_depth"] = str_replace(",", ".", $_POST["max_depth"]);
+        $_POST["average_depth"] = str_replace(",", ".", $_POST["average_depth"]);
+        
         $validator = $this->_markerModel->validator($_POST);
         if ($validator->validate()) {
             $markerId = $this->saveMarker();
