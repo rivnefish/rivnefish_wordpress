@@ -92,8 +92,6 @@ class FishMapAddPlacePlugin
 
     public function savePlace()
     {
-        //$str_1 = str_replace("X", "10", $rawstring);
-        //$_POST;
         $_POST["max_depth"] = str_replace(",", ".", $_POST["max_depth"]);
         $_POST["average_depth"] = str_replace(",", ".", $_POST["average_depth"]);
         
