@@ -16,9 +16,18 @@ class MarkerModel
 
     public function sendEmailNotification($request)
     {
+        // Obtain user info
+        $current_user = wp_get_current_user();
+        $user_info = sprintf("ID:%s;LOGIN:%s;EMAIL:%s;IP:%s",
+           $current_user->ID,
+           $current_user->user_login,
+           $current_user->user_email,
+           $_SERVER['REMOTE_ADDR']);
+
         $subject = '[Рибні місця Рівненщини] Додано нову водойму - будь ласка, санкціонуйте!';
         $message = 'Додано нову водойму.' . "\r\n\r\n"
                  . 'Дата:' . date("d M Y H:i:s") . "\r\n\r\n"
+                 . 'Користувач:' . "\r\n" . print_r($user_info, 1) . "\r\n\r\n"
                  . '_REQUEST параметри:'."\r\n" . print_r($request, 1);
         $headers = 'From: ' . FROM_EMAIL;
         wp_mail(TO_EMAIL, $subject, $message, $headers);
