@@ -94,7 +94,7 @@ class FishMapAddPlacePlugin
     {
         $_POST["max_depth"] = str_replace(",", ".", $_POST["max_depth"]);
         $_POST["average_depth"] = str_replace(",", ".", $_POST["average_depth"]);
-        
+
         $validator = $this->_markerModel->validator($_POST);
         if ($validator->validate()) {
             $markerId = $this->saveMarker();
@@ -171,7 +171,19 @@ class FishMapAddPlacePlugin
         $arrImageIds    = $uploader->arrImageIds;
         $strGalleryPath = $uploader->strGalleryPath;
         $arrImageNames  = $uploader->arrImageNames;
+        $this->_cleanNggEventsCookies();
         die(json_encode(compact('messagetext', 'arrImageIds', 'strGalleryPath', 'arrImageNames')));
+    }
+
+    private function _cleanNggEventsCookies()
+    {
+        foreach ($_COOKIE as $key => $value) {
+            if (strpos($key, 'X-Frame-Events') !== false) {
+                unset($_COOKIE[$key]);
+                setcookie($key, null, -1, '/wp-admin'); // google chrome
+                setcookie($key, null, -1, '/wp-admin/');// firefox
+            }
+        }
     }
 
     public function markerInfo($attrs)

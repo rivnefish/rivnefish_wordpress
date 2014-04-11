@@ -74,7 +74,7 @@ var AddMarkerForm = (function ($) {
             flash_swf_url : '/wp-content/plugins/fish-map-add-place/js/3p/plupload-2.0.0/Moxie.swf',
             silverlight_xap_url : '/wp-content/plugins/fish-map-add-place/js/3p/plupload-2.0.0/Moxie.xap',
             filters : [
-                {title : "Малюнки", extensions : "jpg,gif,png"}
+                {title : "Малюнки", extensions : "jpg"}
             ],
             resize : {width : 1024, height : 1024, quality : 90}
         });
