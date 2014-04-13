@@ -95,6 +95,10 @@
     margin: 3px;
 }
 
+#add_place_form #upload_container {
+    margin: 3px 0;
+}
+
 #loading {
     background: url(../images/ajax-loader.gif) no-repeat;
     width: 220px;

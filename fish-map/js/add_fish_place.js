@@ -64,15 +64,23 @@ var AddMarkerForm = (function ($) {
     },
 
     initPhotoUpload : function () {
+        if (this._shouldUseFlash() && !this._isFlashEnabled()) {
+            $('#upload_container').text(
+                'Завантаження не підтримується. Встановіть новішу версію переглядача ' +
+                'або Flash plugin.'
+            );
+            return;
+        }
+
         var uploadingCnt = 0;
         var uploader = new plupload.Uploader({
             runtimes : 'html5,flash,silverlight',
             browse_button : 'photo_upload',
-            container : 'add_place_form',
+            container : 'upload_container',
             max_file_size : '10mb',
             url : '/wp-admin/admin-ajax.php?action=save_photos',
-            flash_swf_url : '/wp-content/plugins/fish-map-add-place/js/3p/plupload-2.0.0/Moxie.swf',
-            silverlight_xap_url : '/wp-content/plugins/fish-map-add-place/js/3p/plupload-2.0.0/Moxie.xap',
+            flash_swf_url : '/wp-content/plugins/fish-map/js/3p/plupload-2.1.1/Moxie.swf',
+            silverlight_xap_url : '/wp-content/plugins/fish-map/js/3p/plupload-2.1.1/Moxie.xap',
             filters : [
                 {title : "Малюнки", extensions : "jpg"}
             ],
@@ -119,6 +127,21 @@ var AddMarkerForm = (function ($) {
             }
         }, this));
         this.uploader = uploader;
+    },
+
+    _shouldUseFlash : function () {
+        return $.browser.msie && parseInt($.browser.version) < 10;
+    },
+
+    _isFlashEnabled: function () {
+        var hasFlash = false;
+        try {
+            var fo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+            if(fo) hasFlash = true;
+        } catch(e) {
+            if (navigator.mimeTypes ["application/x-shockwave-flash"] != undefined) hasFlash = true;
+        }
+        return hasFlash;
     },
 
     togglePermitInfo : function () {
