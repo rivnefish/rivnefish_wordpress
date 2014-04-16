@@ -1,0 +1,11 @@
+<?php if (!$marker) { ?>
+    <div id="et-header-bg"></div>
+<?php
+    return;
+} ?>
+
+<div id="et-single-map"></div>
+
+<script type="text/json" id="marker-data">
+    <?php echo json_encode($marker); ?>
+</script>

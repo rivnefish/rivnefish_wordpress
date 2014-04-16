@@ -171,3 +171,18 @@ function fish_map_marker_info() {
     echo json_encode($response);
     die();
 }
+
+function fish_map_lake_map_by_post($post_id) {
+    $markerModel = new MarkerModel();
+    $marker = $markerModel->getByPost($post_id);
+
+    if ($marker) {
+        wp_register_script('google-map', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCByg67-8HjM_17CVdq9iOiN95Nhz7izCw&sensor=false&language=uk&libraries=weather');
+        wp_enqueue_script('google-map');
+
+        wp_register_script('lake-map', plugins_url('js/lake-map.js', __FILE__));
+        wp_enqueue_script('lake-map');
+    }
+
+    include 'tpls/fish_map_lake_map.phtml';
+}

@@ -1,7 +1,7 @@
 <?php
 
 define('FISH_MAP_DB_VER_OPTION', 'fish_map_db_ver');
-define('FISH_MAP_DB_VER', '4');
+define('FISH_MAP_DB_VER', '5');
 
 function fish_map_install() {
     global $wpdb;
@@ -94,7 +94,24 @@ function fish_map_install() {
         $wpdb->query("ALTER TABLE `markers` ADD COLUMN `post_id` INT(11) UNSIGNED DEFAULT NULL AFTER `author_id`");
         $wpdb->query("ALTER TABLE `markers` ADD COLUMN `gallery_id` INT(11) UNSIGNED DEFAULT NULL AFTER `post_id`");
     }
+
+    if ($db_ver < 5) {
+        fish_map_update_markers_post_id();
+    }
     update_option(FISH_MAP_DB_VER_OPTION, FISH_MAP_DB_VER);
+}
+
+function fish_map_update_markers_post_id() {
+    global $wpdb;
+
+    $passports = $wpdb->get_results("SELECT marker_id, url_suffix FROM passports");
+    foreach ($passports as $passport) {
+        $post_name = str_replace(array("/lakes/", '/'), '', $passport->url_suffix);
+        $post = $wpdb->get_row("SELECT id from wp_posts where post_name = '$post_name'");
+        if ($post) {
+            $wpdb->query("UPDATE markers SET post_id = {$post->id} WHERE marker_id = {$passport->marker_id} LIMIT 1");
+        }
+    }
 }
 
 function fish_map_update_check() {

@@ -90,6 +90,6 @@
 		<?php do_action( 'et_header_top' ); ?>
 	</header> <!-- #main-header -->
 
-<?php if (!isset($hide_head_bg) && ! et_is_listing_page() ) : ?>
+<?php if (!isset($hide_head_bg) && ! et_is_lakes_page() ) : ?>
 	<div id="et-header-bg"></div>
 <?php endif; ?>
