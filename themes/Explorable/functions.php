@@ -534,6 +534,12 @@ if ( ! function_exists( 'et_is_listing_page' ) ) :
 	}
 endif;
 
+if ( ! function_exists( 'et_is_lakes_page' ) ) :
+    function et_is_lakes_page() {
+        return is_single() && 'lakes' == get_post_type();
+    }
+endif;
+
 function et_add_map_class( $classes ) {
 	if ( et_is_listing_page() ) $classes[] = 'et_map_full_screen';
 

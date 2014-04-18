@@ -58,6 +58,12 @@ class MarkerModel
         return $this->db->get_row($query_marker, ARRAY_A);
     }
 
+    public function getByPost($postId)
+    {
+        $query_marker = $this->db->prepare("SELECT * FROM markers WHERE post_id = %d LIMIT 1", $postId);
+        return $this->db->get_row($query_marker, ARRAY_A);
+    }
+
     public function getPageUrlFromPassport($markerId)
     {
         $query_passport = $this->db->prepare("SELECT url_suffix FROM passports WHERE marker_id = %d", $markerId);
