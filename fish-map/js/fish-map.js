@@ -2,6 +2,7 @@
 
 jQuery(document).ready(function ($) {
     initializeMap();
+    $('#weather').click(toggleWeather);
     $('#search_button').click(searchLocations);
     $('#show_all_button').click(function () {
         _setMarkers(fishMapAllMarkers);
@@ -14,7 +15,6 @@ jQuery(document).ready(function ($) {
 
 var map = null,
     weatherLayer = null,
-    cloudLayer = null,
 
     RivneLatLng = new google.maps.LatLng(50.619616, 26.251379),
     browserSupportFlag = false,
@@ -46,19 +46,9 @@ function initializeMap() {
     var myOptions = {
         zoom: 10,
         center: RivneLatLng, // Center map at Rivne
-        panControl: true,
         scaleControl: true,
-        //scaleControlOptions: {position: google.maps.ControlPosition.BOTTOM_LEFT},
-        zoomControl: true,
-        mapTypeControl: true,
-        //mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
-        streetViewControl: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles: emphasizeLakesStyles
-    //MapTypeId.ROADMAP displays the default road map view
-    //MapTypeId.SATELLITE displays Google Earth satellite images
-    //MapTypeId.HYBRID displays a mixture of normal and satellite views
-    //MapTypeId.TERRAIN displays a physical map based on terrain information.
     };
     var mapCanvas = $('#map_canvas, .map_canvas')[0];
     map = new google.maps.Map(mapCanvas, myOptions);
@@ -100,9 +90,10 @@ function initializeMap() {
     });
 
     // Show all marker in the end of INITIALIZE()
-    // TODO: experimental setupWeather();
     setupAllMarkers();
+    // TODO: experimental setupWeather() and TryGeolocation();
     // TryGeolocation();
+    setupWeather();
 }
 
 /* END W3C Geolocation and Google Gears Geolocation */
@@ -226,6 +217,10 @@ function createMarker(latlng, name, address, id) {
     google.maps.event.addListener(marker, 'click', function() {
         showInfoWindow(marker);
     });
+    google.maps.event.addListener(marker, 'dblclick', function() {
+        map.setCenter(marker.position);
+    });
+    
     addToSideBar(marker, name);
     markers.push(marker);
 }
@@ -443,57 +438,21 @@ function addToSideBar(marker, caption) {
     });
 }
 
-function WeatherControl(controlDiv) {
-
-  // Set CSS styles for the DIV containing the control
-  // Setting padding to 5 px will offset the control
-  // from the edge of the map
-  controlDiv.style.padding = '5px';
-
-  // Set CSS for the control border
-  var controlUI = document.createElement('div');
-  controlUI.style.backgroundColor = 'white';
-  controlUI.style.borderStyle = 'solid';
-  controlUI.style.borderWidth = '2px';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.textAlign = 'center';
-  controlUI.title = 'Click to set the map to Home';
-  controlDiv.appendChild(controlUI);
-
-  // Set CSS for the control interior
-  var controlText = document.createElement('div');
-  controlText.style.fontFamily = 'Arial,sans-serif';
-  controlText.style.fontSize = '12px';
-  controlText.style.paddingLeft = '4px';
-  controlText.style.paddingRight = '4px';
-  controlText.innerHTML = '<b>Home</b>';
-  controlUI.appendChild(controlText);
-
-  // Setup the click event listeners: simply set the map to
-  // Chicago
-  google.maps.event.addDomListener(controlUI, 'click', function() {
-    weatherLayer.setMap(map);
-    cloudLayer.setMap(map);
-  });
-
-}
-
 function setupWeather() {
+    // Set weather
     weatherLayer = new google.maps.weather.WeatherLayer({
         temperatureUnits: google.maps.weather.TemperatureUnit.CELSIUS,
         windSpeedUnits: google.maps.weather.WindSpeedUnit.METERS_PER_SECOND
     });
-    // weatherLayer.setMap(map);
-
-    cloudLayer = new google.maps.weather.CloudLayer();
-    // cloudLayer.setMap(map);
-
-    var weatherControlDiv = document.createElement('div');
-    var weatherControl = new WeatherControl(weatherControlDiv);
-    weatherControlDiv.index = 1;
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(weatherControlDiv);
 }
 
+    function toggleWeather() {
+        var c = document.getElementById('weather');
+        if (c.checked)
+            weatherLayer.setMap(map);
+        else
+            weatherLayer.setMap(null);
+    }
     /* Filter Markers functionality*/
     // custom css expression for a case-insensitive contains()
     jQuery.expr[':'].Contains = function(a, i, m) {

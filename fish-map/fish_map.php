@@ -89,7 +89,7 @@ function add_scripts_map() {
         /* !!! TODO: update Post's TITLE and ID in case changed*/
         //wp_register_script('google-map', 'http://maps.google.com/maps/api/js?sensor=false&language=uk');
         wp_register_script('google-map', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCByg67-8HjM_17CVdq9iOiN95Nhz7izCw&sensor=false&language=uk&libraries=weather');
-        # BACKUP wp_register_script('google-map', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyBmqWVqXVRZS4BXyoeOaUWTlok9KWzwZso&sensor=false&language=uk');
+        # BACKUP wp_register_script('google-map', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCByg67-8HjM_17CVdq9iOiN95Nhz7izCw&sensor=false&language=uk&libraries=weather');
         wp_enqueue_script('google-map');
 
         wp_register_script('fish-map', plugins_url('js/fish-map.js', __FILE__));
@@ -178,6 +178,7 @@ function fish_map_lake_map_by_post($post_id) {
 
     if ($marker) {
         wp_register_script('google-map', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCByg67-8HjM_17CVdq9iOiN95Nhz7izCw&sensor=false&language=uk&libraries=weather');
+        # BACKUP wp_register_script('google-map', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCByg67-8HjM_17CVdq9iOiN95Nhz7izCw&sensor=false&language=uk&libraries=weather');
         wp_enqueue_script('google-map');
 
         wp_register_script('lake-map', plugins_url('js/lake-map.js', __FILE__));

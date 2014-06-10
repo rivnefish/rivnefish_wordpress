@@ -592,7 +592,7 @@ input.search_input {
 
 #filter-bar {
     background: url(images/filter-bar-bg.png);
-    padding: 19px 0;
+    padding: 9px 0;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: inset 0 1px 1px #fff, inset 0 3px 7px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: inset 0 1px 1px #fff, inset 0 3px 7px rgba(0, 0, 0, 0.1);
@@ -888,7 +888,7 @@ html, body {
 }
 
 #et_main_map {
-    height: 100%;
+    height: 92%;
 }
 
 .et_marker_info {

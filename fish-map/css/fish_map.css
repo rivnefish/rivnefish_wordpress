@@ -109,4 +109,8 @@ input#markersFilter {
     position: relative;
     width: 80%;
 }
+
+label#weather_label {
+    padding: 0 30px;
+}
     
