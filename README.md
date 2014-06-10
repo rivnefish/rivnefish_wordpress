@@ -4,20 +4,16 @@ rivnefish
 
 WordPress Development
 ---------------------
-
 Class Reference http://codex.wordpress.org/Class_Reference
-
 Function Reference http://codex.wordpress.org/Function_Reference
-
 Database query interface http://codex.wordpress.org/Class_Reference/wpdb
-
 
 Development process
 -------------------
 
-1) Оберіть фічу(чи дефект) над якою ви будете працювати.
+# Оберіть фічу(чи дефект) над якою ви будете працювати.
 
-2) Створіть нову бренчу в якій ви будете робити ваші зміни
+# Створіть нову бренчу в якій ви будете робити ваші зміни
 
 ```bash
 git checkout -b branch_name # це зробить нову бренчу із потчної і переключиться на неї
