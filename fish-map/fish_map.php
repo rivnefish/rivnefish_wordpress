@@ -126,14 +126,14 @@ function fish_map_elegant() {
 function fish_map_markers() {
     $markerModel = new MarkerModel();
     $markers = $markerModel->getListForMap();
-    echo json_encode($markers);
+    echo json_encode($markers, JSON_UNESCAPED_UNICODE);
     die();
 }
 
 function fish_map_markers_search() {
     $markerModel = new MarkerModel();
     $markers = $markerModel->getInRadius($_GET["radius"], $_GET["lat"], $_GET["lng"]);
-    echo json_encode($markers);
+    echo json_encode($markers, JSON_UNESCAPED_UNICODE);
     die();
 }
 
@@ -168,7 +168,7 @@ function fish_map_marker_info() {
         'marker' => $marker_row,
         'fishes' => $fishes
     );
-    echo json_encode($response);
+    echo json_encode($response, JSON_UNESCAPED_UNICODE);
     die();
 }
 
