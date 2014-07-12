@@ -67,6 +67,9 @@ add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
 add_action('wp_ajax_nopriv_fish_map_marker_info', 'fish_map_marker_info');
 add_action('wp_ajax_fish_map_marker_info', 'fish_map_marker_info');
 
+add_action('wp_ajax_nopriv_fish_map_fishes', 'fish_map_fishes');
+add_action('wp_ajax_fish_map_fishes', 'fish_map_fishes');
+
 
 add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
 
@@ -185,4 +188,10 @@ function fish_map_lake_map_by_post($post_id) {
     }
 
     include 'tpls/fish_map_lake_map.phtml';
+}
+
+function fish_map_fishes() {
+    $fishModel = new FishModel();
+    echo json_encode($fishModel->getAll(), JSON_UNESCAPED_UNICODE);
+    die();
 }

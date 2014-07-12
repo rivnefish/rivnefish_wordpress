@@ -18,6 +18,11 @@ class FishModel
         return $this->db->get_results("SELECT fish_id, name FROM fishes ORDER BY name");
     }
 
+    public function getAll()
+    {
+        return $this->db->get_results("SELECT * FROM fishes ORDER BY name");
+    }
+
     public function getByMarker($markerId)
     {
         $query_fish = $this->db->prepare(
