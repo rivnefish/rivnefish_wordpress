@@ -143,8 +143,7 @@ var AddMarkerForm = (function ($) {
             $(this).qtip({
                 content: { attr: 'data-qtip' },
                 position: $(this).hasClass('qtip-bottom') ? position_bottom : position_right,
-                show: { event: 'click focus' },
-                hide: { event: 'blur' },
+                hide: { fixed: true, delay: 200 },
                 style: { classes: 'qtip-rounded' }
             })
         });
