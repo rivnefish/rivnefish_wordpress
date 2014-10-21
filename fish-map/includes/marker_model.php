@@ -38,6 +38,8 @@ class MarkerModel
         $v = new Validator($data);
         $v->rule('required', 'name')
           ->message('Назва водойми є обов\'язковим полем!');
+		$v->rule('required', 'content')
+          ->message('Напишіть про водойму хоча б кілька речень');
         $v->rule('required', array('lat', 'lng'))
           ->message('Відмітьте водойму на карті');
         $v->rule('numeric', array('lat', 'lng'))
