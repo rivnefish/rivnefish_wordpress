@@ -70,6 +70,10 @@ class FishMapAddPlacePlugin
         wp_register_script('jquery.plupload.uk', plugins_url('js/3p/plupload-2.1.1/i18n/uk_UA.js', __FILE__));
         wp_enqueue_script('jquery.plupload.uk');
 
+        // qTip2
+        wp_register_script('jquery.qtip2', 'http://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.js');
+        wp_enqueue_script('jquery.qtip2');
+
         wp_register_script('add-fish-place', plugins_url('js/add_fish_place.js', __FILE__));
         wp_enqueue_script('add-fish-place');
     }
@@ -78,6 +82,10 @@ class FishMapAddPlacePlugin
     {
         wp_register_style('addFishPlaceStyleSheet', plugins_url('css/add_fish_place.css', __FILE__));
         wp_enqueue_style('addFishPlaceStyleSheet');
+
+        // qTip2
+        wp_register_style('jquery.qtip2', 'http://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.css');
+        wp_enqueue_style('jquery.qtip2');
     }
 
     public function renderForm($attr)

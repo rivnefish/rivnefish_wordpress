@@ -14,6 +14,7 @@ var AddMarkerForm = (function ($) {
 
         this.initMap();
         this.initPhotoUpload();
+        this.initQTip();
 
         $('#permit').change(this.togglePermitInfo).trigger('change');
     },
@@ -127,6 +128,25 @@ var AddMarkerForm = (function ($) {
             }
         }, this));
         this.uploader = uploader;
+    },
+
+    initQTip : function () {
+        var position_right = {
+                my: 'center left',
+                at: 'center right'
+            },
+            position_bottom = {
+                my: 'top center',
+                at: 'bottom center'
+            };
+        $('.qtip-info').each(function(){
+            $(this).qtip({
+                content: { attr: 'data-qtip' },
+                position: $(this).hasClass('qtip-bottom') ? position_bottom : position_right,
+                hide: { fixed: true, delay: 200 },
+                style: { classes: 'qtip-rounded' }
+            })
+        });
     },
 
     _shouldUseFlash : function () {
