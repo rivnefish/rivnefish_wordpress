@@ -102,6 +102,17 @@ class MarkerModel
         );
     }
 
+    public function getModifiedAfter($date = false)
+    {
+        $sql = 'SELECT marker_id, modify_date FROM markers';
+        if ($date) {
+            $value = esc_sql($date);
+            $sql .= " WHERE modify_date >= '$value'";
+        }
+        $sql .= ' ORDER BY name';
+        return $this->db->get_results($sql, ARRAY_A);
+    }
+
     private function _getNggFunctionsPath()
     {
         return WP_PLUGIN_DIR . '/nextgen-gallery/products/photocrati_nextgen/modules/ngglegacy/admin/functions.php';
