@@ -15,9 +15,14 @@ class MarkerInfo
     public function getInfo($markerId)
     {
         $markerRow = $this->_markerModel->getById($markerId);
+        return $this->getRowInfo($markerRow);
+    }
+
+    public function getRowInfo($markerRow)
+    {
         $markerRow['page_url'] = $this->_getPageUrl($markerRow);
         $markerRow['photos'] = $this->_getPhotos($markerRow);
-        $markerRow['fishes'] = $this->_fishModel->getByMarker($markerId);
+        $markerRow['fishes'] = $this->_fishModel->getByMarker($markerRow['marker_id']);
         return $markerRow;
     }
 

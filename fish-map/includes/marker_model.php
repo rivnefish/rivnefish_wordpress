@@ -66,6 +66,11 @@ class MarkerModel
         return $this->db->get_row($query_marker, ARRAY_A);
     }
 
+    public function getAllActive()
+    {
+        return $this->db->get_results('SELECT * FROM markers ORDER BY name', ARRAY_A);
+    }
+
     public function getPageUrlFromPassport($markerId)
     {
         $query_passport = $this->db->prepare("SELECT url_suffix FROM passports WHERE marker_id = %d", $markerId);
@@ -104,13 +109,14 @@ class MarkerModel
 
     public function getModifiedAfter($date = false)
     {
-        $sql = 'SELECT marker_id, modify_date FROM markers';
         if ($date) {
-            $value = esc_sql($date);
-            $sql .= " WHERE modify_date >= '$value'";
+            $query = $this->db->prepare(
+                "SELECT * FROM markers WHERE modify_date >= '%s' ORDER BY name", $date
+            );
+            return $this->db->get_results($query, ARRAY_A);
+        } else {
+            return $this->getAllActive();
         }
-        $sql .= ' ORDER BY name';
-        return $this->db->get_results($sql, ARRAY_A);
     }
 
     private function _getNggFunctionsPath()
