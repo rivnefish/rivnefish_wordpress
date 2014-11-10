@@ -50,6 +50,8 @@ TODO:
 require_once 'includes/fish_map_install.php';
 require_once 'includes/marker_model.php';
 require_once 'includes/fish_model.php';
+require_once 'includes/marker_info.php';
+require_once 'includes/markers_cache.php';
 require_once 'fish_map_views.php';
 require_once 'fish_map_add_place.php';
 
@@ -60,6 +62,9 @@ add_action('wp_print_styles', 'add_stylesheets_map');
 
 add_action('wp_ajax_nopriv_fish_map_markers', 'fish_map_markers');
 add_action('wp_ajax_fish_map_markers', 'fish_map_markers');
+
+add_action('wp_ajax_nopriv_fish_map_markers_fullinfo', 'fish_map_markers_fullinfo');
+add_action('wp_ajax_fish_map_markers_fullinfo', 'fish_map_markers_fullinfo');
 
 add_action('wp_ajax_nopriv_fish_map_markers_search', 'fish_map_markers_search');
 add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
@@ -133,6 +138,22 @@ function fish_map_markers() {
     die();
 }
 
+function fish_map_markers_fullinfo() {
+    $modified_after = isset($_GET['modified_after']) ? $_GET['modified_after'] : false;
+
+    $markerModel = new MarkerModel();
+    $markers = $markerModel->getModifiedAfter($modified_after);
+
+    $result = array();
+    $cache = new MarkersCache();
+    foreach ($markers as $marker) {
+        $result[] = $cache->getMarkerInfo($marker);
+    }
+
+    echo json_encode($result, JSON_UNESCAPED_UNICODE);
+    die();
+}
+
 function fish_map_markers_search() {
     $markerModel = new MarkerModel();
     $markers = $markerModel->getInRadius($_GET["radius"], $_GET["lat"], $_GET["lng"]);
@@ -141,37 +162,15 @@ function fish_map_markers_search() {
 }
 
 function fish_map_marker_info() {
-    global $nggdb;
     $marker_id = $_GET['marker_id'];
-    $markerModel = new MarkerModel();
-    $fishModel = new FishModel();
 
+    $markerModel = new MarkerModel();
     $marker_row = $markerModel->getById($marker_id);
 
-    $pageUrl = $markerModel->getPageUrl($marker_row);
-    if ($pageUrl) {
-        $marker_row['page_url'] = $pageUrl;
-    }
+    $cache = new MarkersCache();
+    $info = $cache->getMarkerInfo($marker_row);
 
-    if ($marker_row['gallery_id']) {
-        $photos = array();
-        $gallery = $nggdb->get_gallery($marker_row['gallery_id'], 'sortorder', 'ASC', true, 4);
-        foreach ($gallery as $image) {
-            $photos[] = array(
-                'thumbnail' => $image->thumbURL,
-                'photo' => $image->imageURL
-            );
-        }
-        $marker_row['photos'] = $photos;
-    }
-
-    $fishes = $fishModel->getByMarker($marker_id);
-
-    $response = array(
-        'marker' => $marker_row,
-        'fishes' => $fishes
-    );
-    echo json_encode($response, JSON_UNESCAPED_UNICODE);
+    echo json_encode($info, JSON_UNESCAPED_UNICODE);
     die();
 }
 

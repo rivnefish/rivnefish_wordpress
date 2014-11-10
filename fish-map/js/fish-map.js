@@ -304,9 +304,8 @@ var fish_scores = new Array(
 
 function showInfoWindow(marker) {
     var searchUrl = WP_AJAX_URL + '?action=fish_map_marker_info&marker_id=' + marker.id;
-    $.getJSON(searchUrl, function(data) {
+    $.getJSON(searchUrl, function(markerInfo) {
         // Create marker
-        var markerInfo = data['marker'];
         var name = markerInfo["name"];
         var payment = markerInfo["paid_fish"] ? markerInfo["paid_fish"] : "-";
         var contact = markerInfo["contact"] ? markerInfo["contact"] : "-";
@@ -320,7 +319,7 @@ function showInfoWindow(marker) {
                         + "<div><strong>"+ name + "</strong></div>";
 
         // Add fishes
-        var fishes = data['fishes'];
+        var fishes = markerInfo['fishes'];
         if (fishes) {
             html += "<div><i>Риба: </i>";
             for (var i = 0; i < fishes.length; i++) {

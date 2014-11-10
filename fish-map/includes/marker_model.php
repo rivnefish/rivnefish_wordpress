@@ -66,6 +66,11 @@ class MarkerModel
         return $this->db->get_row($query_marker, ARRAY_A);
     }
 
+    public function getAllActive()
+    {
+        return $this->db->get_results('SELECT * FROM markers ORDER BY name', ARRAY_A);
+    }
+
     public function getPageUrlFromPassport($markerId)
     {
         $query_passport = $this->db->prepare("SELECT url_suffix FROM passports WHERE marker_id = %d", $markerId);
@@ -100,6 +105,18 @@ class MarkerModel
             'SELECT marker_id, name, address, lat, lng
             FROM markers WHERE approval IN ("approved","pending") order by name', ARRAY_A
         );
+    }
+
+    public function getModifiedAfter($date = false)
+    {
+        if ($date) {
+            $query = $this->db->prepare(
+                "SELECT * FROM markers WHERE modify_date >= '%s' ORDER BY name", $date
+            );
+            return $this->db->get_results($query, ARRAY_A);
+        } else {
+            return $this->getAllActive();
+        }
     }
 
     private function _getNggFunctionsPath()
