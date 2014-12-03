@@ -48,7 +48,7 @@ class MarkerModel
           ->message('Некоректний URL на фото');
 
         $v->rule('numeric', array(
-                'area', 'max_depth', 'average_depth', '24h_price', 'dayhour_price'
+                'area', 'max_depth', 'average_depth', 'price_24h', 'dayhour_price'
             ))
           ->message('Некоректний формат');
         return $v;

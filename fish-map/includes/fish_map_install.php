@@ -39,7 +39,7 @@ function fish_map_install() {
               `average_depth` decimal(6,2) DEFAULT NULL COMMENT 'В метрах',
               `distance_to_Rivne` int(11) DEFAULT NULL COMMENT 'В МЕТРАХ згідно google.maps.DistanceMatrixService',
               `permit` enum('free','paid','prohibited','unknown') NOT NULL DEFAULT 'free',
-              `24h_price` decimal(6,2) unsigned DEFAULT NULL,
+              `price_24h` decimal(6,2) unsigned DEFAULT NULL,
               `dayhour_price` decimal(6,2) unsigned DEFAULT NULL,
               `boat_usage` enum('1','0') DEFAULT NULL COMMENT 'Чи дозволено використання човна',
               `time_to_fish` enum('24h','daylight', 'unknown') DEFAULT '24h' COMMENT 'Дозволений час рибалки',

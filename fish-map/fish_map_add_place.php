@@ -145,7 +145,7 @@ class FishMapAddPlacePlugin
             'area' => $_POST['area'],
             'max_depth' => $_POST['max_depth'],
             'average_depth' => $_POST['average_depth'],
-            '24h_price' => $_POST['24h_price'],
+            'price_24h' => $_POST['price_24h'],
             'dayhour_price' => $_POST['dayhour_price'],
             'boat_usage' => $_POST['boat_usage'],
             'time_to_fish' => $_POST['time_to_fish'],
