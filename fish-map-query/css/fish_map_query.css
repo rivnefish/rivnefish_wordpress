@@ -69,7 +69,6 @@ div#fish_map_table {
 
 table.fish_map_details {
     width: 95% !important;
-    background-color: #044873 !important;
     font-size: 8pt !important;
     margin-left: 20px;
 }
@@ -108,6 +107,6 @@ img[id$='_note'] {
     padding: 6px;
     vertical-align: top;
 }
-table.fish_map_details td {
-    color: #fff;
+#table.fish_map_details td {
+    color: #000000;
 }
