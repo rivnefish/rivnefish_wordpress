@@ -27,7 +27,7 @@ class MarkerModel
         $subject = '[Рибні місця Рівненщини] Додано нову водойму - будь ласка, санкціонуйте!';
         $message = 'Додано нову водойму.' . "\r\n\r\n"
 		 . 'Редагувати в базі:' . 'http://api.rivnefish.com/markers/' . $markerId . "\n"
-//                 . 'Стаття на сайті:' . 'http://api.rivnefish.com/markers/' . $markerId . "\n"
+///                 . 'Стаття на сайті:' . 'http://api.rivnefish.com/markers/' . $markerId . "\n"
                  . 'Дата:' . date("d M Y H:i:s") . "\r\n\r\n"
                  . 'Користувач:' . "\r\n" . $user_info . "\r\n\r\n"
                  . '_REQUEST параметри:'."\r\n" . print_r($request, 1);

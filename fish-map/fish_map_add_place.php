@@ -70,6 +70,10 @@ class FishMapAddPlacePlugin
         wp_register_script('jquery.plupload.uk', plugins_url('js/3p/plupload-2.1.1/i18n/uk_UA.js', __FILE__));
         wp_enqueue_script('jquery.plupload.uk');
 
+        // qTip2
+        wp_register_script('jquery.qtip2', 'http://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.js');
+        wp_enqueue_script('jquery.qtip2');
+
         wp_register_script('add-fish-place', plugins_url('js/add_fish_place.js', __FILE__));
         wp_enqueue_script('add-fish-place');
     }
@@ -78,6 +82,10 @@ class FishMapAddPlacePlugin
     {
         wp_register_style('addFishPlaceStyleSheet', plugins_url('css/add_fish_place.css', __FILE__));
         wp_enqueue_style('addFishPlaceStyleSheet');
+
+        // qTip2
+        wp_register_style('jquery.qtip2', 'http://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.css');
+        wp_enqueue_style('jquery.qtip2');
     }
 
     public function renderForm($attr)
@@ -104,7 +112,7 @@ class FishMapAddPlacePlugin
             }
             $galleryId = $this->_markerModel->createMarkerGallery($markerId, strip_tags($_POST['name']), $_POST['pictures']);
             $postId = $this->_markerModel->createMarkerPost($markerId, strip_tags($_POST['name']), strip_tags($_POST['content']), $galleryId);
-            $this->_markerModel->sendEmailNotification($_REQUEST);
+            $this->_markerModel->sendEmailNotification($markerId, $_REQUEST);
 
             $response = array(
                 'error' => false,
@@ -137,7 +145,7 @@ class FishMapAddPlacePlugin
             'area' => $_POST['area'],
             'max_depth' => $_POST['max_depth'],
             'average_depth' => $_POST['average_depth'],
-            '24h_price' => $_POST['24h_price'],
+            'price_24h' => $_POST['price_24h'],
             'dayhour_price' => $_POST['dayhour_price'],
             'boat_usage' => $_POST['boat_usage'],
             'time_to_fish' => $_POST['time_to_fish'],
