@@ -14,7 +14,7 @@ class MarkerModel
         $this->db = $wpdb;
     }
 
-    public function sendEmailNotification($request)
+    public function sendEmailNotification($markerId, $request)
     {
         // Obtain user info
         $current_user = wp_get_current_user();
@@ -26,6 +26,8 @@ class MarkerModel
 
         $subject = '[Рибні місця Рівненщини] Додано нову водойму - будь ласка, санкціонуйте!';
         $message = 'Додано нову водойму.' . "\r\n\r\n"
+		 . 'Редагувати в базі:' . 'http://api.rivnefish.com/markers/' . $markerId . "\n"
+//                 . 'Стаття на сайті:' . 'http://api.rivnefish.com/markers/' . $markerId . "\n"
                  . 'Дата:' . date("d M Y H:i:s") . "\r\n\r\n"
                  . 'Користувач:' . "\r\n" . $user_info . "\r\n\r\n"
                  . '_REQUEST параметри:'."\r\n" . print_r($request, 1);
@@ -48,7 +50,7 @@ class MarkerModel
           ->message('Некоректний URL на фото');
 
         $v->rule('numeric', array(
-                'area', 'max_depth', 'average_depth', '24h_price', 'dayhour_price'
+                'area', 'max_depth', 'average_depth', 'price_24h', 'dayhour_price'
             ))
           ->message('Некоректний формат');
         return $v;
@@ -64,6 +66,11 @@ class MarkerModel
     {
         $query_marker = $this->db->prepare("SELECT * FROM markers WHERE post_id = %d LIMIT 1", $postId);
         return $this->db->get_row($query_marker, ARRAY_A);
+    }
+
+    public function getAllActive()
+    {
+        return $this->db->get_results('SELECT * FROM markers ORDER BY name', ARRAY_A);
     }
 
     public function getPageUrlFromPassport($markerId)
@@ -100,6 +107,18 @@ class MarkerModel
             'SELECT marker_id, name, address, lat, lng
             FROM markers WHERE approval IN ("approved","pending") order by name', ARRAY_A
         );
+    }
+
+    public function getModifiedAfter($date = false)
+    {
+        if ($date) {
+            $query = $this->db->prepare(
+                "SELECT * FROM markers WHERE modify_date >= '%s' ORDER BY name", $date
+            );
+            return $this->db->get_results($query, ARRAY_A);
+        } else {
+            return $this->getAllActive();
+        }
     }
 
     private function _getNggFunctionsPath()
