@@ -112,7 +112,7 @@ class FishMapAddPlacePlugin
             }
             $galleryId = $this->_markerModel->createMarkerGallery($markerId, strip_tags($_POST['name']), $_POST['pictures']);
             $postId = $this->_markerModel->createMarkerPost($markerId, strip_tags($_POST['name']), strip_tags($_POST['content']), $galleryId);
-            $this->_markerModel->sendEmailNotification($_REQUEST);
+            $this->_markerModel->sendEmailNotification($markerId, $_REQUEST);
 
             $response = array(
                 'error' => false,
