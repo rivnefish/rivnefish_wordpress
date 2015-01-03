@@ -75,6 +75,8 @@ add_action('wp_ajax_fish_map_marker_info', 'fish_map_marker_info');
 add_action('wp_ajax_nopriv_fish_map_fishes', 'fish_map_fishes');
 add_action('wp_ajax_fish_map_fishes', 'fish_map_fishes');
 
+add_action('wp_ajax_fish_map_update_position', 'fish_map_update_position');
+
 
 add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
 
@@ -108,6 +110,9 @@ function add_scripts_map() {
         // URL: http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer_compiled.js
         wp_register_script('markerclusterer', plugins_url('js/markerclusterer.min.js', __FILE__));
         wp_enqueue_script('markerclusterer');
+
+        wp_register_script('jquery.noty', plugins_url('js/3p/jquery.noty.packaged.min.js', __FILE__));
+        wp_enqueue_script('jquery.noty');
     }
 
 }
@@ -193,5 +198,15 @@ function fish_map_lake_map_by_post($post_id) {
 function fish_map_fishes() {
     $fishModel = new FishModel();
     echo json_encode($fishModel->getAll(), JSON_UNESCAPED_UNICODE);
+    die();
+}
+
+function fish_map_update_position() {
+    if (!current_user_can('manage_options')) die();
+
+    $marker_id = $_POST['marker_id'];
+    $markerModel = new MarkerModel();
+    $markerModel->updatePosition($marker_id, $_POST['lat'], $_POST['lng']);
+    echo json_encode($markerModel->getById($marker_id));
     die();
 }

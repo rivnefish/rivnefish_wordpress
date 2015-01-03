@@ -211,7 +211,8 @@ function createMarker(latlng, name, address, id) {
         title: name,
         icon: fishIcon,
         shadow: fishIconShadow,
-        id: id
+        id: id,
+        draggable: WP_ADMIN
     });
 
     google.maps.event.addListener(marker, 'click', function() {
@@ -220,9 +221,23 @@ function createMarker(latlng, name, address, id) {
     google.maps.event.addListener(marker, 'dblclick', function() {
         map.setCenter(marker.position);
     });
+    google.maps.event.addListener(marker, 'dragend', function () {
+        updateMarkerPosition(marker);
+    });
     
     addToSideBar(marker, name);
     markers.push(marker);
+}
+
+function updateMarkerPosition(marker) {
+    if (!confirm('Оновити позицію маркера?')) return;
+    var position = marker.getPosition();
+    var postData = { marker_id: marker.id, lat: position.lat(), lng: position.lng() };
+    $.post(WP_AJAX_URL + '?action=fish_map_update_position', postData, function (response) {
+        if (response.marker_id) {
+            noty({ text: 'Позицію маркера оновлено', layout: 'topRight', type: 'success', timeout: 5000 });
+        }
+    }, 'json');
 }
 
 function openInfoWindow(marker, html) {
@@ -289,18 +304,18 @@ function doNothing() {}
         break;
     }
   };
-var fish_scores = new Array(
-"https://lh3.googleusercontent.com/-pA3e1NFvUm8/Trz_UZ8Fs-I/AAAAAAAABdM/aEK8mt1ZS_I/s800/score_01.png",
-"https://lh6.googleusercontent.com/-4DN2LTsUbG4/Trz_UYtEUtI/AAAAAAAABdI/YVTX3zrQTSo/s800/score_02.png",
-"https://lh6.googleusercontent.com/-ZMiSp_fH5OE/Trz_URksCkI/AAAAAAAABdQ/dfnXeIogSiM/s800/score_03.png",
-"https://lh4.googleusercontent.com/-3pJyfPwa85U/Trz_UsRN6YI/AAAAAAAABdY/Bai3V0RKzY8/s800/score_04.png",
-"https://lh4.googleusercontent.com/-upUuE-VV6WQ/Trz_VH03c0I/AAAAAAAABdc/YDxOsgTmC-U/s800/score_05.png",
-"https://lh5.googleusercontent.com/-cu-ov_hiSGc/Trz_VOgc8_I/AAAAAAAABdk/m3lw1UgdJ58/s800/score_06.png",
-"https://lh6.googleusercontent.com/-L0vacmk1T6I/Trz_VQJw6UI/AAAAAAAABdo/a-D6BUkTsek/s800/score_07.png",
-"https://lh3.googleusercontent.com/-nD79CO5CYYs/Trz_XhSMy4I/AAAAAAAABeM/5odbngZEYQc/s800/score_08.png",
-"https://lh6.googleusercontent.com/-BRSSsL8dsVk/Trz_V1FCwEI/AAAAAAAABds/wdhGbYRQjL4/s800/score_09.png",
-"https://lh5.googleusercontent.com/-gBXX50iC2uw/Trz_WGWwfSI/AAAAAAAABd4/RjzfJj0CbAQ/s800/score_10.png"
-); // condensed array
+var fish_scores = [
+    "https://lh3.googleusercontent.com/-pA3e1NFvUm8/Trz_UZ8Fs-I/AAAAAAAABdM/aEK8mt1ZS_I/s800/score_01.png",
+    "https://lh6.googleusercontent.com/-4DN2LTsUbG4/Trz_UYtEUtI/AAAAAAAABdI/YVTX3zrQTSo/s800/score_02.png",
+    "https://lh6.googleusercontent.com/-ZMiSp_fH5OE/Trz_URksCkI/AAAAAAAABdQ/dfnXeIogSiM/s800/score_03.png",
+    "https://lh4.googleusercontent.com/-3pJyfPwa85U/Trz_UsRN6YI/AAAAAAAABdY/Bai3V0RKzY8/s800/score_04.png",
+    "https://lh4.googleusercontent.com/-upUuE-VV6WQ/Trz_VH03c0I/AAAAAAAABdc/YDxOsgTmC-U/s800/score_05.png",
+    "https://lh5.googleusercontent.com/-cu-ov_hiSGc/Trz_VOgc8_I/AAAAAAAABdk/m3lw1UgdJ58/s800/score_06.png",
+    "https://lh6.googleusercontent.com/-L0vacmk1T6I/Trz_VQJw6UI/AAAAAAAABdo/a-D6BUkTsek/s800/score_07.png",
+    "https://lh3.googleusercontent.com/-nD79CO5CYYs/Trz_XhSMy4I/AAAAAAAABeM/5odbngZEYQc/s800/score_08.png",
+    "https://lh6.googleusercontent.com/-BRSSsL8dsVk/Trz_V1FCwEI/AAAAAAAABds/wdhGbYRQjL4/s800/score_09.png",
+    "https://lh5.googleusercontent.com/-gBXX50iC2uw/Trz_WGWwfSI/AAAAAAAABd4/RjzfJj0CbAQ/s800/score_10.png"
+];
 
 function showInfoWindow(marker) {
     var searchUrl = WP_AJAX_URL + '?action=fish_map_marker_info&marker_id=' + marker.id;
@@ -395,10 +410,25 @@ function showInfoWindow(marker) {
                      " href='" + page_url + "'>Деталі/Коментарі &gt;&gt;&gt;</a>";
             html += "</div>";
         }
+        if (WP_ADMIN) {
+            html += '<p>' + markerEditLink(marker.id) + '</p>';
+        }
         html += "</div>";
 
         openInfoWindow(marker, html);
     }); // End $.get()
+}
+
+function apiAdminUrl() {
+    return 'http://api.rivnefish.com/admin/site_manager';
+}
+
+function markerUrl(markerId) {
+    return apiAdminUrl() + '/markers/' + markerId + '/';
+}
+
+function markerEditLink(markerId) {
+    return '<a href="' + markerUrl(markerId) + '">Редагувати маркер</a>';
 }
 
 function scaled_url(str) {
@@ -459,7 +489,6 @@ function setupWeather() {
     };
 
     function listFilter(input, list) {
-
         input
             .change(function() {
                 var filter = $(this).val();
@@ -491,3 +520,4 @@ function setupWeather() {
     }
 
 }(jQuery));
+$ = jQuery;

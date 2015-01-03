@@ -180,4 +180,9 @@ class MarkerModel
         $this->db->insert('markers', $data);
         return $this->db->insert_id;
     }
+
+    public function updatePosition($markerId, $lat, $lng)
+    {
+        $this->db->update('markers', array('lat' => $lat, 'lng' => $lng), array('marker_id' => $markerId));
+    }
 }
