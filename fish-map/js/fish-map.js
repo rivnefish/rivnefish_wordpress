@@ -221,6 +221,9 @@ function createMarker(latlng, name, address, id) {
     google.maps.event.addListener(marker, 'dblclick', function() {
         map.setCenter(marker.position);
     });
+    google.maps.event.addListener(marker, 'dragstart', function () {
+        marker.originPosition = marker.getPosition();
+    });
     google.maps.event.addListener(marker, 'dragend', function () {
         updateMarkerPosition(marker);
     });
@@ -230,7 +233,10 @@ function createMarker(latlng, name, address, id) {
 }
 
 function updateMarkerPosition(marker) {
-    if (!confirm('Оновити позицію маркера?')) return;
+    if (!confirm('Оновити позицію маркера?')) {
+        revertPosition(marker);
+        return;
+    }
     var position = marker.getPosition();
     var postData = { marker_id: marker.id, lat: position.lat(), lng: position.lng() };
     $.post(WP_AJAX_URL + '?action=fish_map_update_position', postData, function (response) {
@@ -238,6 +244,10 @@ function updateMarkerPosition(marker) {
             noty({ text: 'Позицію маркера оновлено', layout: 'topRight', type: 'success', timeout: 5000 });
         }
     }, 'json');
+}
+
+function revertPosition(marker) {
+    marker.setPosition(marker.originPosition);
 }
 
 function openInfoWindow(marker, html) {
@@ -330,8 +340,10 @@ function showInfoWindow(marker) {
         var photo4 = markerInfo["photo_url4"];
         var page_url = markerInfo["page_url"];
 
-        var html = "<div class='marker-info'>"
-                        + "<div><strong>"+ name + "</strong></div>";
+        var html = '<div class="marker-info">';
+
+        // Title
+        html += '<div><strong>' + name + '</strong>' + markerEditLink(marker.id) + '</div>';
 
         // Add fishes
         var fishes = markerInfo['fishes'];
@@ -410,9 +422,6 @@ function showInfoWindow(marker) {
                      " href='" + page_url + "'>Деталі/Коментарі &gt;&gt;&gt;</a>";
             html += "</div>";
         }
-        if (WP_ADMIN) {
-            html += '<p>' + markerEditLink(marker.id) + '</p>';
-        }
         html += "</div>";
 
         openInfoWindow(marker, html);
@@ -428,7 +437,8 @@ function markerUrl(markerId) {
 }
 
 function markerEditLink(markerId) {
-    return '<a href="' + markerUrl(markerId) + '">Редагувати маркер</a>';
+    if (!WP_ADMIN) return '';
+    return '<a href="' + markerUrl(markerId) + '" class="action edit"></a>';
 }
 
 function scaled_url(str) {

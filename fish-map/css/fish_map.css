@@ -95,6 +95,16 @@ div#add_post_button_div {
 .marker-info .marker-info-item {
     margin: 8px 0;
 }
+.marker-info a.action {
+    float: right;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+
+.marker-info a.action.edit {
+    background: url(../images/edit.png) no-repeat;
+}
 
 a.sidebar-list {
     color: #3283B4;
