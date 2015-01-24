@@ -54,6 +54,19 @@
     font-weight: bold;
     display: block;
 }
+#add_place_form .fish {
+    height: 26px;
+    line-height: 26px;
+}
+#add_place_form .fish label {
+    display: inline-block;
+}
+#add_place_form .fish .fish-amount {
+    width: 40px;
+    text-align: center;
+    margin-left: 5px;
+    display: none;
+}
 
 #add_place_form h4 {
     color: orange;

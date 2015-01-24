@@ -50,10 +50,16 @@
 
             <div class="fishes">
                 <?php foreach ($fishes as $fish) { ?>
-                    <label class="check">
-                        <input type="checkbox" name="fishes[]" value="<?php echo $fish->fish_id ?>" />
-                        <?php echo $fish->name ?>
-                    </label>
+                    <div class="fish">
+                        <label class="check">
+                            <input type="checkbox" name="fishes[<?php echo $fish->fish_id ?>][fish_id]"
+                                   value="<?php echo $fish->fish_id ?>" />
+                            <?php echo $fish->name ?>
+                        </label>
+                        <input type="number" name="fishes[<?php echo $fish->fish_id ?>][amount]"
+                               class="fish-amount qtip-info" data-qtip="Кльов риби (1-10)"
+                               value="5" min="1" max="10" disabled="1" />
+                    </div>
                 <?php } ?>
             </div>
         </div>
