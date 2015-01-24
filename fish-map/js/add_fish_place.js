@@ -17,6 +17,7 @@ var AddMarkerForm = (function ($) {
         this.initQTip();
 
         $('#permit').change(this.togglePermitInfo).trigger('change');
+        $('.fishes input:checkbox').change(this.toggleFishAmount).trigger('change');
     },
 
     initMap : function () {
@@ -181,6 +182,11 @@ var AddMarkerForm = (function ($) {
         }
     },
 
+    toggleFishAmount: function () {
+        var amountInput = $(this).closest('.fish').find('.fish-amount');
+        amountInput.toggle(this.checked).prop('disabled', !this.checked);
+    },
+
     addMore : function (e) {
         $('#add_place_result').hide();
         this.form.show();
@@ -247,6 +253,7 @@ var AddMarkerForm = (function ($) {
         this.form.find('input[name=lat]').val('');
         this.form.find('input[name=lng]').val('');
         this.pictures.html('');
+        $('.fishes input:checkbox').trigger('change');
     }
 };})(jQuery);
 

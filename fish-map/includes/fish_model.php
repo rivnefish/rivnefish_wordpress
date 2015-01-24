@@ -38,14 +38,19 @@ class FishModel
     public function insertMarkerFishes($markerId, $fishes)
     {
         $fishIds = $this->getIds();
-        foreach ($fishes as $fishId) {
+        foreach ($fishes as $fishId => $data) {
             $fishId = intval($fishId);
             if (in_array($fishId, $fishIds)) {
                 $this->db->insert('markers_fishes', array(
                     'marker_id' => $markerId,
-                    'fish_id' => $fishId
+                    'fish_id' => $fishId,
+                    'amount' => $this->_amount($data['amount'])
                 ));
             }
         }
+    }
+
+    private function _amount($amount) {
+        return max(min(10, intval($amount)), 1);
     }
 }
