@@ -55,16 +55,24 @@
     display: block;
 }
 #add_place_form .fish {
-    height: 26px;
+    height: 20px;
     line-height: 26px;
 }
 #add_place_form .fish label {
     display: inline-block;
+    min-width: 155px;
 }
 #add_place_form .fish .fish-amount {
-    width: 40px;
-    text-align: center;
-    margin-left: 5px;
+    width: 50px;
+    text-align: left;
+    margin-left: 2px;
+    display: none;
+}
+#add_place_form .fish .fish-notes {
+    width: 230px;
+    text-align: left;
+    margin-left: 2px;
+    padding: 2px;
     display: none;
 }
 
@@ -97,7 +105,7 @@
 }
 #add_place_form .fishes {
     max-height: 250px;
-    width: 300px;
+    width: 600px;
     overflow: auto;
 }
 

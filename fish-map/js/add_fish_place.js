@@ -183,8 +183,13 @@ var AddMarkerForm = (function ($) {
     },
 
     toggleFishAmount: function () {
-        var amountInput = $(this).closest('.fish').find('.fish-amount');
+        var amountInput = $(this).closest('.fish').find('> input');
         amountInput.toggle(this.checked).prop('disabled', !this.checked);
+    },
+
+    toggleFishNotes: function () {
+        var notesInput = $(this).closest('.fish').find('.fish-notes');
+        notesInput.toggle(this.checked).prop('disabled', !this.checked);
     },
 
     addMore : function (e) {

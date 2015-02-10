@@ -57,9 +57,19 @@
                             <?php echo $fish->name ?>
                         </label>
                         <input type="number" name="fishes[<?php echo $fish->fish_id ?>][amount]"
-                               class="fish-amount qtip-info" data-qtip="Кльов риби (1-10)"
-                               value="5" min="1" max="10" disabled="1" />
-                    </div>
+                               class="fish-amount qtip-info qtip-bottom" data-qtip="Кльов риби (1-10)"
+                               value="" min="1" max="10" placeholder="klev" disabled="1" />
+			<input type="number" name="fishes[<?php echo $fish->fish_id ?>][weight_avg]"
+			       class="fish-amount qtip-info qtip-bottom" data-qtip="weight_avg in grams"
+			       value="" min="10" step="10" placeholder="500" disabled="1"/>
+                	<input type="number" name="fishes[<?php echo $fish->fish_id ?>][weight_max]"
+			       class="fish-amount qtip-info qtip-bottom" data-qtip="weight_max in grams"
+			       value="" min="10" step="10" placeholder="800" disabled="1"/>
+                	<input type="text" name="fishes[<?php echo $fish->fish_id ?>][notes]"
+			       class="fish-notes qtip-info qtip-bottom" data-qtip="write smth about fish"
+			       value="" maxlength="255" placeholder="note" disabled="1"/>
+
+		    </div>
                 <?php } ?>
             </div>
         </div>
