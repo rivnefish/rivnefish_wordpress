@@ -55,7 +55,7 @@
     display: block;
 }
 #add_place_form .fish {
-    height: 20px;
+    height: 26px;
     line-height: 26px;
 }
 #add_place_form .fish label {
@@ -65,13 +65,13 @@
 #add_place_form .fish .fish-amount {
     width: 50px;
     text-align: left;
-    margin-left: 2px;
+    margin: 0 0 0 2px;
     display: none;
 }
 #add_place_form .fish .fish-notes {
     width: 230px;
     text-align: left;
-    margin-left: 2px;
+    margin: 0 0 0 2px;
     padding: 2px;
     display: none;
 }
