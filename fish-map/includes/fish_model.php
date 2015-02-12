@@ -44,7 +44,10 @@ class FishModel
                 $this->db->insert('markers_fishes', array(
                     'marker_id' => $markerId,
                     'fish_id' => $fishId,
-                    'amount' => $this->_amount($data['amount'])
+                    'amount' => $this->_amount($data['amount']),
+                    'weight_avg' => intval($data['weight_avg']),
+                    'weight_max' => intval($data['weight_max']),
+                    'notes' => $data['notes']
                 ));
             }
         }
@@ -53,4 +56,5 @@ class FishModel
     private function _amount($amount) {
         return max(min(10, intval($amount)), 1);
     }
+    
 }
