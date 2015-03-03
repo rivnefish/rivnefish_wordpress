@@ -61,10 +61,10 @@
                                value="" min="1" max="10" disabled="1" />
 			<input type="number" name="fishes[<?php echo $fish->fish_id ?>][weight_avg]"
 			       class="fish-amount qtip-info qtip-bottom" data-qtip="Середня вага риби, що ловиться (в грамах)"
-			       value="" min="10" step="10" placeholder="250" disabled="1"/>
+			       value="" min="0" step="50" placeholder="250" disabled="1"/>
                 	<input type="number" name="fishes[<?php echo $fish->fish_id ?>][weight_max]"
 			       class="fish-amount qtip-info qtip-bottom" data-qtip="Максимальна відома вага риби з цієї водойми (в грамах)"
-			       value="" min="10" step="10" placeholder="600" disabled="1"/>
+			       value="" min="0" step="100" placeholder="600" disabled="1"/>
                 	<input type="text" name="fishes[<?php echo $fish->fish_id ?>][notes]"
 			       class="fish-notes qtip-info qtip-bottom" data-qtip="Важлива примітка/особливості кльову"
 			       value="" maxlength="255" placeholder="клює виключно на хробака" disabled="1"/>

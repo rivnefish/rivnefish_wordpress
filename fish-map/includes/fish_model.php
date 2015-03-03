@@ -54,7 +54,7 @@ class FishModel
     }
 
     private function _amount($amount) {
-        return max(min(10, intval($amount)), 1);
+        return empty($amount) ? null : max(min(10, intval($amount)), 1);
     }
     
 }
