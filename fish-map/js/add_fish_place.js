@@ -30,10 +30,10 @@ var AddMarkerForm = (function ($) {
             ]
         }];
 
-        var RivneLatLng = new google.maps.LatLng(50.619616, 26.251379);
+        var rivneLatLng = new google.maps.LatLng(50.619616, 26.251379);
         this.map = new google.maps.Map(document.getElementById("map_canvas"), {
             zoom: 10,
-            center: RivneLatLng, // Center map at Rivne
+            center: rivneLatLng, // Center map at Rivne
             panControl: true,
             scaleControl: true,
             zoomControl: true,
@@ -63,6 +63,8 @@ var AddMarkerForm = (function ($) {
         google.maps.event.addListener(this.map, 'click', $.proxy(function(e) {
             this.placeMarker(e.latLng, this.map);
         }, this));
+
+        centerMapFromGeolocation(this.map);
     },
 
     initPhotoUpload : function () {
