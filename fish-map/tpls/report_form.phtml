@@ -1,0 +1,35 @@
+<form id="report_form" method="POST" action="<?php echo admin_url('admin-ajax.php');?>">
+    <input type="hidden" name="action" value="fish_map_save_report" />
+
+    <div class="controls">
+        <label for="report_name">*Заголовок звіту</label>
+        <input id="report_name" type="text" name="name" required="1" />
+    </div>
+    
+    <?php echo $text_editor ?>
+
+    <div class="controls">
+        <label>Фото з рибалки  <small>(Ви можете перетягувати додані фото в редактор мишою)</small>
+        </label>
+
+        <div id="upload_container">
+            <button id="photo_upload">Додати фото...</button>
+        </div>
+
+        <div id="loading" class="hidden"></div>
+        <div id="photos"></div>
+    </div>
+
+    <div class="form-actions">
+        <input type="submit" name="add_submit" id="add_submit" class="submit"
+               value="Додати" />
+    </div>
+</form>
+
+<div id="post_report_result" class="et-box et-download hidden">
+    <div class="et-box-content">
+        <p>
+            Звіт додано. Модератор опублікує його найближчим часом.
+        </p>
+    </div>
+</div>

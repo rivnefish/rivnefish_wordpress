@@ -54,6 +54,7 @@ require_once 'includes/marker_info.php';
 require_once 'includes/markers_cache.php';
 require_once 'fish_map_views.php';
 require_once 'fish_map_add_place.php';
+require_once 'fish_map_post_report.php';
 
 add_shortcode('map', 'fish_map');
 add_shortcode('fish_map_elegant', 'fish_map_elegant');
