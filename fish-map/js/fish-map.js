@@ -16,9 +16,8 @@ jQuery(document).ready(function ($) {
 var map = null,
     weatherLayer = null,
 
-    RivneLatLng = new google.maps.LatLng(50.619616, 26.251379),
+    rivneLatLng = new google.maps.LatLng(50.619616, 26.251379),
     browserSupportFlag = false,
-    initialLocation,
     markers = [],
     fishMapAllMarkers = [],
     markerCluster = null,
@@ -45,7 +44,7 @@ function initializeMap() {
 
     var myOptions = {
         zoom: 10,
-        center: RivneLatLng, // Center map at Rivne
+        center: rivneLatLng, // Center map at Rivne
         scaleControl: true,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles: emphasizeLakesStyles
@@ -89,52 +88,10 @@ function initializeMap() {
         minimumClusterSize: 4
     });
 
-    // Show all marker in the end of INITIALIZE()
     setupAllMarkers();
-    // TODO: experimental setupWeather() and TryGeolocation();
-    // TryGeolocation();
+    centerMapFromGeolocation(map);
     setupWeather();
 }
-
-/* END W3C Geolocation and Google Gears Geolocation */
-function TryGeolocation() {
-    // Try W3C Geolocation (Preferred)
-    if(navigator.geolocation) {
-        browserSupportFlag = true;
-        navigator.geolocation.getCurrentPosition(function(position) {
-            initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-            map.setCenter(initialLocation);
-        }, function() {
-            handleNoGeolocation(browserSupportFlag);
-        });
-    // Try Google Gears Geolocation
-    } else if (google.gears) {
-        browserSupportFlag = true;
-        var geo = google.gears.factory.create('beta.geolocation');
-        geo.getCurrentPosition(function(position) {
-            initialLocation = new google.maps.LatLng(position.latitude,position.longitude);
-            map.setCenter(initialLocation);
-        }, function() {
-            handleNoGeoLocation(browserSupportFlag);
-        });
-    // Browser doesn't support Geolocation
-    } else {
-        browserSupportFlag = false;
-        handleNoGeolocation(browserSupportFlag);
-    }
-}
-
-function handleNoGeolocation(errorFlag) {
-    if (errorFlag == true) {
-        initialLocation = RivneLatLng;
-        console.log("Geolocation service failed.");
-    } else {
-        initialLocation = RivneLatLng;
-        console.log("Your browser doesn't support geolocation. We've placed you in Siberia.");
-    }
-    map.setCenter(initialLocation);
-}
-/* END W3C Geolocation and Google Gears Geolocation */
 
 /* Geocoder functionality - search location on the map */
 function searchLocations() {
@@ -196,8 +153,7 @@ function searchLocationsNear(center) {
 }
 
 function setupAllMarkers () {
-    map.setCenter(RivneLatLng);
-    var searchUrl = WP_AJAX_URL + '?action=fish_map_markers&lat=' + RivneLatLng.lat() + '&lng=' + RivneLatLng.lng();
+    var searchUrl = WP_AJAX_URL + '?action=fish_map_markers&lat=' + rivneLatLng.lat() + '&lng=' + rivneLatLng.lng();
     $.getJSON(searchUrl, function(data) {
         _setMarkers(data);
         fishMapAllMarkers = data;
