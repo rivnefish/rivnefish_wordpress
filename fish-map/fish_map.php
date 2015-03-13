@@ -50,6 +50,7 @@ TODO:
 require_once 'includes/fish_map_install.php';
 require_once 'includes/marker_model.php';
 require_once 'includes/fish_model.php';
+require_once 'includes/gallery_model.php';
 require_once 'includes/marker_info.php';
 require_once 'includes/markers_cache.php';
 require_once 'fish_map_views.php';

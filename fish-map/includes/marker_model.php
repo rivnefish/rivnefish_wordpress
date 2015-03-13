@@ -2,7 +2,6 @@
 
 require_once 'fish_map_config.php';
 require_once 'Valitron/Validator.php';
-
 use Valitron\Validator;
 Validator::langDir(__DIR__ . '/Valitron');
 
@@ -121,29 +120,12 @@ class MarkerModel
         }
     }
 
-    private function _getNggFunctionsPath()
+     public function createMarkerGallery($markerId, $name, $imageIds = null)
     {
-        return WP_PLUGIN_DIR . '/nextgen-gallery/products/photocrati_nextgen/modules/ngglegacy/admin/functions.php';
-    }
-
-    public function createMarkerGallery($markerId, $name, $imageIds = null)
-    {
-        require_once $this->_getNggFunctionsPath();
-        global $ngg;
-
-        $name = esc_attr($name);
-        $defaultpath = $ngg->options['gallerypath'];
-        $galleryId = nggAdmin::create_gallery($name, $defaultpath, false);
+        $galleryModel = new GalleryModel();
+        $galleryId = $galleryModel->createGallery($name, $imageIds);
 
         $this->assignGalleryToMarker($galleryId, $markerId);
-
-        if ($imageIds) {
-            ob_start();
-            $imageIds = array_map('intval', $imageIds);
-            nggAdmin::move_images($imageIds, $galleryId);
-            ob_get_clean();
-        }
-
         return $galleryId;
     }
 
