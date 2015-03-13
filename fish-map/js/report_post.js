@@ -192,7 +192,7 @@ var PostReportForm = (function ($) {
                         }
                     });
                 } else {
-                    $('#post_report_result').show('fast');
+                    $('#report_post_result').show('fast');
                     this.form.hide();
                     this.resetForm();
                     $('body').scrollTo('#content', 200, {offset: -50});

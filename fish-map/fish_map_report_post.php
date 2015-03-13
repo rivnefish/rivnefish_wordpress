@@ -32,14 +32,14 @@ class FishMapPostReportPlugin
         wp_register_script('jquery.plupload.uk', plugins_url('js/3p/plupload-2.1.1/i18n/uk_UA.js', __FILE__));
         wp_enqueue_script('jquery.plupload.uk');
 
-        wp_register_script('post_report', plugins_url('js/post_report.js', __FILE__));
-        wp_enqueue_script('post_report');
+        wp_register_script('report_post', plugins_url('js/report_post.js', __FILE__));
+        wp_enqueue_script('report_post');
     }
 
     public function addStylesheets()
     {
-        wp_register_style('post_report', plugins_url('css/post_report.css', __FILE__));
-        wp_enqueue_style('post_report');
+        wp_register_style('report_post', plugins_url('css/report_post.css', __FILE__));
+        wp_enqueue_style('report_post');
 
         // qTip2
         wp_register_style('jquery.qtip2', 'http://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.css');
