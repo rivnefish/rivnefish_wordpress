@@ -9,9 +9,9 @@
     display: block;
 }
 
-#report_form label small {
+#report_form small {
     font-weight: normal;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 #report_form #wp-report_content-editor-container {
@@ -27,6 +27,10 @@
 
 #report_form #upload_container {
     margin: 3px 0;
+}
+
+#report_form .form-actions {
+    text-align: right;
 }
 
 #loading {

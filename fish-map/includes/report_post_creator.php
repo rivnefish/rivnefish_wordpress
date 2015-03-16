@@ -35,7 +35,8 @@ class ReportPostCreator
         $content = $this->_filterXSS($this->_data['report_content']);
         if ($galleryId) {
             $content = $this->_galleryModel->updatePhotosPath($content, $galleryId);
-            $content .= "\n\n" . "[nggallery id={$galleryId}]";
+            $content .= "\n\n<h3>Всі фото з рибалки:</h3>";
+            $content .= "\n" . "[nggallery id={$galleryId}]";
         }
 
         return wp_insert_post(array(
