@@ -50,10 +50,12 @@ TODO:
 require_once 'includes/fish_map_install.php';
 require_once 'includes/marker_model.php';
 require_once 'includes/fish_model.php';
+require_once 'includes/gallery_model.php';
 require_once 'includes/marker_info.php';
 require_once 'includes/markers_cache.php';
 require_once 'fish_map_views.php';
 require_once 'fish_map_add_place.php';
+require_once 'fish_map_report_post.php';
 
 add_shortcode('map', 'fish_map');
 add_shortcode('fish_map_elegant', 'fish_map_elegant');
