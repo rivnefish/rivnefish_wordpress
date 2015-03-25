@@ -1,4 +1,9 @@
 <div class="marker-info">
+    <?php if (current_user_can( 'manage_options' )) { ?>
+        <div class="marker-info-item" align="right">
+            <a href="http://api.rivnefish.com/admin/site_manager/markers/<?php echo $marker['marker_id'];?>" class="action edit">Редагувати</a>
+        </div>      
+    <?php } ?>
     <?php if ($fishes) { ?>
         <div class="marker-info-item marker-fishes">
             <?php foreach ($fishes as $fish) { ?>
@@ -27,12 +32,31 @@
         </div>
     <?php } ?>
 
-    <div>
-
-    <div class="marker-info-item">
+   <div class="marker-info-item">
         <strong>Оплата:</strong> <?php echo $marker["paid_fish"] ? htmlspecialchars($marker["paid_fish"]) : '-';?>
     </div>
     <div class="marker-info-item">
         <strong>Контакт:</strong> <?php echo $marker["contact"] ? htmlspecialchars($marker["contact"]) : '-';?>
+    </div>
+    <div class="marker-info-item">
+        <strong>Площа водойми:</strong> <?php echo $marker["area"] ? htmlspecialchars($marker["area"]/100) : '-';?> Га
+    </div>
+    <div class="marker-info-item">
+        <strong>Середня глибина:</strong> <?php echo $marker["average_depth"] ? htmlspecialchars($marker["average_depth"]) : '-';?> м.
+    </div>
+    <div class="marker-info-item">
+        <strong>Максимальна глибина:</strong> <?php echo $marker["max_depth"] ? htmlspecialchars($marker["max_depth"]) : '-';?> м.
+    </div>
+    <div class="marker-info-item">
+        <strong>Умови рибалки:</strong> <?php echo $marker["permit"] ? htmlspecialchars($marker["permit"]) : '-';?>
+    </div>
+    <div class="marker-info-item">
+        <strong>Коли можна рибалити:</strong> <?php echo $marker["time_to_fish"] ? htmlspecialchars($marker["time_to_fish"]) : '-';?>
+    </div>
+    <div class="marker-info-item">
+        <strong>Можна користуватись човном:</strong> <?php echo $marker["boat_usage"] ? htmlspecialchars($marker["boat_usage"]) : '-';?>
+    </div>
+    <div class="marker-info-item">
+        <strong>Важлива примітка:</strong> <?php echo $marker["note"] ? htmlspecialchars($marker["note"]) : '-';?>
     </div>
 </div>
