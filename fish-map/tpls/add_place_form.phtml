@@ -17,8 +17,9 @@
             <input id="marker_name"
                    type="text"
                    name="name"
-                   required="1" />
-            <small>(загально відома назва місця для рибалки, наприклад Біле Озеро, Бочаниця)</small>
+                   required="1"
+                   class="qtip-info"
+                   data-qtip="Загально відома назва місця для рибалки, наприклад Біле Озеро, Бочаниця" />
         </div>
 
         <div class="controls" class="marker_lat">
@@ -33,14 +34,15 @@
         <div class="controls">
             <label for="marker_content">Інформація про водойму</label>
             <textarea id="marker_content"
-                      name="content" rows="6" maxlength="10000"></textarea>
-            <small>(наприклад: <i>Став був клубним і ловити було заборонено,
+                      name="content" rows="6" maxlength="10000"
+                      class="qtip-info"
+                      data-qtip="наприклад: Став був клубним і ловити було заборонено,
                 лише обраним по запрошеннях. Проте тепер ставок відкритий для
                 ловлі для всіх бажаючих. Отже, ставок знаходиться десь
                 за 150-200 м справа від в'їзду в с.Півче зі сторони
                 Мізоча (8 км від Мізоча). Ставок чистий, незарозший,
-                з твердим дном</i>)
-            </small>
+                з твердим дном"
+            ></textarea>
         </div>
 
         <div class="controls">
@@ -48,14 +50,27 @@
 
             <div class="fishes">
                 <?php foreach ($fishes as $fish) { ?>
-                    <label class="check">
-                        <input type="checkbox" name="fishes[]" value="<?php echo $fish->fish_id ?>" />
-                        <?php echo $fish->name ?>
-                    </label>
+                    <div class="fish">
+                        <label class="check">
+                            <input type="checkbox" name="fishes[<?php echo $fish->fish_id ?>][fish_id]"
+                                   value="<?php echo $fish->fish_id ?>" />
+                            <?php echo $fish->name ?>
+                        </label>
+                        <input type="number" name="fishes[<?php echo $fish->fish_id ?>][amount]"
+                               class="fish-amount qtip-info qtip-bottom" data-qtip="Оцініть кльов риби (1-10)"
+                               value="" min="1" max="10" disabled="1" />
+			<input type="number" name="fishes[<?php echo $fish->fish_id ?>][weight_avg]"
+			       class="fish-amount qtip-info qtip-bottom" data-qtip="Середня вага риби, що ловиться (в грамах)"
+			       value="" min="0" step="50" placeholder="250" disabled="1"/>
+                	<input type="number" name="fishes[<?php echo $fish->fish_id ?>][weight_max]"
+			       class="fish-amount qtip-info qtip-bottom" data-qtip="Максимальна відома вага риби з цієї водойми (в грамах)"
+			       value="" min="0" step="100" placeholder="600" disabled="1"/>
+                	<input type="text" name="fishes[<?php echo $fish->fish_id ?>][notes]"
+			       class="fish-notes qtip-info qtip-bottom" data-qtip="Важлива примітка/особливості кльову"
+			       value="" maxlength="255" placeholder="клює виключно на хробака" disabled="1"/>
+
+		    </div>
                 <?php } ?>
-            </div>
-            <div>
-                <small>(виберіть кілька риб)</small>
             </div>
         </div>
 
@@ -73,14 +88,16 @@
             <label for="marker_paid_fish">Вартість риболовлі</label>
             <input id="marker_paid_fish"
                    type="text"
-                   name="paid_fish"  />
-            <small>(ціна, час доби коли можна рибалити, вага риби на виніс і т.п.)</small>
+                   name="paid_fish"
+                   class="qtip-info"
+                   data-qtip="ціна, час доби коли можна рибалити, вага риби на виніс і т.п." />
         </div>
 
         <div class="controls hidden">
             <label for="marker_contact">Контакт на водоймі</label>
-            <input id="marker_contact" type="text" name="contact" />
-            <small>(телефон та ім'я чи т.п., щоб замовити місце, розпитати)</small>
+            <input id="marker_contact" type="text" name="contact"
+                   class="qtip-info"
+                   data-qtip="телефон та ім'я чи т.п., щоб замовити місце, розпитати" />
         </div>
 
         <?php if ($showUploadPhotos) { ?>
@@ -99,49 +116,52 @@
 
             <div class="controls hidden">
                 <label for="marker_address">Адреса водойми</label>
-                <input id="marker_address" type="text" name="address" />
-                <small>(наприклад "село Бочаниця, Гощанський район, Рівненська область")</small>
+                <input id="marker_address" type="text" name="address"
+                       class="qtip-info"
+                       data-qtip="наприклад 'село Бочаниця, Гощанський район, Рівненська область'" />
             </div>
 
             <div class="controls">
                 <label for="marker_conveniences">Умови для відпочинку</label>
                 <textarea id="marker_conveniences"
-                          name="conveniences" rows="6" cols="62" maxlength="10000"/></textarea>
-                <small>(чи є доступ до питної води, де ставити палатку, чи є мангали й столики і таке інше)</small>
+                          name="conveniences" rows="6" cols="62" maxlength="10000"
+                          class="qtip-info"
+                          data-qtip="чи є доступ до питної води, де ставити палатку, чи є мангали й столики і таке інше"
+                ></textarea>
             </div>
 
             <div class="controls">
                 <div class="col col-3">
                     <label for="marker_area">Площа водойми</label>
-                    <input id="marker_area" type="text" name="area" class="input-sm" />
-                    <small>(в арах, 100 ар = 1 Га)</small>
-                </div>
-                <div class="col col-3">
-                    <label for="marker_max_depth">Максимальна глибина</label>
-                    <input id="marker_max_depth" type="text" name="max_depth"
-                           class="input-sm">
-                    <small>(в метрах)</small>
+                    <input id="marker_area" type="text" name="area" class="input-sm qtip-info qtip-bottom"
+                           data-qtip="в арах, 100 ар = 1 Га" />
                 </div>
                 <div class="col col-3">
                     <label for="marker_average_depth">Середня глибина</label>
                     <input id="marker_average_depth" type="text" name="average_depth"
-                           class="input-sm" />
-                    <small>(в метрах)</small>
+                           class="input-sm qtip-info qtip-bottom"
+                           data-qtip="в метрах" />
+                </div>
+                <div class="col col-3">
+                    <label for="marker_max_depth">Максим. глибина</label>
+                    <input id="marker_max_depth" type="text" name="max_depth"
+                           class="input-sm qtip-info qtip-bottom"
+                           data-qtip="в метрах" />
                 </div>
             </div>
 
             <div class="controls hidden">
                 <div class="col col-4">
-                    <label for="marker_24h_price">Варість ловлі за добу</label>
-                    <input id="marker_24h_price" type="text" name="24h_price"
-                           class="input-sm" />
-                    <small>(в гривнях)</small>
+                    <label for="marker_price_24h">Варість ловлі за добу</label>
+                    <input id="marker_price_24h" type="text" name="price_24h"
+                           class="input-sm qtip-info"
+                           data-qtip="в гривнях" />
                 </div>
                 <div class="col col-4">
                     <label for="marker_dayhour_price">Варість ловлі за світловий день</label>
                     <input id="marker_dayhour_price" type="text" name="dayhour_price"
-                           class="input-sm" />
-                    <small>(в гривнях)</small>
+                           class="input-sm qtip-info"
+                           data-qtip="в гривнях" />
                 </div>
             </div>
 
@@ -164,7 +184,7 @@
         </div>
         <div class="form-actions">
             <input type="submit" name="add_submit" id="add_submit" class="submit"
-                   value="Додати" />
+                   value="Додати водойму" />
         </div>
     </div>
 </form>
