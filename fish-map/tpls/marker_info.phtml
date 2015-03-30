@@ -1,4 +1,9 @@
 <div class="marker-info">
+    <?php if (current_user_can( 'manage_options' )) { ?>
+        <div class="marker-info-item" align="right">
+            <a href="http://api.rivnefish.com/admin/site_manager/markers/<?php echo $marker['marker_id'];?>" class="action edit">Редагувати</a>
+        </div>      
+    <?php } ?>
     <?php if ($fishes) { ?>
         <div class="marker-info-item marker-fishes">
             <?php foreach ($fishes as $fish) { ?>
@@ -26,8 +31,6 @@
             <?php } ?>
         </div>
     <?php } ?>
-
-    <div>
 
     <div class="marker-info-item">
         <strong>Оплата:</strong> <?php echo $marker["paid_fish"] ? htmlspecialchars($marker["paid_fish"]) : '-';?>
