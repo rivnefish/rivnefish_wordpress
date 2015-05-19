@@ -50,10 +50,26 @@
 
             <div class="fishes">
                 <?php foreach ($fishes as $fish) { ?>
-                    <label class="check">
-                        <input type="checkbox" name="fishes[]" value="<?php echo $fish->fish_id ?>" />
-                        <?php echo $fish->name ?>
-                    </label>
+                    <div class="fish">
+                        <label class="check">
+                            <input type="checkbox" name="fishes[<?php echo $fish->fish_id ?>][fish_id]"
+                                   value="<?php echo $fish->fish_id ?>" />
+                            <?php echo $fish->name ?>
+                        </label>
+                        <input type="number" name="fishes[<?php echo $fish->fish_id ?>][amount]"
+                               class="fish-amount qtip-info qtip-bottom" data-qtip="Оцініть кльов риби (1-10)"
+                               value="" min="1" max="10" disabled="1" />
+			<input type="number" name="fishes[<?php echo $fish->fish_id ?>][weight_avg]"
+			       class="fish-amount qtip-info qtip-bottom" data-qtip="Середня вага риби, що ловиться (в грамах)"
+			       value="" min="0" step="50" placeholder="250" disabled="1"/>
+                	<input type="number" name="fishes[<?php echo $fish->fish_id ?>][weight_max]"
+			       class="fish-amount qtip-info qtip-bottom" data-qtip="Максимальна відома вага риби з цієї водойми (в грамах)"
+			       value="" min="0" step="100" placeholder="600" disabled="1"/>
+                	<input type="text" name="fishes[<?php echo $fish->fish_id ?>][notes]"
+			       class="fish-notes qtip-info qtip-bottom" data-qtip="Важлива примітка/особливості кльову"
+			       value="" maxlength="255" placeholder="клює виключно на хробака" disabled="1"/>
+
+		    </div>
                 <?php } ?>
             </div>
         </div>
@@ -121,14 +137,14 @@
                            data-qtip="в арах, 100 ар = 1 Га" />
                 </div>
                 <div class="col col-3">
-                    <label for="marker_max_depth">Максимальна глибина</label>
-                    <input id="marker_max_depth" type="text" name="max_depth"
+                    <label for="marker_average_depth">Середня глибина</label>
+                    <input id="marker_average_depth" type="text" name="average_depth"
                            class="input-sm qtip-info qtip-bottom"
                            data-qtip="в метрах" />
                 </div>
                 <div class="col col-3">
-                    <label for="marker_average_depth">Середня глибина</label>
-                    <input id="marker_average_depth" type="text" name="average_depth"
+                    <label for="marker_max_depth">Максим. глибина</label>
+                    <input id="marker_max_depth" type="text" name="max_depth"
                            class="input-sm qtip-info qtip-bottom"
                            data-qtip="в метрах" />
                 </div>
@@ -136,8 +152,8 @@
 
             <div class="controls hidden">
                 <div class="col col-4">
-                    <label for="marker_24h_price">Варість ловлі за добу</label>
-                    <input id="marker_24h_price" type="text" name="24h_price"
+                    <label for="marker_price_24h">Варість ловлі за добу</label>
+                    <input id="marker_price_24h" type="text" name="price_24h"
                            class="input-sm qtip-info"
                            data-qtip="в гривнях" />
                 </div>
@@ -168,7 +184,7 @@
         </div>
         <div class="form-actions">
             <input type="submit" name="add_submit" id="add_submit" class="submit"
-                   value="Додати" />
+                   value="Додати водойму" />
         </div>
     </div>
 </form>

@@ -1,0 +1,51 @@
+#report_form #report_name {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 640px;
+}
+
+#report_form label {
+    font-weight: bold;
+    display: block;
+}
+
+#report_form small {
+    font-weight: normal;
+    font-size: 13px;
+}
+
+#report_form #wp-report_content-editor-container {
+    border: 1px solid #eee;
+}
+
+#report_form img.photo {
+    float: left;
+    max-height: 100px;
+    border: 0;
+    margin: 3px;
+}
+
+#report_form #upload_container {
+    margin: 3px 0;
+}
+
+#report_form .form-actions {
+    text-align: right;
+}
+
+#loading {
+    background: url(../images/ajax-loader.gif) no-repeat;
+    width: 220px;
+    height: 19px;
+}
+
+.controls {
+    clear: both;
+    margin: 10px 0 3px;
+    overflow: hidden;
+    max-width: 700px;
+}
+
+.hidden {
+    display: none;
+}

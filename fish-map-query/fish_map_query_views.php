@@ -89,7 +89,7 @@ function fish_map_query_form($fishes) {
                                         </tr>
                                         <tr>
                                             <td>
-                                                <label for="boat">використання лодки:</label>
+                                                <label for="boat">дозволено користуватись човном:</label>
                                             </td>
                                             <td>
                                                 <input type="checkbox" name="boat" id="boat" value="1" />

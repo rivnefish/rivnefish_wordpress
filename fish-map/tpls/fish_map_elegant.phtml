@@ -1,5 +1,6 @@
 <script type="text/javascript">
     var WP_AJAX_URL = "<?php echo admin_url('admin-ajax.php');?>";
+    var WP_ADMIN = <?php echo current_user_can( 'manage_options' ) ? 'true' : 'false'; ?>;
 </script>
 <div id="et_main_map_wrapper">
     <div id="et_main_map" class="map_canvas"></div>

@@ -1,23 +1,14 @@
-var AddMarkerForm = (function ($) {
+var PostReportForm = (function ($) {
     return {
     init : function () {
-        $('#add_opts').click(function () {
-            $('#additional_opts').slideToggle();
-            $(this).toggleClass('active');
-        });
-        $('#add_more').click($.proxy(this.addMore, this));
 
-        this.form = $('#add_place_form');
-        this.form.submit($.proxy(this.savePlace, this));
+        this.form = $('#report_form');
+        this.form.submit($.proxy(this.saveReport, this));
 
-        this.pictures = $('#pictures');
+        this.photos = $('#photos');
 
-        this.initMap();
         this.initPhotoUpload();
         this.initQTip();
-
-        $('#permit').change(this.togglePermitInfo).trigger('change');
-        $('.fishes input:checkbox').change(this.toggleFishAmount).trigger('change');
     },
 
     initMap : function () {
@@ -113,14 +104,14 @@ var AddMarkerForm = (function ($) {
             var response = JSON.parse(info.response),
                 imageId = response.arrImageIds[0],
                 imagePath = '/' + response.strGalleryPath + '/' + response.arrImageNames[0];
-            this.pictures.append(
+            this.photos.append(
                 $('<img />').attr({
                     'src' : imagePath,
                     'class' : 'photo'
                 })
             ).append(
                 $('<input />').attr({
-                    'name' : 'pictures[]',
+                    'name' : 'photos[]',
                     'type' : 'hidden',
                     'value' : imageId
                 })
@@ -167,39 +158,6 @@ var AddMarkerForm = (function ($) {
         return hasFlash;
     },
 
-    togglePermitInfo : function () {
-        var contactControl = $('#marker_contact').parent(),
-            paidControls = $('#marker_paid_fish, #time_to_fish, #marker_boat_usage').closest('.controls');
-
-        if (this.value == 'paid') {
-            paidControls.slideDown('fast');
-        } else {
-            paidControls.slideUp('fast');
-        }
-
-        if (this.value == 'paid' || this.value == 'prohibited') {
-            contactControl.slideDown('fast');
-        } else {
-            contactControl.slideUp('fast');
-        }
-    },
-
-    toggleFishAmount: function () {
-        var amountInput = $(this).closest('.fish').find('> input');
-        amountInput.toggle(this.checked).prop('disabled', !this.checked);
-    },
-
-    toggleFishNotes: function () {
-        var notesInput = $(this).closest('.fish').find('.fish-notes');
-        notesInput.toggle(this.checked).prop('disabled', !this.checked);
-    },
-
-    addMore : function (e) {
-        $('#add_place_result').hide();
-        this.form.show();
-        return false;
-    },
-
     placeMarker : function (position, map) {
         this.marker.setPosition(position);
         this.marker.setMap(map);
@@ -207,11 +165,12 @@ var AddMarkerForm = (function ($) {
         $('input[name=lng]').val(position.lng());
     },
 
-    savePlace : function (e) {
+    saveReport : function (e) {
         this.clearErrors();
 
         var form = $(e.target);
         this.form.block({ message: 'Збереження...' })
+        tinyMCE.triggerSave();
         $.ajax({
             type : 'POST',
             url : form.attr('action'),
@@ -233,8 +192,7 @@ var AddMarkerForm = (function ($) {
                         }
                     });
                 } else {
-                    $('#add_place_result').show('fast');
-                    $('#add_place_result').find('a#view_place').attr("href", data.permalink);
+                    $('#report_post_result').show('fast');
                     this.form.hide();
                     this.resetForm();
                     $('body').scrollTo('#content', 200, {offset: -50});
@@ -242,7 +200,7 @@ var AddMarkerForm = (function ($) {
             },
             error : function () {
                 form.unblock();
-                alert('Помилка додавання рибної точки.');
+                alert('Помилка збереження звіту.');
             }
         });
 
@@ -256,14 +214,10 @@ var AddMarkerForm = (function ($) {
 
     resetForm : function () {
         this.form[0].reset();
-        this.marker.setMap(null);
-        this.form.find('input[name=lat]').val('');
-        this.form.find('input[name=lng]').val('');
-        this.pictures.html('');
-        $('.fishes input:checkbox').trigger('change');
+        this.photos.html('');
     }
 };})(jQuery);
 
 jQuery(document).ready(function($) {
-    AddMarkerForm.init();
+    PostReportForm.init();
 });

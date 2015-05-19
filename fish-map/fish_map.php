@@ -50,10 +50,12 @@ TODO:
 require_once 'includes/fish_map_install.php';
 require_once 'includes/marker_model.php';
 require_once 'includes/fish_model.php';
+require_once 'includes/gallery_model.php';
 require_once 'includes/marker_info.php';
 require_once 'includes/markers_cache.php';
 require_once 'fish_map_views.php';
 require_once 'fish_map_add_place.php';
+require_once 'fish_map_report_post.php';
 
 add_shortcode('map', 'fish_map');
 add_shortcode('fish_map_elegant', 'fish_map_elegant');
@@ -75,23 +77,28 @@ add_action('wp_ajax_fish_map_marker_info', 'fish_map_marker_info');
 add_action('wp_ajax_nopriv_fish_map_fishes', 'fish_map_fishes');
 add_action('wp_ajax_fish_map_fishes', 'fish_map_fishes');
 
+add_action('wp_ajax_fish_map_update_position', 'fish_map_update_position');
+
 
 add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
 
 function add_scripts_map() {
-        wp_deregister_script('jquery');
-        wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js');
-        # BACKUP wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
-        wp_enqueue_script('jquery');
+    wp_deregister_script('jquery');
+    wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js');
+    # BACKUP wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+    wp_enqueue_script('jquery');
 
-        wp_deregister_script('jquery-migrate');
-        wp_register_script('jquery-migrate', 'http://code.jquery.com/jquery-migrate-1.0.0.min.js');
-        wp_enqueue_script('jquery-migrate');
+    wp_deregister_script('jquery-migrate');
+    wp_register_script('jquery-migrate', 'http://code.jquery.com/jquery-migrate-1.0.0.min.js');
+    wp_enqueue_script('jquery-migrate');
 
-        wp_deregister_script('jquery-ui');
-        wp_register_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js');
-        # BACKUP wp_register_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js');
-        wp_enqueue_script('jquery-ui');
+    wp_deregister_script('jquery-ui');
+    wp_register_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js');
+    wp_enqueue_script('jquery-ui');
+
+    wp_deregister_script('fish_map_functions');
+    wp_register_script('fish_map_functions', plugins_url('js/functions.js', __FILE__));
+    wp_enqueue_script('fish_map_functions');
 
     if (is_page('Мапа') || is_page(2) || $_GET['debug']) {
         /* !!! TODO: update Post's TITLE and ID in case changed*/
@@ -108,6 +115,9 @@ function add_scripts_map() {
         // URL: http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer_compiled.js
         wp_register_script('markerclusterer', plugins_url('js/markerclusterer.min.js', __FILE__));
         wp_enqueue_script('markerclusterer');
+
+        wp_register_script('jquery.noty', plugins_url('js/3p/jquery.noty.packaged.min.js', __FILE__));
+        wp_enqueue_script('jquery.noty');
     }
 
 }
@@ -193,5 +203,15 @@ function fish_map_lake_map_by_post($post_id) {
 function fish_map_fishes() {
     $fishModel = new FishModel();
     echo json_encode($fishModel->getAll(), JSON_UNESCAPED_UNICODE);
+    die();
+}
+
+function fish_map_update_position() {
+    if (!current_user_can('manage_options')) die();
+
+    $marker_id = $_POST['marker_id'];
+    $markerModel = new MarkerModel();
+    $markerModel->updatePosition($marker_id, $_POST['lat'], $_POST['lng']);
+    echo json_encode($markerModel->getById($marker_id));
     die();
 }

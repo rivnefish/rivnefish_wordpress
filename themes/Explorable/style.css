@@ -2775,3 +2775,17 @@ input[type="text"], input.text, input.title, textarea, select {
     padding: 6px;
     border-radius: 5px;
 }
+
+/* For pictures of fishing hooks page */
+.hooks th, .hooks td {
+vertical-align: top;
+}
+
+.hooks th img {
+min-width: 30px;
+padding-top: 20px;
+}
+
+.hooks th + td {
+width: 35%;
+}

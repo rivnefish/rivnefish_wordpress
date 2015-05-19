@@ -20,13 +20,6 @@ jQuery(function($) {
     };
     var map = new google.maps.Map(document.getElementById('et-single-map'), mapOptions);
 
-    // Set weather
-    var weatherLayer = new google.maps.weather.WeatherLayer({
-        temperatureUnits: google.maps.weather.TemperatureUnit.CELSIUS,
-        windSpeedUnits: google.maps.weather.WindSpeedUnit.METERS_PER_SECOND
-    });
-    weatherLayer.setMap(map);
-
     // Draw marker
     var fishIconBig = new google.maps.MarkerImage("https://lh5.googleusercontent.com/_AlLFR-j5gDI/TXd-N3DuFGI/AAAAAAAABDk/jTJ0H9bzOCA/s800/float_fish_20x59_new.png",
             new google.maps.Size(20, 59),

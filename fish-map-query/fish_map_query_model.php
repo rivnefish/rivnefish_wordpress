@@ -109,7 +109,7 @@ function get_markers($args) {
             $query .= " AND markers.permit = 'paid'";
 
             if (!empty($args['price'])) {
-                $price_cond = sprintf(" AND (markers.24h_price <= %s OR markers.dayhour_price <= %s)",
+                $price_cond = sprintf(" AND (markers.price_24h <= %s OR markers.dayhour_price <= %s)",
                         abs(floatval($args['price'])),
                         abs(floatval($args['price'])));
                 $query .= $price_cond;
