@@ -50,12 +50,10 @@ TODO:
 require_once 'includes/fish_map_install.php';
 require_once 'includes/marker_model.php';
 require_once 'includes/fish_model.php';
-require_once 'includes/gallery_model.php';
 require_once 'includes/marker_info.php';
 require_once 'includes/markers_cache.php';
 require_once 'fish_map_views.php';
 require_once 'fish_map_add_place.php';
-require_once 'fish_map_report_post.php';
 
 add_shortcode('map', 'fish_map');
 add_shortcode('fish_map_elegant', 'fish_map_elegant');
@@ -83,22 +81,19 @@ add_action('wp_ajax_fish_map_update_position', 'fish_map_update_position');
 add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
 
 function add_scripts_map() {
-    wp_deregister_script('jquery');
-    wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js');
-    # BACKUP wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
-    wp_enqueue_script('jquery');
+        wp_deregister_script('jquery');
+        wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js');
+        # BACKUP wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+        wp_enqueue_script('jquery');
 
-    wp_deregister_script('jquery-migrate');
-    wp_register_script('jquery-migrate', 'http://code.jquery.com/jquery-migrate-1.0.0.min.js');
-    wp_enqueue_script('jquery-migrate');
+        wp_deregister_script('jquery-migrate');
+        wp_register_script('jquery-migrate', 'http://code.jquery.com/jquery-migrate-1.0.0.min.js');
+        wp_enqueue_script('jquery-migrate');
 
-    wp_deregister_script('jquery-ui');
-    wp_register_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js');
-    wp_enqueue_script('jquery-ui');
-
-    wp_deregister_script('fish_map_functions');
-    wp_register_script('fish_map_functions', plugins_url('js/functions.js', __FILE__));
-    wp_enqueue_script('fish_map_functions');
+        wp_deregister_script('jquery-ui');
+        wp_register_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js');
+        # BACKUP wp_register_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js');
+        wp_enqueue_script('jquery-ui');
 
     if (is_page('Мапа') || is_page(2) || $_GET['debug']) {
         /* !!! TODO: update Post's TITLE and ID in case changed*/
@@ -123,9 +118,10 @@ function add_scripts_map() {
 }
 
 function add_stylesheets_map() {
+    wp_register_style('fishStyleSheet', plugins_url('css/fish_map.css', __FILE__));
+    wp_enqueue_style('fishStyleSheet');
     if (is_page('Мапа')) {
-        wp_register_style('fishStyleSheet', plugins_url('css/fish_map.css', __FILE__));
-        wp_enqueue_style('fishStyleSheet');
+        
         wp_register_style('jquery-ui-sheet', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/dark-hive/jquery-ui.css');
         wp_enqueue_style('jquery-ui-sheet');
     }

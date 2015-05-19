@@ -95,6 +95,11 @@ div#add_post_button_div {
 .marker-info .marker-info-item {
     margin: 8px 0;
 }
+.marker-update-date {
+    float: right;
+    font-size: 85%;
+    font-style: italic;
+}
 .marker-info a.action {
     float: right;
     display: inline-block;

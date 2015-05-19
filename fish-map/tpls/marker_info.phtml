@@ -63,6 +63,6 @@
     <div class="marker-info-item">
         <strong>Важлива примітка:</strong> <?php echo $marker["note"] ? htmlspecialchars($marker["note"]) : '-';?>
     </div>
-    <div align="right">
-        <italic><small>востаннє ця інформація оновлювалась: <?php echo $marker["modify_date"] ? htmlspecialchars($marker["modify_date"]) : '-';?> </small></italic>
+    <div class="marker-update-date">
+        востаннє ця інформація оновлювалась: <?php echo $marker["modify_date"] ? htmlspecialchars($marker["modify_date"]) : '-';?>
     </div>
