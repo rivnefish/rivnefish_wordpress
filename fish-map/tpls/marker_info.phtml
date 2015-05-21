@@ -1,23 +1,23 @@
 <div class="marker-info">
-    <?php if (current_user_can( 'manage_options' )) { ?>
+    <?php if (current_user_can('manage_options')) { ?>
         <div class="marker-info-item" align="right">
-            <a href="http://api.rivnefish.com/admin/site_manager/markers/<?php echo $marker['marker_id'];?>" class="action edit">Редагувати</a>
+            <a href="http://api.rivnefish.com/admin/site_manager/markers/<?php echo $marker['marker_id']; ?>" class="action edit">Редагувати</a>
         </div>      
     <?php } ?>
     <?php if ($fishes) { ?>
         <div class="marker-info-item marker-fishes">
             <?php foreach ($fishes as $fish) { ?>
                 <?php if ($fish['article_url']) { ?>
-                    <a href="<?php echo $fish['article_url']; ?>" >
+                 <a href="<?php echo $fish['article_url']; ?>" >
                 <?php } ?>
 
                 <img class="fish_icon"
-                     widht="<?php echo $fish["icon_width"];?>"
-                     height="<?php echo $fish["icon_height"];?>"
-                     src="<?php echo $fish["icon_url"]; ?>"
-                     alt="<?php echo $fish["name"];?>"
-                     title="<?php echo $this->fishTitle($fish); ?>"
-                    >
+                    widht="<?php echo $fish["icon_width"]; ?>"
+                    height="<?php echo $fish["icon_height"]; ?>"
+                    src="<?php echo $fish["icon_url"]; ?>"
+                    alt="<?php echo $fish["name"]; ?>"
+                    title="<?php echo $this->fishTitle($fish); ?>"
+                   >
 
                 <?php if ($fish['article_url']) { ?>
                     </a>
@@ -26,16 +26,86 @@
                 <?php if ($fish['amount']) { ?>
                     <img class="fish_score" style="width:3px; height:28px"
                          src="<?php echo $this->amountImg($fish['amount']) ?>"
-                         alt="<?php echo $fish['amount'];?>" />
+                         alt="<?php echo $fish['amount']; ?>" />
                 <?php } ?>
             <?php } ?>
         </div>
     <?php } ?>
 
     <div class="marker-info-item">
-        <strong>Оплата:</strong> <?php echo $marker["paid_fish"] ? htmlspecialchars($marker["paid_fish"]) : '-';?>
+        <strong>Оплата:</strong> <?php echo $marker["paid_fish"] ? htmlspecialchars($marker["paid_fish"]) : '-'; ?>
     </div>
     <div class="marker-info-item">
-        <strong>Контакт:</strong> <?php echo $marker["contact"] ? htmlspecialchars($marker["contact"]) : '-';?>
+        <strong>Контакт:</strong> <?php echo $marker["contact"] ? htmlspecialchars($marker["contact"]) : '-'; ?>
     </div>
-</div>
+    <hr>
+    <div class="marker-info-item">
+        <strong>Площа водойми:</strong> <?php echo $marker["area"] ? htmlspecialchars($marker["area"] / 100) : '-'; ?> Га
+    </div>
+    <div class="marker-info-item">
+        <strong>Середня глибина:</strong> <?php echo $marker["average_depth"] ? htmlspecialchars($marker["average_depth"]) : '-'; ?> м.
+    </div>
+    <div class="marker-info-item">
+        <strong>Максимальна глибина:</strong> <?php echo $marker["max_depth"] ? htmlspecialchars($marker["max_depth"]) : '-'; ?> м.
+    </div>
+
+    <div class="marker-info-item">
+        <?php
+        $mapping = array(
+            'paid' => 'платно',
+            'free' => 'безкоштовно',
+            'prohibited' => 'заборонено',
+            'unknown' => 'невідомо'
+        );
+        if (empty($marker['permit'])) {
+            $value = '-';
+        } else if (array_key_exists($marker['permit'], $mapping)) {
+            $value = $mapping[$marker['permit']];
+        } else {
+            $value = htmlspecialchars($marker['permit']);
+        }
+        ?>
+        <strong>Умови рибалки:</strong> <?php echo $value; ?>
+    </div>
+    <div class="marker-info-item">
+        <strong>Умови відпочинку:</strong> <?php echo $marker["conveniences"] ? htmlspecialchars($marker["conveniences"]) : '-'; ?>
+    </div>
+    <div class="marker-info-item">
+        <?php
+        $mapping = array(
+            '24h' => 'цілодобово',
+            'daylight' => 'лише світловий день',
+            'unknown' => 'невідомо'
+        );
+        if (empty($marker['time_to_fish'])) {
+            $value = '-';
+        } else if (array_key_exists($marker['time_to_fish'], $mapping)) {
+            $value = $mapping[$marker['time_to_fish']];
+        } else {
+            $value = htmlspecialchars($marker['time_to_fish']);
+        }
+        ?>
+        <strong>Коли можна рибалити:</strong> <?php echo $value; ?>        
+    </div>
+        <div class="marker-info-item">
+        <?php
+        $mapping = array(
+            '0' => 'заборонено',
+            '1' => 'дозволено'
+        );
+        if (empty($marker['boat_usage'])) {
+            $value = '-';
+        } else if (array_key_exists($marker['boat_usage'], $mapping)) {
+            $value = $mapping[$marker['boat_usage']];
+        } else {
+            $value = htmlspecialchars($marker['boat_usage']);
+        }
+        ?>
+        <strong>Можна користуватись човном:</strong> <?php echo $value; ?>        
+    </div>
+    <div class="marker-info-item">
+        <strong>Важлива примітка:</strong> <?php echo $marker["note2"] ? htmlspecialchars($marker["note2"]) : '-'; ?>
+    </div>
+    <div class="marker-update-date">
+        востаннє ця інформація оновлювалась: <?php echo $marker["modify_date"] ? htmlspecialchars($marker["modify_date"]) : '-'; ?>
+    </div>
