@@ -1,0 +1,7 @@
+/* General styles for all fishmap plugins */
+
+.marker-update-date {
+    float: right;
+    font-size: 85%;
+    font-style: italic;
+}

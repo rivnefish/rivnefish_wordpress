@@ -121,10 +121,11 @@ function add_scripts_map() {
 }
 
 function add_stylesheets_map() {
-wp_register_style('fishStyleSheet', plugins_url('css/fish_map.css', __FILE__));
-wp_enqueue_style('fishStyleSheet');
+    wp_register_style('fishmap-styles', plugins_url('css/styles.css', __FILE__));
+    wp_enqueue_style('fishmap-styles');
     if (is_page('Мапа')) {
-        
+        wp_register_style('fishStyleSheet', plugins_url('css/fish_map.css', __FILE__));
+        wp_enqueue_style('fishStyleSheet');
         wp_register_style('jquery-ui-sheet', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/dark-hive/jquery-ui.css');
         wp_enqueue_style('jquery-ui-sheet');
     }
