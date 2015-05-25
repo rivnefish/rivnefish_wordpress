@@ -95,8 +95,11 @@ function add_scripts_map() {
 
     wp_deregister_script('jquery-ui');
     wp_register_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js');
-    # BACKUP wp_register_script('jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js');
     wp_enqueue_script('jquery-ui');
+    
+    wp_deregister_script('fish_map_functions');
+    wp_register_script('fish_map_functions', plugins_url('js/functions.js', __FILE__));
+    wp_enqueue_script('fish_map_functions');
 
     if (is_page('Мапа') || is_page(2) || $_GET['debug']) {
         /* !!! TODO: update Post's TITLE and ID in case changed*/
