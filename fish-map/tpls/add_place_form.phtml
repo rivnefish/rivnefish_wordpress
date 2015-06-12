@@ -92,14 +92,28 @@
                    class="qtip-info"
                    data-qtip="ціна, час доби коли можна рибалити, вага риби на виніс і т.п." />
         </div>
-
-        <div class="controls hidden">
-            <label for="marker_contact">Контакт на водоймі</label>
-            <input id="marker_contact" type="text" name="contact"
+        
+<table border="0" style="width:100%">
+  <tr>
+    <td>        <div class="controls hidden">
+            <label for="marker_contact_phone">Номер телефону на водойму</label>
+            <input id="marker_contact_phone" type="tel"
+                   name="contact"
                    class="qtip-info"
-                   data-qtip="телефон та ім'я чи т.п., щоб замовити місце, розпитати" />
-        </div>
-
+                   data-qtip="номер телефону" />           
+        </div></td>
+    <td>
+        <div class="controls hidden">
+            <label for="marker_contact">Контактна особа</label>
+            <input id="marker_contact" type="text" 
+                   name="contact_note"
+                   class="qtip-info"
+                   data-qtip="ім'я охоронця чи власника, щоб замовити місце, розпитати і т.п." />
+        </div>     </td>		
+  </tr>
+</table>
+     
+        
         <?php if ($showUploadPhotos) { ?>
             <div class="controls">
                 <label>Фото водойми</label>
