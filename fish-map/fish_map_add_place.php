@@ -74,6 +74,10 @@ class FishMapAddPlacePlugin
         wp_register_script('jquery.qtip2', 'http://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.js');
         wp_enqueue_script('jquery.qtip2');
 
+        // Masked input phone number
+        wp_register_script('maskedinput', plugins_url('js/jquery.maskedinput.js', __FILE__));
+        wp_enqueue_script('maskedinput');
+
         wp_register_script('add-fish-place', plugins_url('js/add_fish_place.js', __FILE__));
         wp_enqueue_script('add-fish-place');
     }
@@ -135,7 +139,8 @@ class FishMapAddPlacePlugin
             'lat' => $_POST['lat'],
             'lng' => $_POST['lng'],
             'permit' => $_POST['permit'],
-            'contact' => strip_tags($_POST['contact']),
+            'contact' => preg_replace('/[^\d]/', '', strip_tags($_POST['contact'])),
+            'contact_note' => strip_tags($_POST['contact_note']),
             'paid_fish' => strip_tags($_POST['paid_fish']),
 
             // additional info

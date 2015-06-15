@@ -94,12 +94,22 @@
         </div>
 
         <div class="controls hidden">
-            <label for="marker_contact">Контакт на водоймі</label>
-            <input id="marker_contact" type="text" name="contact"
-                   class="qtip-info"
-                   data-qtip="телефон та ім'я чи т.п., щоб замовити місце, розпитати" />
+            <div class="one_half">
+                <label for="marker_contact_phone">Номер телефону на водойму</label>
+                <input id="marker_contact_phone" type="text"
+                       name="contact"
+                       class="qtip-info"
+                       data-qtip="номер телефону" />           
+            </div>
+            <div class="one_half last">
+                <label for="marker_contact">Контактна особа</label>
+                <input id="marker_contact" type="text" 
+                       name="contact_note"
+                       class="qtip-info"
+                       data-qtip="ім'я охоронця чи власника, щоб замовити місце, розпитати і т.п." />
+            </div>
         </div>
-
+        
         <?php if ($showUploadPhotos) { ?>
             <div class="controls">
                 <label>Фото водойми</label>
