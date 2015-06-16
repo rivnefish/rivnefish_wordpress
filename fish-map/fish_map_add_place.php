@@ -139,8 +139,8 @@ class FishMapAddPlacePlugin
             'lat' => $_POST['lat'],
             'lng' => $_POST['lng'],
             'permit' => $_POST['permit'],
-            'contact' => preg_replace('/[^\d]/', '', strip_tags($_POST['contact'])),
-            'contact_note' => strip_tags($_POST['contact_note']),
+            'contact' => preg_replace('/[^\d]/', '', ($_POST['contact'])),
+            'contact_name' => strip_tags($_POST['contact_name']),
             'paid_fish' => strip_tags($_POST['paid_fish']),
 
             // additional info
