@@ -290,6 +290,7 @@ function showInfoWindow(marker) {
         var name = markerInfo["name"];
         var payment = markerInfo["paid_fish"] ? markerInfo["paid_fish"] : "-";
         var contact = markerInfo["contact"] ? markerInfo["contact"] : "-";
+        var contact_name = markerInfo["contact_name"] ? markerInfo["contact_name"] : "-";
         var photo1 = markerInfo["photo_url1"];
         var photo2 = markerInfo["photo_url2"];
         var photo3 = markerInfo["photo_url3"];

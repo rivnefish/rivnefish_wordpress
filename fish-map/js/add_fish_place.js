@@ -18,6 +18,7 @@ var AddMarkerForm = (function ($) {
 
         $('#permit').change(this.togglePermitInfo).trigger('change');
         $('.fishes input:checkbox').change(this.toggleFishAmount).trigger('change');
+        $("#marker_contact_phone").mask("+380 (99) 999-99-99");
     },
 
     initMap : function () {
@@ -168,7 +169,7 @@ var AddMarkerForm = (function ($) {
     },
 
     togglePermitInfo : function () {
-        var contactControl = $('#marker_contact').parent(),
+        var contactControl = $('#marker_contact, #marker_contact_phone').closest('.controls'),
             paidControls = $('#marker_paid_fish, #time_to_fish, #marker_boat_usage').closest('.controls');
 
         if (this.value == 'paid') {
