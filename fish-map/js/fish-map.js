@@ -340,7 +340,7 @@ function showInfoWindow(marker) {
         }
 
         html += "<div><i>Оплата: </i>" + payment + "</div>"
-              + "<div><i>Контакт: </i>" + contact + "</div>";
+              + "<div><i>Контакт: </i>" + contact + " " + contact_name + "</div>";
 
         if (photo1 || photo2 || photo2 || photo4) {
             html += "<div>";
