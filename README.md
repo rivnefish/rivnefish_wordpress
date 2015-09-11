@@ -1,3 +1,6 @@
+
+Йде міграція з wordpress на Ruby on Rails! https://github.com/rivnefish/rivnefish
+
 rivnefish
 =========
 
