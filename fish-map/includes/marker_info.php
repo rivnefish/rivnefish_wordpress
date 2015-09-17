@@ -21,7 +21,8 @@ class MarkerInfo
     public function getRowInfo($markerRow)
     {
         $markerRow['page_url'] = $this->_getPageUrl($markerRow);
-        $markerRow['photos'] = $this->_getPhotos($markerRow);
+        $markerRow['photos'] = $this->_getPhotos($markerRow, 4);
+        $markerRow['photos_all'] = $this->_getPhotos($markerRow, 100);
         $markerRow['fishes'] = $this->_fishModel->getByMarker($markerRow['marker_id']);
         return $markerRow;
     }
@@ -32,12 +33,12 @@ class MarkerInfo
         return $pageUrl ? $pageUrl : '';
     }
 
-    private function _getPhotos($row)
+    private function _getPhotos($row, $limit)
     {
         global $nggdb;
         $photos = array();
         if ($row['gallery_id']) {
-            $gallery = $nggdb->get_gallery($row['gallery_id'], 'sortorder', 'ASC', true, 4);
+            $gallery = $nggdb->get_gallery($row['gallery_id'], 'sortorder', 'ASC', true, $limit);
             foreach ($gallery as $image) {
                 $photos[] = array(
                     'thumbnail' => $image->thumbURL,
