@@ -74,6 +74,9 @@ add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
 add_action('wp_ajax_nopriv_fish_map_marker_info', 'fish_map_marker_info');
 add_action('wp_ajax_fish_map_marker_info', 'fish_map_marker_info');
 
+add_action('wp_ajax_nopriv_fish_map_marker_info', 'fish_map_marker_post');
+add_action('wp_ajax_fish_map_marker_info', 'fish_map_marker_post');
+
 add_action('wp_ajax_nopriv_fish_map_fishes', 'fish_map_fishes');
 add_action('wp_ajax_fish_map_fishes', 'fish_map_fishes');
 
@@ -184,6 +187,18 @@ function fish_map_marker_info() {
     $info = $cache->getMarkerInfo($marker_row);
 
     echo json_encode($info, JSON_UNESCAPED_UNICODE);
+    die();
+}
+
+function fish_map_marker_post() {
+    $marker_id = $_GET['marker_id'];
+
+    $markerModel = new MarkerModel();
+    $marker_row = $markerModel->getById($marker_id);
+
+    $marker_post = $marker_row['post_id'] ? get_post($marker_row['post_id'], ARRAY_A) : array();
+
+    echo json_encode($marker_post, JSON_UNESCAPED_UNICODE);
     die();
 }
 
