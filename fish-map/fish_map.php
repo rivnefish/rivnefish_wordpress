@@ -74,8 +74,8 @@ add_action('wp_ajax_fish_map_markers_search', 'fish_map_markers_search');
 add_action('wp_ajax_nopriv_fish_map_marker_info', 'fish_map_marker_info');
 add_action('wp_ajax_fish_map_marker_info', 'fish_map_marker_info');
 
-add_action('wp_ajax_nopriv_fish_map_marker_info', 'fish_map_marker_post');
-add_action('wp_ajax_fish_map_marker_info', 'fish_map_marker_post');
+add_action('wp_ajax_nopriv_fish_map_marker_post', 'fish_map_marker_post');
+add_action('wp_ajax_fish_map_marker_post', 'fish_map_marker_post');
 
 add_action('wp_ajax_nopriv_fish_map_fishes', 'fish_map_fishes');
 add_action('wp_ajax_fish_map_fishes', 'fish_map_fishes');
