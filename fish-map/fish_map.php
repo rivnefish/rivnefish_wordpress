@@ -190,14 +190,28 @@ function fish_map_marker_info() {
     die();
 }
 
+function get_post_content_by_id( $post_id=0, $more_link_text = null, $stripteaser = false ) {
+    ob_start();
+    global $post;
+    $post = get_post($post_id);
+    setup_postdata($post, $more_link_text, $stripteaser);
+    the_content();
+    wp_reset_postdata($post);
+    return ob_get_clean();
+}
+
 function fish_map_marker_post() {
     $marker_id = $_GET['marker_id'];
 
     $markerModel = new MarkerModel();
     $marker_row = $markerModel->getById($marker_id);
 
-    $marker_post = $marker_row['post_id'] ? get_post($marker_row['post_id'], ARRAY_A) : array();
-
+    if ($marker_row['post_id']) {
+        $marker_post = get_post($marker_row['post_id'], ARRAY_A);
+        $marker_post['rendered_content'] = get_post_content_by_id($marker_row['post_id']);
+    } else {
+        $marker_post = array();
+    }
     echo json_encode($marker_post, JSON_UNESCAPED_UNICODE);
     die();
 }
