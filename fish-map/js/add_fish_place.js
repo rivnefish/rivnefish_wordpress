@@ -18,7 +18,7 @@ var AddMarkerForm = (function ($) {
 
         $('#permit').change(this.togglePermitInfo).trigger('change');
         $('.fishes input:checkbox').change(this.toggleFishAmount).trigger('change');
-        $("#marker_contact_phone").mask("+380 (99) 999-99-99");
+        $("#marker_contact_phone").mask("+389 (99) 999-99-99");
     },
 
     initMap : function () {
