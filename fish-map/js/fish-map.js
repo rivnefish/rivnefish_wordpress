@@ -1,4 +1,35 @@
 (function ($) {
+var MARKER_CLUSTERER_STYLES = [{
+    url: '/wp-content/plugins/fish-map/images/marker-clusterer/m1.png',
+    height: 53,
+    width: 53,
+    textColor: '#000',
+    textSize: 11
+}, {
+    url: '/wp-content/plugins/fish-map/images/marker-clusterer/m2.png',
+    height: 56,
+    width: 56,
+    textColor: '#000',
+    textSize: 11
+}, {
+    url: '/wp-content/plugins/fish-map/images/marker-clusterer/m3.png',
+    height: 66,
+    width: 66,
+    textColor: '#000',
+    textSize: 11
+}, {
+    url: '/wp-content/plugins/fish-map/images/marker-clusterer/m4.png',
+    height: 78,
+    width: 78,
+    textColor: '#000',
+    textSize: 11
+}, {
+    url: '/wp-content/plugins/fish-map/images/marker-clusterer/m5.png',
+    height: 90,
+    width: 90,
+    textColor: '#000',
+    textSize: 11
+}];
 
 jQuery(document).ready(function ($) {
     initializeMap();
@@ -85,7 +116,8 @@ function initializeMap() {
     // };
     // Init Marker Clusterer
     markerCluster = new MarkerClusterer(map, [], {
-        minimumClusterSize: 4
+        minimumClusterSize: 4,
+        styles: MARKER_CLUSTERER_STYLES
     });
 
     setupAllMarkers();
