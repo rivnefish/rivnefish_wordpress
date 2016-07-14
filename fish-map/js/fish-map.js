@@ -33,6 +33,7 @@ var MARKER_CLUSTERER_STYLES = [{
 
 jQuery(document).ready(function ($) {
     initializeMap();
+    $('#weather').click(toggleWeather);
     $('#search_button').click(searchLocations);
     $('#show_all_button').click(function () {
         _setMarkers(fishMapAllMarkers);
@@ -121,6 +122,7 @@ function initializeMap() {
 
     setupAllMarkers();
     centerMapFromGeolocation(map);
+    setupWeather();
 }
 
 /* Geocoder functionality - search location on the map */
@@ -464,6 +466,21 @@ function addToSideBar(marker, caption) {
     });
 }
 
+function setupWeather() {
+    // Set weather
+    weatherLayer = new google.maps.weather.WeatherLayer({
+        temperatureUnits: google.maps.weather.TemperatureUnit.CELSIUS,
+        windSpeedUnits: google.maps.weather.WindSpeedUnit.METERS_PER_SECOND
+    });
+}
+
+    function toggleWeather() {
+        var c = document.getElementById('weather');
+        if (c.checked)
+            weatherLayer.setMap(map);
+        else
+            weatherLayer.setMap(null);
+    }
     /* Filter Markers functionality*/
     // custom css expression for a case-insensitive contains()
     jQuery.expr[':'].Contains = function(a, i, m) {

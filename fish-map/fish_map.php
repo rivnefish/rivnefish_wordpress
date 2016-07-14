@@ -111,7 +111,7 @@ function add_scripts_map() {
         # BACKUP wp_register_script('google-map', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCByg67-8HjM_17CVdq9iOiN95Nhz7izCw&sensor=false&language=uk&libraries=weather');
         wp_enqueue_script('google-map');
 
-        wp_register_script('fish-map', plugins_url('js/fish-map.js', __FILE__));
+        wp_register_script('fish-map', plugins_url('js/fish-map.js?v=2', __FILE__));
         wp_enqueue_script('fish-map');
 
         // Load MarkerClusterer
@@ -201,6 +201,9 @@ function get_post_content_by_id( $post_id=0, $more_link_text = null, $striptease
 }
 
 function fish_map_marker_post() {
+    if (!isset($_GET['import'])) {
+        die();
+    }
     $marker_id = $_GET['marker_id'];
 
     $markerModel = new MarkerModel();
@@ -209,6 +212,9 @@ function fish_map_marker_post() {
     if ($marker_row['post_id']) {
         $marker_post = get_post($marker_row['post_id'], ARRAY_A);
         $marker_post['rendered_content'] = get_post_content_by_id($marker_row['post_id']);
+        $marker_post['featured_image'] = wp_get_attachment_url( get_post_thumbnail_id($marker_row['post_id']) );
+        $marker_post['_yoast_wpseo_title'] = get_post_meta($marker_row['post_id'], '_yoast_wpseo_title', true);
+        $marker_post['_yoast_wpseo_metadesc'] = get_post_meta($marker_row['post_id'], '_yoast_wpseo_metadesc', true);
     } else {
         $marker_post = array();
     }
