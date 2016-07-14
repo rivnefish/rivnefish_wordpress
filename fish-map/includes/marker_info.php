@@ -20,11 +20,22 @@ class MarkerInfo
 
     public function getRowInfo($markerRow)
     {
-        $markerRow['page_url'] = $this->_getPageUrl($markerRow);
-        $markerRow['photos'] = $this->_getPhotos($markerRow, 4);
-        $markerRow['photos_all'] = $this->_getPhotos($markerRow, 100);
-        $markerRow['fishes'] = $this->_fishModel->getByMarker($markerRow['marker_id']);
-        return $markerRow;
+        $fields = array('marker_id', 'name', 'paid_fish', 'contact', 'contact_name', 'photo_url1', 'photo_url2',
+                        'photo_url3', 'photo_url4');
+        $rowInfo = array();
+        foreach ($fields as $field) {
+            $rowInfo[$field] = $markerRow[$field];
+        }
+        if (isset($_GET['import'])) {
+            $rowInfo = $markerRow;
+        }
+        $rowInfo['page_url'] = $this->_getPageUrl($markerRow);
+        $rowInfo['photos'] = $this->_getPhotos($markerRow, 4);
+        if (isset($_GET['import'])) {
+            $rowInfo['photos_all'] = $this->_getPhotos($markerRow, 100);
+        }
+        $rowInfo['fishes'] = $this->_fishModel->getByMarker($markerRow['marker_id']);
+        return $rowInfo;
     }
 
     private function _getPageUrl($row)
@@ -42,7 +53,9 @@ class MarkerInfo
             foreach ($gallery as $image) {
                 $photos[] = array(
                     'thumbnail' => $image->thumbURL,
-                    'photo' => $image->imageURL
+                    'photo' => $image->imageURL,
+                    'alttext' => $image->alttext,
+                    'description' => $image->description
                 );
             }
         }

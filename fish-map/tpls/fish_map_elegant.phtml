@@ -30,22 +30,18 @@
         </form-->
         <div id="map_search">
             <div>
-                <input type="text" id="addressInput" size="25" autocomplete="on"
-                       title="Знайти адресу і показати всі водойми в зазначеному радіусі від неї"
-                       placeholder="Пошук адреси"/>
-                <select id="radiusSelect" title="Допустимі відстані 25км, 50км, 100км, 200км">
-                    <option value="25" selected>25 km</option>
-                    <option value="50">50 km</option>
-                    <option value="100">100 km</option>
-                    <option value="200">200 km</option>
-                </select>
-                <a id="search_button"
-                   title="Всі рибні точки на відстані 25km, 50km,... від введеної адреси"
-                   class="small-button smallsilver"
-                >Шукати</a>
-                <a id="show_all_button"
-                   class="small-button smallsilver"
-                >Показати всі точки</a>
+                <label id="weather_label" for="weather">
+                    <input type="checkbox"
+                           id="weather"
+                           size="25"
+                           title="Показати/заховати погоду на мапі" />Погода</label>
+
+                <a href="https://play.google.com/store/apps/details?id=com.lordmegamax.rivnefish">
+                    <img src="https://lh3.googleusercontent.com/-ELas_CrXp9Y/VmFNZ_rvIgI/AAAAAAABAzk/lWgwvrrfC-k/s129-Ic42/google-play-en-us.4YPh9%25255B1%25255D.png">
+                </a>
+                <a href="https://itunes.apple.com/ua/app/rivnefish/id1057103039?l=uk&mt=8">
+                    <img src="https://lh3.googleusercontent.com/-YaNtn0tulk8/VmFNR1hlDvI/AAAAAAABAzc/hrYFzUhA8Ow/s135-Ic42/app-store-download-en-gb.4gQHW%25255B1%25255D.png">
+                </a>
 
                 <div class="pull-right">
                     <a class="small-button smallblack" href="/lakes/add-fish-place/"
@@ -55,7 +51,6 @@
                     <a class="small-button smallblack" href="/add-post/"
                     >Написати звіт</a>
                 </div>
-                
             </div>
             <div><select id="locationSelect" style="width:100%; display:none"></select></div>
         </div>
