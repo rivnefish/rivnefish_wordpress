@@ -54,8 +54,6 @@ var PostReportForm = (function ($) {
         google.maps.event.addListener(this.map, 'click', $.proxy(function(e) {
             this.placeMarker(e.latLng, this.map);
         }, this));
-
-        centerMapFromGeolocation(this.map);
     },
 
     initPhotoUpload : function () {
