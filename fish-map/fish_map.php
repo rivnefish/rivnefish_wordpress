@@ -137,6 +137,10 @@ function add_stylesheets_map() {
     }
 }
 
+function is_export_info_request() {
+    return defined('EXPORT_INFO_KEY') && isset($_GET['export_key']) && $_GET['export_key'] !== EXPORT_INFO_KEY;
+}
+
 function fish_map($attr) {
     $return_body = fish_map_main_form();
     return $return_body;
@@ -201,6 +205,9 @@ function get_post_content_by_id( $post_id=0, $more_link_text = null, $striptease
 }
 
 function fish_map_marker_post() {
+    if (!is_export_info_request()) {
+        die();
+    }
     $marker_id = $_GET['marker_id'];
 
     $markerModel = new MarkerModel();
@@ -209,6 +216,9 @@ function fish_map_marker_post() {
     if ($marker_row['post_id']) {
         $marker_post = get_post($marker_row['post_id'], ARRAY_A);
         $marker_post['rendered_content'] = get_post_content_by_id($marker_row['post_id']);
+        $marker_post['featured_image'] = wp_get_attachment_url( get_post_thumbnail_id($marker_row['post_id']) );
+        $marker_post['_yoast_wpseo_title'] = get_post_meta($marker_row['post_id'], '_yoast_wpseo_title', true);
+        $marker_post['_yoast_wpseo_metadesc'] = get_post_meta($marker_row['post_id'], '_yoast_wpseo_metadesc', true);
     } else {
         $marker_post = array();
     }
