@@ -11,7 +11,6 @@ class MarkerInfo
         $this->_fishModel = new FishModel();
     }
 
-
     public function getInfo($markerId)
     {
         $markerRow = $this->_markerModel->getById($markerId);
@@ -20,11 +19,22 @@ class MarkerInfo
 
     public function getRowInfo($markerRow)
     {
-        $markerRow['page_url'] = $this->_getPageUrl($markerRow);
-        $markerRow['photos'] = $this->_getPhotos($markerRow, 4);
-        $markerRow['photos_all'] = $this->_getPhotos($markerRow, 100);
-        $markerRow['fishes'] = $this->_fishModel->getByMarker($markerRow['marker_id']);
-        return $markerRow;
+        $fields = array('marker_id', 'name', 'paid_fish', 'contact', 'contact_name', 'photo_url1', 'photo_url2',
+                        'photo_url3', 'photo_url4');
+
+        if (is_export_info_request()) {
+            $rowInfo = $markerRow;
+            $rowInfo['photos_all'] = $this->_getPhotos($markerRow, 100);
+        } else {
+            $rowInfo = array();
+            foreach ($fields as $field) {
+                $rowInfo[$field] = $markerRow[$field];
+            }
+        }
+        $rowInfo['page_url'] = $this->_getPageUrl($markerRow);
+        $rowInfo['photos'] = $this->_getPhotos($markerRow, 4);
+        $rowInfo['fishes'] = $this->_fishModel->getByMarker($markerRow['marker_id']);
+        return $rowInfo;
     }
 
     private function _getPageUrl($row)

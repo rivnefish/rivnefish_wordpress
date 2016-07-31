@@ -120,7 +120,6 @@ function initializeMap() {
     });
 
     setupAllMarkers();
-    centerMapFromGeolocation(map);
 }
 
 /* Geocoder functionality - search location on the map */
