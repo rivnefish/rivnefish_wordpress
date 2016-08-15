@@ -138,7 +138,7 @@ function add_stylesheets_map() {
 }
 
 function is_export_info_request() {
-    return defined('EXPORT_INFO_KEY') && isset($_GET['export_key']) && $_GET['export_key'] !== EXPORT_INFO_KEY;
+    return defined('EXPORT_INFO_KEY') && isset($_GET['export_key']) && $_GET['export_key'] == EXPORT_INFO_KEY;
 }
 
 function fish_map($attr) {
