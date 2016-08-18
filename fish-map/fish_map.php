@@ -51,6 +51,7 @@ require_once 'includes/fish_map_install.php';
 require_once 'includes/marker_model.php';
 require_once 'includes/fish_model.php';
 require_once 'includes/gallery_model.php';
+require_once 'includes/post_info.php';
 require_once 'includes/marker_info.php';
 require_once 'includes/markers_cache.php';
 require_once 'fish_map_views.php';
@@ -76,6 +77,11 @@ add_action('wp_ajax_fish_map_marker_info', 'fish_map_marker_info');
 
 add_action('wp_ajax_nopriv_fish_map_marker_post', 'fish_map_marker_post');
 add_action('wp_ajax_fish_map_marker_post', 'fish_map_marker_post');
+
+add_action('wp_ajax_nopriv_fish_map_post_info', 'fish_map_post_info');
+add_action('wp_ajax_fish_map_post_info', 'fish_map_post_info');
+add_action('wp_ajax_nopriv_fish_map_posts_ids', 'fish_map_posts_ids');
+add_action('wp_ajax_fish_map_posts_ids', 'fish_map_posts_ids');
 
 add_action('wp_ajax_nopriv_fish_map_fishes', 'fish_map_fishes');
 add_action('wp_ajax_fish_map_fishes', 'fish_map_fishes');
@@ -214,11 +220,32 @@ function fish_map_marker_post() {
     $marker_row = $markerModel->getById($marker_id);
 
     if ($marker_row['post_id']) {
-        $marker_post = get_post($marker_row['post_id'], ARRAY_A);
-        $marker_post['rendered_content'] = get_post_content_by_id($marker_row['post_id']);
-        $marker_post['featured_image'] = wp_get_attachment_url( get_post_thumbnail_id($marker_row['post_id']) );
-        $marker_post['_yoast_wpseo_title'] = get_post_meta($marker_row['post_id'], '_yoast_wpseo_title', true);
-        $marker_post['_yoast_wpseo_metadesc'] = get_post_meta($marker_row['post_id'], '_yoast_wpseo_metadesc', true);
+        $postInfo = new PostInfo($marker_row['post_id']);
+        $marker_post = $postInfo->getPostInfo();
+    } else {
+        $marker_post = array();
+    }
+    echo json_encode($marker_post, JSON_UNESCAPED_UNICODE);
+    die();
+}
+
+function fish_map_posts_ids() {
+    if (!is_export_info_request()) {
+        die();
+    }
+
+    echo json_encode(PostInfo::getPostIds(), JSON_UNESCAPED_UNICODE);
+    die();
+}
+
+function fish_map_post_info() {
+    if (!is_export_info_request()) {
+        die();
+    }
+
+    if ($_GET['post_id']) {
+        $postInfo = new PostInfo($_GET['post_id']);
+        $marker_post = $postInfo->getPostInfo();
     } else {
         $marker_post = array();
     }
