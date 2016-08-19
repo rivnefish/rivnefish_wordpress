@@ -24,6 +24,8 @@ class PostInfo
         $marker_post = get_post($this->postId, ARRAY_A);
         $marker_post['rendered_content'] = get_post_content_by_id($this->postId);
         $marker_post['featured_image'] = wp_get_attachment_url( get_post_thumbnail_id($this->postId) );
+        $marker_post['_yoast_wpseo_title'] = get_post_meta($this->postId, '_yoast_wpseo_title', true);
+        $marker_post['_yoast_wpseo_metadesc'] = get_post_meta($this->postId, '_yoast_wpseo_metadesc', true);
         $marker_post['taxonomy'] = $this->getPostTaxonomy();
         return $marker_post;
     }
