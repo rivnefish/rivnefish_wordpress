@@ -52,7 +52,9 @@ class MarkerInfo
             foreach ($gallery as $image) {
                 $photos[] = array(
                     'thumbnail' => $image->thumbURL,
-                    'photo' => $image->imageURL
+                    'photo' => $image->imageURL,
+                    'alttext' => $image->alttext,
+                    'description' => $image->description
                 );
             }
         }
